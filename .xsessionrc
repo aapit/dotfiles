@@ -1,0 +1,19 @@
+#!/bin/bash
+xrdb -merge .Xresources
+
+#xfce4-power-manager
+#gnome-settings-daemon
+
+#gnome-sound-applet &
+
+if [ -x /usr/bin/nm-applet ] ; then
+   nm-applet --sm-disable &
+fi
+
+synclient MaxTapTime=180 # enable tap-to-click (180 default)
+synclient HorizTwoFingerScroll=0 # disable side-scrolling (0 default)
+synclient PalmDetect=1 # enable palm detection (0 default)
+
+source "$HOME/Scripts/env/colors.sh"
+
+exec xmonad

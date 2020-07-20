@@ -1,0 +1,1 @@
+/home/david/Scripts/dotfiles/zsh/.zshrc

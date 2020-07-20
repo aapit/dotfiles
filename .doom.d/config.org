@@ -1,0 +1,613 @@
+# -*- mode: org; coding: utf-8; -*-
+ #+AUTHOR: David Spreekmeester @aapit
+* David's Doom Emacs Config
+:PROPERTIES:
+:VISIBILITY: children
+:header-args: :tangle "config.el" :results silent
+:END:
+** Initialization
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+ #+BEGIN_SRC emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+ #+END_SRC
+** General
+:PROPERTIES:
+:VISIBILITY: content
+:END:
+*** Locale
+In my geographic area, the week starts on Monday (=1=).
+Default is Sunday (=0=).
+
+ #+BEGIN_SRC emacs-lisp
+(setq calendar-week-start-day 1)
+(setq
+ display-time-format "%H:%M"
+ display-time-24hr-format t)
+ #+END_SRC
+*** Secrets
+ #+BEGIN_SRC emacs-lisp
+(load! "secrets.el" doom-private-dir)
+#+END_SRC
+*** Browser
+ #+BEGIN_SRC emacs-lisp
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "brave-browser")
+#+END_SRC
+** UI
+:PROPERTIES:
+:VISIBILITY: content
+:END:
+*** Fonts
+Setting default font and /Symbola/ as emoji fallback.
+ #+BEGIN_SRC emacs-lisp
+(setenv "LANG" "en_US.UTF-8")
+
+(setq doom-font (font-spec :family "Liberation Mono" :size 36))
+(setq doom-unicode-font (font-spec :name "Symbola"))
+ #+END_SRC
+*** Mouse
+ #+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-startup-hook (lambda ()
+    (global-disable-mouse-mode)
+))
+#+END_SRC
+*** Appearance
+#+BEGIN_SRC emacs-lisp
+(setq doom-theme 'doom-horizon)
+(setq display-time-use-mail-icon t)
+(setq display-line-numbers-type 'relative)
+(setq org-ellipsis "…")
+
+(add-hook 'emacs-startup-hook (lambda ()
+    (toggle-frame-fullscreen)
+    (display-battery-mode)
+    (delete-selection-mode 1) ; Replace selection when inserting text
+))
+
+
+#+END_SRC
+**** Emojify
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook #'global-emojify-mode)
+#+END_SRC
+**** Org-roam links
+#+BEGIN_SRC emacs-lisp
+;; Unfortunately, at this point [2020-07-08 Wed],
+;; there is no way to style regular non-link text in the Org-roam buffer.
+;; Therefore, the only customizable property that blends in with the rest is link color.
+(custom-set-faces
+ '(org-roam-link ((t (:foreground "#8B61AB"))))
+ '(org-roam-link-current ((t (:foreground "#57287C"))))
+)
+#+END_SRC
+
+**** Org-mode Checkboxes
+#+BEGIN_SRC emacs-lisp
+;; Org-mode checkboxes
+(add-hook 'evil-org-mode-hook (lambda ()
+   "Beautify Org Checkbox Symbol"
+   (push '("[ ]" . "☐") prettify-symbols-alist)
+   (push '("[X]" . "☑" ) prettify-symbols-alist)
+   (push '("[-]" . "⊡" ) prettify-symbols-alist)
+   (prettify-symbols-mode)))
+ #+END_SRC
+**** Popup Rules
+#+BEGIN_SRC emacs-lisp
+(when (> (display-pixel-width) '3000)
+  (set-popup-rule! "*Org Agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
+(when (< (display-pixel-width) '2000)
+  (set-popup-rule! "*Org Agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3))
+#+END_SRC
+**** Org-related
+ #+BEGIN_SRC emacs-lisp :tangle "config.el" :results silent
+(setq org-agenda-span 'week)
+
+;; Hide /emphasis markers for italics/ in org-mode
+(setq org-hide-emphasis-markers t)
+
+; Disabling for performance, for now
+;(setq org-startup-with-inline-images t)
+
+(setq-default org-download-image-dir "~/Nextcloud/org-mode/pics")
+
+;; Follow output
+(setq compilation-scroll-output t)
+#+END_SRC
+*** Keys
+**** General functions
+ #+BEGIN_SRC emacs-lisp
+;; Open
+(map! :leader
+    :prefix "o"
+    :desc "Shell" "z" #'shell
+    :desc "Term" "t" #'term
+)
+
+;; Quick window split shortcuts
+(map! :leader
+    :prefix "w"
+    :desc "Split Hori" "-" #'evil-window-split
+    :desc "Split Vert" "\\" #'evil-window-vsplit
+)
+#+END_SRC
+**** Org-mode related
+ #+BEGIN_SRC emacs-lisp
+(map! :after evil-org
+    :map evil-org-mode-map
+    :n "M-j" #'org-metadown
+    :n "M-k" #'org-metaup
+)
+;; Export
+(map! :after evil-org
+    :map org-mode-map
+    :leader
+    :prefix ("e" . "export")
+    :desc "html export (buffer)" "h" #'org-html-export-to-html
+    :desc "various (region to pdf, etc)" "v" #'org-export-dispatch
+    :desc "pdf (buffer)" "p" #'org-latex-export-to-pdf
+)
+;; Agenda
+(map!
+    :leader
+    :desc "Agenda" "a" #'org-agenda
+)
+;; Capture shortcuts: Todos
+(map!
+    :leader
+    :prefix ("d" . "todo")
+    :desc "Thuis" "t" (lambda () (interactive) (org-capture nil "tt"))
+    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "tg"))
+)
+;; Capture shortcuts: Logs
+(map!
+    :leader
+    :prefix ("l" . "log")
+    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "lg"))
+    :desc "B log" "b" (lambda () (interactive) (org-capture nil "lb"))
+    :desc "Health log" "h" (lambda () (interactive) (org-capture nil "lh"))
+    :desc "Journal" "j" (lambda () (interactive) (org-capture nil "lj"))
+)
+#+END_SRC
+**** Org-roam related
+ #+BEGIN_SRC emacs-lisp
+;; Insert
+(map! :after org-roam
+        :map org-roam-mode-map
+        :leader
+        :prefix "i"
+        :desc "Timestamp" "T" #'org-time-stamp
+        :desc "Timestamp inactive" "t" #'org-time-stamp-inactive
+)
+;; Notes
+(map! :after org-roam
+        :map org-mode-map
+        :leader
+        :prefix "n"
+        :desc "Find, Insert note" "q" #'org-roam-find-file
+        :desc "Graph server" "g" #'org-roam-server-mode
+        :desc "Rifle" "." #'helm-org-rifle
+)
+#+END_SRC
+** Capture templates
+*** Org Ref templates
+ #+BEGIN_SRC emacs-lisp
+(setq org-roam-ref-capture-templates
+    '(("r" "ref" plain (function org-roam-capture--get-point)
+        "%?"
+        :file-name "websites/${slug}"
+        :head "#+TITLE: ${title}
+,#+ROAM_KEY: ${ref}
+- source :: ${ref}"
+        :unnarrowed t)))
+#+END_SRC
+*** Org-roam capture templates
+#+BEGIN_SRC emacs-lisp
+(setq org-roam-capture-templates
+    `(
+        ; Default
+        ("d" "Default" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: \n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+        ; Software
+        ("s" "Software" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: software tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+        ; GRRR Project
+        ("p" "GRRR Project" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: grrr project\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+    )
+)
+#+END_SRC
+*** Org regular capture templates
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+    `(
+        ; Todo Group
+        ("t" "Todo")
+        ; Inbox home
+        ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo-thuis.org" "Inbox")
+        "* TODO %?\n%i\n"
+        :unnarrowed t)
+        ; Inbox GRRR
+        ("tg" "Todo GRRR" entry (file+headline "~/Notes/todo-grrr.org" "Inbox")
+        "* TODO %?\n%i\n"
+        :unnarrowed t)
+        ; Log Group
+        ("l" "Log")
+        ; B log
+        ("lb" "B log" entry (file+olp+datetree "~/Notes/hashlog.org")
+        "* %U %?\n%i\n"
+        :tree-type week
+        :prepend t
+        :unnarrowed t)
+        ; Health
+        ("lh" "Health" entry (file+olp+datetree "~/Notes/healthlog.org")
+        "* %U \n|Sys|%?|\n|Dia||\n|Puls||\n|SpO2||\n|[[file:20200626065937-methylfenidaat.org][Ritalin]]||\n|[[file:20200703133924-koffie.org][Koffie]]||\n"
+        :tree-type week
+        :prepend t
+        :unnarrowed t)
+        ("lj" "Journal" entry (file+olp+datetree "~/Notes/journal.org")
+        "* %U %?\n%i\n"
+        :tree-type week
+        :prepend t
+        :unnarrowed t)
+        ; GRRR log
+        ("lg" "GRRR log" entry (file+olp+datetree "~/Notes/grrr-log.org")
+        "* %U %?\n%i\n"
+        :tree-type week
+        :clock-in t
+        :prepend t
+        :unnarrowed t)
+    )
+)
+#+END_SRC
+*** Docs: Params
+| =%t= | Date, active                      |
+| =%T= | Date + time, active               |
+| =%u= | Date, inactive                    |
+| =%U= | Date + time, inactive             |
+|    |                                   |
+| =%i= | Initial content                   |
+| =%a= | Annotation, normally the          |
+|    | link created with org-store-link. |
+
+[[https://orgmode.org/manual/Template-expansion.html#Template-expansion][Template params in Org-mode manual]]
+
+"* %?\nEntered on %U\n  %i\n  %a\nHoi %m"
+
+*** Example: Original Org capture templates
+#+begin_example elisp
+(("t" "Personal todo" entry
+  (file+headline +org-capture-todo-file "Inbox")
+  "* [ ] %?\n%i\n%a" :prepend t)
+ ("n" "Personal notes" entry
+  (file+headline +org-capture-notes-file "Inbox")
+  "* %u %?\n%i\n%a" :prepend t)
+ ("j" "Journal" entry
+  (file+olp+datetree +org-capture-journal-file)
+  "* %U %?\n%i\n%a" :prepend t)
+ ("p" "Templates for projects")
+ ("pt" "Project-local todo" entry
+  (file+headline +org-capture-project-todo-file "Inbox")
+  "* TODO %?\n%i\n%a" :prepend t)
+ ("pn" "Project-local notes" entry
+  (file+headline +org-capture-project-notes-file "Inbox")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("pc" "Project-local changelog" entry
+  (file+headline +org-capture-project-changelog-file "Unreleased")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("o" "Centralized templates for projects")
+ ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+ ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+ ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
+#+end_example
+*** TODO Implement more capture tpl feats
+- https://orgmode.org/manual/Template-elements.html
+- https://www.gnu.org/software/emacs/manual/html_node/org/Capture-templates.html
+- https://org-roam.readthedocs.io/en/master/templating/
+
+Je kunt =:clock-in= gebruiken om direct een Org timer te starten.
+
+- https://www.zmonster.me/2020/06/27/org-roam-introduction.html
+** Org
+:PROPERTIES:
+:VISIBILITY: content
+:END:
+*** Agenda
+**** Custom Agenda views
+ #+BEGIN_SRC emacs-lisp
+(setq org-agenda-custom-commands
+    '(
+        ("b" "Both" agenda "Universeel"
+         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-thuis.org" "~/Nextcloud/org-mode/notes/todo-grrr.org"))))
+        ("z" "Zelf" agenda "Persoonlijk"
+         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-thuis.org"))))
+        ("g" "GRRR" agenda "Werk"
+         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-grrr.org"))))
+    )
+)
+#+END_SRC
+*** Export
+Setting some non-insane defaults for PDF export and such.
+ #+BEGIN_SRC emacs-lisp
+(after! org
+    (add-to-list 'org-latex-packages-alist "\\hypersetup{setpagesize=false}" t)
+    (add-to-list 'org-latex-packages-alist "\\hypersetup{colorlinks=true}" t)
+    (add-to-list 'org-latex-packages-alist "\\hypersetup{linkcolor=blue}" t)
+    (add-to-list 'org-latex-packages-alist "\\setlength\\parindent{0pt}" t)
+)
+#+END_SRC
+Some settings are inspired by:
+http://clothoid.html.xdomain.jp/2018/org-latex-pdf-with-minted-python.html
+
+*** General
+ #+BEGIN_SRC emacs-lisp
+;; `org-directory' must be set before org loads.
+(setq org-directory "~/Nextcloud/org-mode/notes/")
+#+END_SRC
+*** Performance
+ #+BEGIN_SRC emacs-lisp
+(after! org
+    (setq org-agenda-dim-blocked-tasks nil)
+    (setq org-agenda-inhibit-startup nil)
+    (setq org-agenda-use-tag-inheritance nil)
+    (setq org-agenda-ignore-drawer-properties '(visibility category))
+    (setq org-agenda-sticky t)
+)
+#+END_SRC
+*** Todo
+ #+BEGIN_SRC emacs-lisp
+(setq org-todo-keywords
+    '((sequence "TODO" "NEXT" "DONE" "PROJ")))
+#+END_SRC
+** Org-roam
+:PROPERTIES:
+:VISIBILITY: content
+:END:
+*** General
+ #+BEGIN_SRC emacs-lisp
+(setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+(setq org-roam-buffer-width 0.3)
+(setq org-roam-buffer "Org-roam Sidebar")
+#+END_SRC
+*** Graph / Server
+ #+BEGIN_SRC emacs-lisp
+(setq org-roam-graph-exclude-matcher '("private" "dailies"))
+
+(use-package! simple-httpd
+  :defer t
+  :after org
+  :config
+  (setq httpd-root "/var/www")
+)
+;; Auto-start of graph server disabled to improve startup performance
+;;(httpd-start)
+
+;;  :ensure nil
+(use-package! org-roam-server
+  :defer t
+  :after org
+  :load-path "~/Scripts/note/org-roam-server")
+#+END_SRC
+*** Search
+ #+BEGIN_SRC emacs-lisp
+;; org-ql for queries
+;(use-package org-ql)
+
+;; org-rifle for fast narrow-down searches
+;(use-package helm-org-rifle
+;  :after org
+;)
+#+END_SRC
+** Deft
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+ #+BEGIN_SRC emacs-lisp
+(after! 'deft
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Nextcloud/org-mode/")
+)
+(use-package! deft
+  :after org
+  :defer t
+ ;:bind
+ ;("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Nextcloud/org-mode/")
+  :config
+  (setq deft-file-limit 200)
+)
+#+END_SRC
+** PHP
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+ #+BEGIN_SRC emacs-lisp
+;; php
+(use-package! phpactor
+  :mode "\\.php\\'"
+  :defer t
+)
+(use-package! company-phpactor
+  :mode "\\.php\\'"
+  :defer t
+)
+;;(composer-setup-managed-phar)
+;;(phpactor-install-or-update)
+(use-package! php-mode
+  :mode "\\.php\\'"
+  :defer t
+  :hook ((php-mode . (lambda () (set (make-local-variable 'company-backends)
+       '(;; list of backends
+         company-phpactor
+         company-files
+         ))))))
+#+END_SRC
+** PlantUML
+;;(setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar"))
+ #+BEGIN_SRC emacs-lisp
+(setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
+      plantuml-default-exec-mode 'jar)
+(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+#+END_SRC
+** Projectile
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+ #+BEGIN_SRC emacs-lisp
+(setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
+#+END_SRC
+** Undo
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+BEGIN_SRC emacs-lisp
+;; When using evil-mode be sure to run (global-undo-tree-mode -1) to avoid problems.
+;; https://github.com/emacsmirror/undo-fu-session
+(add-hook 'emacs-startup-hook (lambda ()
+    (global-undo-tree-mode -1)
+))
+
+(setq undo-fu-session-file-limit 150)
+
+(setq undo-limit 40000000) ; Set to 40 Mb
+(setq evil-want-fine-undo t) ; Prevent all changes acting like one big blob
+#+END_SRC
+** Own packages
+#+BEGIN_SRC emacs-lisp
+(use-package goalmap
+  :load-path "~/.doom.d/packages/goalmap")
+#+END_SRC
+* Caveats
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+Apparently, =org-babel= interprets source blocks with type =emacs-lisp=, but not with =elisp=.
+Also see this [[https://blog.thomasheartman.com/posts/org-babel-load-file-doesnt-tangle-correctly][blog post on org-babel incorrect tangling]].
+* Disabled
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+** Evil mode
+(with-eval-after-load 'evil-maps
+#+BEGIN_example emacs-lisp
+;;(with-eval-after-load 'evil
+;;  (define-key evil-motion-state-map (kbd ":") 'evil-repeat-find-char)
+;;  (define-key evil-motion-state-map (kbd ";") 'evil-ex))
+#+END_example
+** Various
+#+begin_example elisp
+(defadvice text-scale-decrease (around all-buffers (arg) activate)
+    (dolist (buffer ("Org-roam Sidebar"))
+      (with-current-buffer buffer
+        ad-do-it)))
+
+
+(after! org-roam
+  (setq org-roam-graph-viewer "/usr/bin/opener"))
+
+;; Om de svgs van GraphViz te openen:
+;; (setq org-roam-graph-viewer "/usr/bin/eog")
+;; Alleen dus niet met eye of gnome, dat doet alleen bitmaps.
+
+;;(setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
+
+
+;; For Org-roam:
+;; Replacing region with link to new note
+;; To move fleeting notes to their own note.
+;; Spoiler alert: it sucks so needs to be improved.
+(defun mmr/org-roam-insert-replace-region-with-link-and-follow ()
+(interactive )
+(let ((title (buffer-substring (mark) (point)) )
+        (top (current-buffer)))
+    (org-roam-find-file title)
+    (let ((target-file (buffer-file-name (buffer-base-buffer)))
+        (note-buffer (current-buffer)))
+    (switch-to-buffer top nil t)
+    (kill-region (mark) (point))
+    (insert (concat "[[" target-file "][" title "]]"))
+    (switch-to-buffer note-buffer nil t)
+    (save-buffer))))
+;; To delete a linked note
+(defun mmr/remove-linked-org-roam-note ()
+(interactive)
+(let ((buffer (current-buffer)))
+    (org-open-maybe)
+    (if (not (eq (current-buffer) buffer))
+        (progn
+        (crux-delete-file-and-buffer)
+        (er/expand-region 1)
+        (kill-region (mark) (point))))))
+#+end_example
+
+** Bullets
+#+begin_example elisp
+(after! 'org
+    (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+)
+(use-package! org-bullets
+  :defer t
+  :hook (org-mode . org-bullets-mode)
+  :config
+  (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+
+(straight-use-package 'org-bullets)
+(use-package! org-bullets
+  :defer t
+  :preface
+  (defun nasy/org-bullets-mode ()
+    (org-bullets-mode 1))
+  :hook ((org-mode . nasy/org-bullets-mode))
+  :init (gsetq org-bullets-bullet-list
+               '(;;; Large
+                 "♥"
+                 "✿"
+                 "❀"
+                 "◉"
+                 "✸"
+                 "•")))
+                ;; ♥ ● ○ ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶
+                ;;; Small
+                ;; ► • ★ ▸
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+          )
+)
+(setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+
+
+
+(add-hook 'org-mode-hook
+          (lambda ()
+                 ;; ♥ ● ○ ◇ ✚ ✜  ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖
+            (setq org-bullets-bullet-list '("❀" "☯" "▶" "☲"  "☳" "☴"  "☶"  "☱" ))
+          )
+)
+#+end_example
+* Local Variables
+# Local Variables:
+# eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+# End:
