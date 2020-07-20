@@ -18,7 +18,7 @@ alias f='fdfind'
 
 # Sourcing
 alias src='. ~/.profile'
-alias alias-edit="vim ~/Scripts/dotfiles/shell/env/aliases.sh && . ~/Scripts/dotfiles/shell/env/aliases.sh"
+alias alias-edit="vim ~/Scripts/env/aliases.sh && . ~/Scripts/env/aliases.sh"
 
 # Dotfiles
 alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -42,7 +42,7 @@ alias c="xclip -selection c"
 #alias ...="cd ../.."
 alias desk="cd ~/Desktop"
 alias ~="cd ~"
-alias dotfiles="cd ~/Scripts/dotfiles/"
+alias dotfiles="cd ~/.dotfiles/"
 
 # Editing configurations
 alias config-edit-tmux="(cd $HOME/.config/tmux && vim $HOME/.tmux.conf && cd -)"
