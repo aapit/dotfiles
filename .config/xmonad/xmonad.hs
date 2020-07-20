@@ -174,11 +174,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 myLayout =
-  avoidStruts (smartBorders $ smartSpacing 10 $ ThreeColMid 1 (3/100) (1/2)) |||
+  avoidStruts (smartBorders $ ThreeColMid 1 (3/100) (1/2)) |||
   noBorders (fullscreenFull Full)
-  --avoidStruts (spacing 20 $ Mirror(Grid)) |||
 
-tabConfig = defaultTheme {
+tabConfig = def {
     activeBorderColor = "#000000",
     activeTextColor = "#CEFFAC",
     activeColor = "#000000",

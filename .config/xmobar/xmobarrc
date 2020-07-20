@@ -1,0 +1,60 @@
+Config { font = "xft:Roboto Mono:style=Thin:pixelsize=40:antialias=true:hinting=false"
+       , additionalFonts = []
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "#101010"
+       , fgColor = "#999999"
+       , alpha = 255
+       , position = TopW L 85
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "/home/david/Pictures/Pics/Icons/xmobar"  -- default: "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Weather "EHAM" ["-t","<tempC>°C ",
+                                          "-L","15","-H","23",
+                                          "--normal","#cccccc",
+                                          "--high","#dd4444",
+                                          "--low","lightblue"] 36000
+                    , Run Memory
+                        [ "-t", "RAM <usedratio>%"] 10
+                    , Run DynNetwork
+                            [ "-t", "<icon=actions-arrow-down-icon_24.xpm/><rx>K <icon=actions-arrow-up-icon_24.xpm/><tx>K"
+                            ] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %_d %b %k:%M" "date" 10
+                    , Run BatteryP ["BAT0"]
+                                    ["-t", "<acstatus>"
+                                    , "-L", "10", "-H", "80"
+                                    , "-l", "red", "-h", "#55bb99"
+                                    , "--", "-O", "Plug", "-o", "<left>%"
+                                    , "-O", "<icon=battery-plug-icon_24.xpm/>"
+                                    , "-i", "<icon=battery-plug-icon_24.xpm/>"
+                                    , "-o", "<icon=battery-full-icon_24.xpm/>"
+                                    ] 5
+                    , Run CoreTemp
+                            [ "-t", "<core0>°C"
+                            , "-H", "60", "-h", "red"
+                            , "-L", "40", "-l", "lightblue"
+                            , "-n", "white"
+                            ] 50
+                    , Run Cpu
+                        [ "-t", "<total>%"
+                        , "-p", "3"
+                        , "-H", "50", "-h", "dd4444"
+                        , "-L", "3"
+                        , "-n", "#55bb99"
+                        ] 10
+                    , Run DiskU
+                        [ ("/", "-<freep>%") ]
+                        [] 20
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " Batt %battery% | HD %disku% | CPU %cpu% %coretemp% | %memory% | %dynnetwork% }\
+                    \{ <icon=sun-rain-icon_24.xpm/> %EHAM% | <fc=#dd88dd>%date%</fc> "
+       }
