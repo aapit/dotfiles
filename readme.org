@@ -1,16 +1,34 @@
 * Dotfiles
 #+begin_quote
-/Tailored for a digital minimalist, veteran hacker with an obsession for ergonomy/
+Ergonomy is personal by definition: each and every individual differs from the norm.
 #+end_quote
 
+[[https://github.com/aapit][@aapit]]
 
-My configuration is mostly geared towards my workhorse laptop, running
-Xmonad with Ubuntu 20.04 as Linux backend.
-I lean heavily towards console-based tools where possible,
-in combination with Emacs and Vim.
+
+This configuration is mostly geared towards my workhorse laptop,
+running Xmonad with Ubuntu 20.04 as Linux backend.
+I lean heavily towards console-based tools where possible.
+This enables me to:
+- Customize UI to suit my keyboard-driven workflow
+- Integrate tools and services
+- Minimize any distractions in the GUI and workflow
+
 
 These are always evolving and should be compatible with recent packages.
 Feel free to use and modify as you see fit.
 
 
-@aapit
+** Software
+These are some of the software packages I use and abuse most.
+
+|-------------------+--------------------|
+| Purpose           | Package            |
+|-------------------+--------------------|
+| OS                | =Ubuntu 20.04=       |
+| Window Manager    | =Xmonad=             |
+| Editors           | =Emacs=, =Vim=         |
+| Terminal Emulator | =gnome-terminal=     |
+| Shell             | =zsh=                |
+| Main browsers     | =Brave=, =qutebrowser= |
+|-------------------+--------------------|
