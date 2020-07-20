@@ -11,8 +11,8 @@ fi
 
 # if running zsh
 if [ -n "$ZSH_VERSION" ]; then
-    if [ -f "$HOME/.zprofile" ]; then
-    . "$HOME/.zprofile"
+    if [ -f "$XDG_CONFIG_HOME/zsh/.zprofile" ]; then
+    . "${XDG_CONFIG_HOME}/zsh/.zprofile"
     fi
 fi
 
@@ -20,8 +20,6 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-# set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi

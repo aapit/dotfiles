@@ -17,7 +17,7 @@ alias lsl='exa --long --tree --level=2 --all --group-directories-first --group -
 alias f='fdfind'
 
 # Sourcing
-alias src='. ~/.profile'
+alias src=". \${XDG_CONFIG_HOME}/zsh/.zprofile"
 alias alias-edit="vim ~/Scripts/env/aliases.sh && . ~/Scripts/env/aliases.sh"
 
 # Dotfiles
