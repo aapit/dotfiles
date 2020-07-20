@@ -1,0 +1,16 @@
+* Dotfiles
+#+begin_quote
+/Tailored for a digital minimalist, veteran hacker with an obsession for ergonomy/
+#+end_quote
+
+
+My configuration is mostly geared towards my workhorse laptop, running
+Xmonad with Ubuntu 20.04 as Linux backend.
+I lean heavily towards console-based tools where possible,
+in combination with Emacs and Vim.
+
+These are always evolving and should be compatible with recent packages.
+Feel free to use and modify as you see fit.
+
+
+@aapit
