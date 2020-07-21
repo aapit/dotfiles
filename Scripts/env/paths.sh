@@ -7,7 +7,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export BASH_SCRIPTS_DIR=$HOME/Scripts/shell/env
 export XMONAD_CONFIG_DIR=$HOME/.config/xmonad
-export VIMINIT='source "$XDG_CONFIG_HOME/vim/vimrc"'
+export MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 #export KUBECONFIG="$HOME/.kube/config"
 
 PATH=$PATH:\
