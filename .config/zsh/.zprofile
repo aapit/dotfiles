@@ -1,8 +1,6 @@
 ENVDIR=$HOME/Scripts/env/
 . ${ENVDIR}language.sh
 
-export VISUAL="/usr/bin/emacsclient -c -n -s /tmp/emacs1000/aapit"
-export EDITOR="/usr/bin/emacsclient -c -n -s /tmp/emacs1000/aapit"
 
 . ${ENVDIR}ssh_keys.sh
 . ${ENVDIR}aliases.sh

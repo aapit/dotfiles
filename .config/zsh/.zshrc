@@ -52,14 +52,12 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
+export VISUAL="$EMACSCLIENT"
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
 else
-   export EDITOR='emacsclient -c'
+   export EDITOR="$EMACSCLIENT"
 fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -67,12 +65,7 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
 source $ZDOTDIR/.zprofile
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
 
 source /home/david/.config/broot/launcher/bash/br

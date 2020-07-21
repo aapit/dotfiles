@@ -8,6 +8,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export BASH_SCRIPTS_DIR=$HOME/Scripts/shell/env
 export XMONAD_CONFIG_DIR=$HOME/.config/xmonad
 export MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+export EMACSCLIENT="/usr/bin/emacsclient -c -n -s /tmp/emacs1000/aapit"
 #export KUBECONFIG="$HOME/.kube/config"
 
 PATH=$PATH:\
