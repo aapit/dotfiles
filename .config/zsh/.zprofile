@@ -1,6 +1,5 @@
 ENVDIR=$HOME/Scripts/env/
 . ${ENVDIR}language.sh
-. ${ENVDIR}paths.sh
 
 export VISUAL="/usr/bin/emacsclient -c -n -s /tmp/emacs1000/aapit"
 export EDITOR="/usr/bin/emacsclient -c -n -s /tmp/emacs1000/aapit"
