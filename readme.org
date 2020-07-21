@@ -1,6 +1,6 @@
 * Dotfiles
 #+begin_quote
-Ergonomy is personal by definition: each and every individual differs from the norm.
+/Ergonomy is personal by definition: each and every individual differs from the norm./
 #+end_quote
 
 [[https://github.com/aapit][@aapit]]
@@ -22,13 +22,13 @@ Feel free to use and modify as you see fit.
 ** Software
 These are some of the software packages I use and abuse most.
 
-|-------------------+--------------------|
-| Purpose           | Package            |
-|-------------------+--------------------|
-| OS                | =Ubuntu 20.04=       |
-| Window Manager    | =Xmonad=             |
-| Editors           | =Emacs=, =Vim=         |
-| Terminal Emulator | =gnome-terminal=     |
-| Shell             | =zsh=                |
-| Main browsers     | =Brave=, =qutebrowser= |
-|-------------------+--------------------|
+|-------------------+----------------------|
+| Purpose           | Package              |
+|-------------------+----------------------|
+| OS                | =Ubuntu 20.04=         |
+| Window Manager    | =Xmonad=               |
+| Editors           | =(Doom) Emacs=, =Neovim= |
+| Terminal Emulator | =gnome-terminal=       |
+| Shell             | =zsh=                  |
+| Main browsers     | =Brave=, =qutebrowser=   |
+|-------------------+----------------------|
