@@ -3,6 +3,7 @@ alias top='gtop'
 alias luxafor='~/Scripts/luxafor.sh'
 alias bla='~/Scripts/generate-loremipsum.sh'
 alias copy='xclip -selection c'
+alias pomodoro='sleep 1500; zenity --warning --text="Rest now (worked 25 mins)"'
 
 # Mapping broot (fancy dir tree in Rust) to something I can potentially remember
 alias tree='br --sizes --show-git-info --hidden --show-gitignored --permissions'
