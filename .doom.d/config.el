@@ -228,6 +228,13 @@
     (add-to-list 'org-latex-packages-alist "\\hypersetup{colorlinks=true}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{linkcolor=blue}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{draft}" t)
+)
+
+(after! org
+    (add-to-list 'org-latex-packages-alist "\\usepackage{lmodern}" t)
+)
+
+(after! org
     (add-to-list 'org-latex-packages-alist "\\setlength\\parindent{0pt}" t)
 )
 

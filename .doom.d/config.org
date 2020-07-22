@@ -342,19 +342,20 @@ Je kunt =:clock-in= gebruiken om direct een Org timer te starten.
 )
 #+END_SRC
 *** Export
-Setting some non-insane defaults for PDF export and such.
+Setting some non-insane defaults for LaTeX PDF export and such.
+
+**** Links
  #+BEGIN_SRC emacs-lisp
 (after! org
     (add-to-list 'org-latex-packages-alist "\\hypersetup{setpagesize=false}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{colorlinks=true}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{linkcolor=blue}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{draft}" t)
-    (add-to-list 'org-latex-packages-alist "\\setlength\\parindent{0pt}" t)
 )
 #+END_SRC
 For now, I set all LaTeX links to /draft/, to hide them in exports.
 
-**** NEXT [#C] Show only urls in LaTeX export
+***** NEXT [#C] Show only urls in LaTeX export
 Ideally, I only want to export urls, but ignore the internal Org-roam links in exporting.
 
 Perhaps achievable with one of these options:
@@ -364,11 +365,27 @@ hidelinks
 \hyper@linkfile
 \hyper@linkurl
 #+end_example
+**** Font
+ #+BEGIN_SRC emacs-lisp
+(after! org
+    (add-to-list 'org-latex-packages-alist "\\usepackage{lmodern}" t)
+)
+#+END_SRC
+***** TODO Fix LaTeX font export
+Setting above doesn't seem to work yet.
+Suspecting this method only works per document.
+https://github.com/xgarrido/org-resume should provide enough working examples.
+**** Paragraph
+ #+BEGIN_SRC emacs-lisp
+(after! org
+    (add-to-list 'org-latex-packages-alist "\\setlength\\parindent{0pt}" t)
+)
+#+END_SRC
 **** Sources
-More options in this [[https://www.tug.org/applications/hyperref/manual.html#x1-90003.5][LaTeX hyperref manual]].
-
-Some settings are inspired by:
-http://clothoid.html.xdomain.jp/2018/org-latex-pdf-with-minted-python.html
+- More options in this [[https://www.tug.org/applications/hyperref/manual.html#x1-90003.5][LaTeX hyperref manual]].
+- [[https://www.overleaf.com/learn/latex/Font_sizes,_families,_and_styles][Very clear guide]] by Overleaf
+- Some settings are inspired by:
+  [[http://clothoid.html.xdomain.jp/2018/org-latex-pdf-with-minted-python.html][Clothoid's org-latex-pdf user config]]
 *** General
  #+BEGIN_SRC emacs-lisp
 ;; `org-directory' must be set before org loads.
