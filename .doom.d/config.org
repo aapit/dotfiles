@@ -323,6 +323,23 @@ Setting default font and /Symbola/ as emoji fallback.
 Je kunt =:clock-in= gebruiken om direct een Org timer te starten.
 
 - https://www.zmonster.me/2020/06/27/org-roam-introduction.html
+** Mail / Notmuch
+For email in Emacs, I use [[https://notmuchmail.org/][Notmuch]] in combination with [[http://lieer.gaute.vetsj.com/][Lieer]] to deal with multiple Gmail boxes.
+
+*** Deleting
+=notmuch= inside Doom Emacs has a handy key binding (=d=) to tag a message for deletion.
+However, this applies a =deleted= tag, while Gmail expects =trash= (pre-translation by Lieer).
+Here I'm overriding the binding for notmuch-mode.
+
+#+BEGIN_SRC emacs-lisp
+(defun aap/notmuch-delete-message ()
+  "Toggle trash tag for message."
+  (interactive)
+  (evil-collection-notmuch-toggle-tag "trash" "search" 'notmuch-search-next-thread))
+
+(map! :map notmuch-search-mode-map
+      :nv "d" #'aap/notmuch-delete-message)
+#+END_SRC
 ** Org
 :PROPERTIES:
 :VISIBILITY: content

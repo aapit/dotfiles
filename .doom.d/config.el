@@ -212,6 +212,14 @@
     )
 )
 
+(defun aap/notmuch-delete-message ()
+  "Toggle trash tag for message."
+  (interactive)
+  (evil-collection-notmuch-toggle-tag "trash" "search" 'notmuch-search-next-thread))
+
+(map! :map notmuch-search-mode-map
+      :nv "d" #'aap/notmuch-delete-message)
+
 (setq org-agenda-custom-commands
     '(
         ("b" "Both" agenda "Universeel"
