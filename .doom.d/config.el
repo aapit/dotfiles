@@ -220,6 +220,10 @@
 (map! :map notmuch-search-mode-map
       :nv "d" #'aap/notmuch-delete-message)
 
+(setq sendmail-program "gmi")
+  (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.personal"))
+;(setq notmuch-fcc-dirs nil)
+
 (setq org-agenda-custom-commands
     '(
         ("b" "Both" agenda "Universeel"

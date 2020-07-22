@@ -340,6 +340,17 @@ Here I'm overriding the binding for notmuch-mode.
 (map! :map notmuch-search-mode-map
       :nv "d" #'aap/notmuch-delete-message)
 #+END_SRC
+
+*** Sending
+#+BEGIN_SRC emacs-lisp
+(setq sendmail-program "gmi")
+  (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.personal"))
+;(setq notmuch-fcc-dirs nil)
+#+END_SRC
+#+begin_quote
+Since your emails will be saved automatically on GMail when sending them with Lieer, you will likely want to turn off saving local copies of outgoing mail.
+#+end_quote
+https://github.com/gauteh/lieer/wiki/GNU-Emacs-and-Lieer
 ** Org
 :PROPERTIES:
 :VISIBILITY: content
