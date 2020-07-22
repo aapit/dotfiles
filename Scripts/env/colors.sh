@@ -1,6 +1,6 @@
 # Appearance
 export CLICOLOR=1
-[ -z "$TMUX" ] && export TERM=screen-256color-bce
+[ -z "$TMUX" ] && export TERM=xterm-256color
 export COLORTERM=truecolor
 ## BSD (MacOS) ls colors
 export LSCOLORS=GxFxCxDxBxhgedabagacad
