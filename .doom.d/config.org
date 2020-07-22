@@ -348,12 +348,27 @@ Setting some non-insane defaults for PDF export and such.
     (add-to-list 'org-latex-packages-alist "\\hypersetup{setpagesize=false}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{colorlinks=true}" t)
     (add-to-list 'org-latex-packages-alist "\\hypersetup{linkcolor=blue}" t)
+    (add-to-list 'org-latex-packages-alist "\\hypersetup{draft}" t)
     (add-to-list 'org-latex-packages-alist "\\setlength\\parindent{0pt}" t)
 )
 #+END_SRC
+For now, I set all LaTeX links to /draft/, to hide them in exports.
+
+**** NEXT [#C] Show only urls in LaTeX export
+Ideally, I only want to export urls, but ignore the internal Org-roam links in exporting.
+
+Perhaps achievable with one of these options:
+#+begin_example latex
+hidelinks
+\hyper@link
+\hyper@linkfile
+\hyper@linkurl
+#+end_example
+**** Sources
+More options in this [[https://www.tug.org/applications/hyperref/manual.html#x1-90003.5][LaTeX hyperref manual]].
+
 Some settings are inspired by:
 http://clothoid.html.xdomain.jp/2018/org-latex-pdf-with-minted-python.html
-
 *** General
  #+BEGIN_SRC emacs-lisp
 ;; `org-directory' must be set before org loads.
