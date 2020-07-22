@@ -1,5 +1,5 @@
 # Various
-alias top='sudo htop'
+alias top='gtop'
 alias luxafor='~/Scripts/luxafor.sh'
 alias bla='~/Scripts/generate-loremipsum.sh'
 alias copy='xclip -selection c'
