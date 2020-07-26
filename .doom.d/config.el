@@ -253,7 +253,7 @@
     (setq org-agenda-dim-blocked-tasks nil)
     (setq org-agenda-inhibit-startup nil)
     (setq org-agenda-use-tag-inheritance nil)
-    (setq org-agenda-ignore-drawer-properties '(visibility category))
+    (setq org-agenda-ignore-properties '(visibility category))
     (setq org-agenda-sticky t)
 )
 
