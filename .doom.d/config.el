@@ -212,17 +212,31 @@
     )
 )
 
-(defun aap/notmuch-delete-message ()
-  "Toggle trash tag for message."
-  (interactive)
-  (evil-collection-notmuch-toggle-tag "trash" "search" 'notmuch-search-next-thread))
+(after! notmuch
+    (defun aap/notmuch-delete-message ()
+        "Toggle trash tag for message."
+        (interactive)
+        (evil-collection-notmuch-toggle-tag "trash" "search" 'notmuch-search-next-thread))
+)
 
-(map! :map notmuch-search-mode-map
+(map! :after evil-collection-notmuch
+      :map notmuch-search-mode-map
       :nv "d" #'aap/notmuch-delete-message)
 
 (setq sendmail-program "gmi")
-  (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.personal"))
-;(setq notmuch-fcc-dirs nil)
+
+(defun aap/set-mail-sender-grrr ()
+    (interactive)
+    (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.grrr"))
+)
+(defun aap/set-mail-sender-personal ()
+    (interactive)
+    (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.personal"))
+)
+
+(aap/set-mail-sender-personal)
+
+(setq notmuch-fcc-dirs nil)
 
 (setq org-agenda-custom-commands
     '(
