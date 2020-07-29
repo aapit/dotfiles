@@ -161,22 +161,6 @@ Setting default font and /Symbola/ as emoji fallback.
     :leader
     :desc "Agenda" "a" #'org-agenda
 )
-;; Capture shortcuts: Todos
-(map!
-    :leader
-    :prefix ("d" . "todo")
-    :desc "Thuis" "t" (lambda () (interactive) (org-capture nil "tt"))
-    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "tg"))
-)
-;; Capture shortcuts: Logs
-(map!
-    :leader
-    :prefix ("l" . "log")
-    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "lg"))
-    :desc "B log" "b" (lambda () (interactive) (org-capture nil "lb"))
-    :desc "Health log" "h" (lambda () (interactive) (org-capture nil "lh"))
-    :desc "Journal" "j" (lambda () (interactive) (org-capture nil "lj"))
-)
 #+END_SRC
 **** Org-roam related
  #+BEGIN_SRC emacs-lisp
@@ -234,45 +218,64 @@ Setting default font and /Symbola/ as emoji fallback.
 #+END_SRC
 *** Org regular capture templates
 #+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-    `(
-        ; Todo Group
-        ("t" "Todo")
-        ; Inbox home
-        ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo-thuis.org" "Inbox")
-        "* TODO %?\n%i\n"
-        :unnarrowed t)
-        ; Inbox GRRR
-        ("tg" "Todo GRRR" entry (file+headline "~/Notes/todo-grrr.org" "Inbox")
-        "* TODO %?\n%i\n"
-        :unnarrowed t)
-        ; Log Group
-        ("l" "Log")
-        ; B log
-        ("lb" "B log" entry (file+olp+datetree "~/Notes/hashlog.org")
-        "* %U %?\n%i\n"
-        :tree-type week
-        :prepend t
-        :unnarrowed t)
-        ; Health
-        ("lh" "Health" entry (file+olp+datetree "~/Notes/healthlog.org")
-        "* %U \n|Sys|%?|\n|Dia||\n|Puls||\n|SpO2||\n|[[file:20200626065937-methylfenidaat.org][Ritalin]]||\n|[[file:20200703133924-koffie.org][Koffie]]||\n"
-        :tree-type week
-        :prepend t
-        :unnarrowed t)
-        ("lj" "Journal" entry (file+olp+datetree "~/Notes/journal.org")
-        "* %U %?\n%i\n"
-        :tree-type week
-        :prepend t
-        :unnarrowed t)
-        ; GRRR log
-        ("lg" "GRRR log" entry (file+olp+datetree "~/Notes/grrr-log.org")
-        "* %U %?\n%i\n"
-        :tree-type week
-        :clock-in t
-        :prepend t
-        :unnarrowed t)
+(after! evil-org
+    (setq org-capture-templates
+        `(
+            ; Todo Group
+            ("t" "Todo")
+            ; Inbox home
+            ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo-thuis.org" "Inbox")
+                "* TODO %?\n%i\n"
+                :unnarrowed t)
+            ; Inbox GRRR
+            ("tg" "Todo GRRR" entry (file+headline "~/Notes/todo-grrr.org" "Inbox")
+                "* TODO %?\n%i\n"
+                :unnarrowed t)
+            ; Log Group
+            ("l" "Log")
+            ; B log
+            ("lb" "B log" entry (file+olp+datetree "~/Notes/hashlog.org")
+                "* %U %?\n%i\n"
+                :tree-type week
+                :prepend t
+                :unnarrowed t)
+            ; Health
+            ("lh" "Health" entry (file+olp+datetree "~/Notes/healthlog.org")
+                "* %U \n|Sys|%?|\n|Dia||\n|Puls||\n|SpO2||\n|Methyl|\n|Coffee||\n"
+                :tree-type week
+                :prepend t
+                :unnarrowed t)
+            ("lj" "Journal" entry (file+olp+datetree "~/Notes/journal.org")
+                "* %U %?\n%i\n"
+                :tree-type week
+                :prepend t
+                :unnarrowed t)
+            ; GRRR log
+            ("lg" "GRRR log" entry (file+olp+datetree "~/Notes/grrr-log.org")
+                "* %U %?\n%i\n"
+                :tree-type week
+                :clock-in t
+                :prepend t
+                :unnarrowed t)
+        )
     )
+)
+
+;; Capture shortcuts: Todos
+(map!
+    :leader
+    :prefix ("d" . "todo")
+    :desc "Thuis" "t" (lambda () (interactive) (org-capture nil "tt"))
+    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "tg"))
+)
+;; Capture shortcuts: Logs
+(map!
+    :leader
+    :prefix ("l" . "log")
+    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "lg"))
+    :desc "B log" "b" (lambda () (interactive) (org-capture nil "lb"))
+    :desc "Health log" "h" (lambda () (interactive) (org-capture nil "lh"))
+    :desc "Journal" "j" (lambda () (interactive) (org-capture nil "lj"))
 )
 #+END_SRC
 *** Docs: Params
@@ -332,16 +335,22 @@ However, this applies a =deleted= tag, while Gmail expects =trash= (pre-translat
 Here I'm overriding the binding for notmuch-mode.
 
 #+BEGIN_SRC emacs-lisp
-(after! notmuch
-    (defun aap/notmuch-delete-message ()
-        "Toggle trash tag for message."
-        (interactive)
-        (evil-collection-notmuch-toggle-tag "trash" "search" 'notmuch-search-next-thread))
-)
+(defun aap/notmuch-delete-search-message ()
+    "Toggle trash tag for message."
+    (interactive)
+    (evil-collection-notmuch-toggle-tag "trash" "search" 'notmuch-search-next-thread))
 
-(map! :after evil-collection-notmuch
+(defun aap/notmuch-delete-show-message ()
+  "Toggle trash tag for message."
+  (interactive)
+  (evil-collection-notmuch-toggle-tag "trash" "show"))
+
+(map! :after notmuch
       :map notmuch-search-mode-map
-      :nv "d" #'aap/notmuch-delete-message)
+      :nv "d" #'aap/notmuch-delete-search-message)
+(map! :after notmuch
+      :map notmuch-show-mode-map
+      :nv "d" #'aap/notmuch-delete-show-message)
 #+END_SRC
 
 *** Sending
