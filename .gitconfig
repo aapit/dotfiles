@@ -75,17 +75,8 @@
 [mergetool]
     keepBackup = true
 
-[merge]
-    ;conflictstyle = diff3
-
 [rerere]
     enabled = 1
-
-#[init]
-#    templatedir = ~/.git_template
-
-[interactive]
-    diffFilter = diff-highlight
 
 [commit]
     #gpgsign = true
