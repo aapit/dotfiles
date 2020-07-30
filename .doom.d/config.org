@@ -354,19 +354,57 @@ Here I'm overriding the binding for notmuch-mode.
 #+END_SRC
 
 *** Sending
+*** Identities
+#+BEGIN_SRC emacs-lisp
+    (setq gnus-alias-identity-alist
+          '(("personal"
+             nil ;; Does not refer to any other identity
+             "David Spreekmeester <david@spreekmeester.nl>" ;; Sender address
+             nil ;; No organization header
+             nil ;; No extra headers
+             nil ;; No extra body text
+             "~/Templates/mail-signatures/personal.txt")
+            ("grrr"
+             nil
+             "David Spreekmeester <david@grrr.nl>"
+             "GRRR"
+             nil
+             nil
+             "~/Templates/mail-signatures/grrr.txt")))
+    (setq gnus-alias-default-identity "personal")
+    ;; Define rules to match work identity
+    (setq gnus-alias-identity-rules
+        '(
+            ("grrr"
+            ("any" "<\\(.+\\)\\@grrr\\.nl" both) "grrr")
+            )
+        )
+
+    ;; Determine identity when message-mode loads
+    (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
+#+END_SRC
+*** Mail accounts
 #+BEGIN_SRC emacs-lisp
 (setq sendmail-program "gmi")
 
-(defun aap/set-mail-sender-grrr ()
-    (interactive)
-    (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.grrr"))
-)
 (defun aap/set-mail-sender-personal ()
     (interactive)
     (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.personal"))
+    (gnus-alias-use-identity "personal")
+)
+(defun aap/set-mail-sender-grrr ()
+    (interactive)
+    (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.grrr"))
+    (gnus-alias-use-identity "grrr")
 )
 
 (aap/set-mail-sender-personal)
+
+(map! :leader
+    :prefix ("m" . "mail")
+    :desc "Personal" "p" #'aap/set-mail-sender-personal
+    :desc "GRRR" "g" #'aap/set-mail-sender-grrr
+)
 #+END_SRC
 
 [[https://github.com/gauteh/lieer/wiki/GNU-Emacs-and-Lieer][Lieer docs on Emacs + Lieer]]
