@@ -15,5 +15,5 @@ synclient HorizTwoFingerScroll=0 # disable side-scrolling (0 default)
 synclient PalmDetect=1 # enable palm detection (0 default)
 
 . "$HOME/Scripts/env/colors.sh"
-
+/usr/bin/setxkbmap -option "compose:ralt"
 exec xmonad
