@@ -232,44 +232,46 @@
       :map notmuch-show-mode-map
       :nv "d" #'aap/notmuch-delete-show-message)
 
-    (setq gnus-alias-identity-alist
-          '(("personal"
-             nil ;; Does not refer to any other identity
-             "David Spreekmeester <david@spreekmeester.nl>" ;; Sender address
-             nil ;; No organization header
-             nil ;; No extra headers
-             nil ;; No extra body text
-             "~/Templates/mail-signatures/personal.txt")
-            ("grrr"
-             nil
-             "David Spreekmeester <david@grrr.nl>"
-             "GRRR"
-             nil
-             nil
-             "~/Templates/mail-signatures/grrr.txt")))
-    (setq gnus-alias-default-identity "personal")
-    ;; Define rules to match work identity
-    (setq gnus-alias-identity-rules
-        '(
-            ("grrr"
-            ("any" "<\\(.+\\)\\@grrr\\.nl" both) "grrr")
-            )
+(setq gnus-alias-identity-alist
+    '(("personal"
+        nil ;; Does not refer to any other identity
+        "David Spreekmeester <david@spreekmeester.nl>" ;; Sender address
+        nil ;; No organization header
+        nil ;; No extra headers
+        nil ;; No extra body text
+        "~/Templates/mail-signatures/personal.txt")
+    ("grrr"
+        nil
+        "David Spreekmeester <david@grrr.nl>"
+        "GRRR"
+        nil
+        nil
+        "~/Templates/mail-signatures/grrr.txt")))
+(setq gnus-alias-default-identity "personal")
+;; Define rules to match work identity
+(setq gnus-alias-identity-rules
+    '(
+        ("grrr"
+        ("any" "<\\(.+\\)\\@grrr\\.nl" both) "grrr")
         )
+    )
 
-    ;; Determine identity when message-mode loads
-    (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
+;; Determine identity when message-mode loads
+(add-hook 'message-setup-hook 'gnus-alias-determine-identity)
 
 (setq sendmail-program "gmi")
 
 (defun aap/set-mail-sender-personal ()
     (interactive)
     (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.personal"))
-    (gnus-alias-use-identity "personal")
+    (when (eq major-mode 'message-mode)
+        (gnus-alias-use-identity "personal"))
 )
 (defun aap/set-mail-sender-grrr ()
     (interactive)
     (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.grrr"))
-    (gnus-alias-use-identity "grrr")
+    (when (eq major-mode 'message-mode)
+        (gnus-alias-use-identity "grrr"))
 )
 
 (aap/set-mail-sender-personal)
