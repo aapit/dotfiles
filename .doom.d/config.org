@@ -589,11 +589,12 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
          ))))))
 #+END_SRC
 ** PlantUML
-;;(setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar"))
  #+BEGIN_SRC emacs-lisp
-(setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
+(after! plantuml
+    (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
       plantuml-default-exec-mode 'jar)
-(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+)
 #+END_SRC
 ** Projectile
 :PROPERTIES:

@@ -391,9 +391,11 @@
          company-files
          ))))))
 
-(setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
+(after! plantuml
+    (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
       plantuml-default-exec-mode 'jar)
-(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+)
 
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
 
