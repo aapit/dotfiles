@@ -111,7 +111,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
 #+END_SRC
-*** Layouts
+*** Layouts, Screens
 #+BEGIN_SRC haskell :tangle "xmonad.hs"
      -- Rotate through the available layout algorithms
     , ((modm,               xK_Return ), sendMessage NextLayout)
@@ -137,6 +137,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Screenshots
     -- Set to modmask + S
     , ((modm, xK_s), spawn "scrot 'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots/'")
+
+    -- Monitor safeguard: turn off external screens, revert to primary
+    -- Set to modmask + M
+    , ((modm, xK_m), spawn "~/Scripts/display/switch-primary.sh")
+
+    -- Monitor: switch to external screen
+    -- Set to modmask + Sh + M
+    , ((modm .|. shiftMask, xK_m), spawn "~/Scripts/display/switch-external.sh")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))

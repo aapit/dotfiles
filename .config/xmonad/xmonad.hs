@@ -107,6 +107,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Set to modmask + S
     , ((modm, xK_s), spawn "scrot 'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots/'")
 
+    -- Monitor safeguard: turn off external screens, revert to primary
+    -- Set to modmask + M
+    , ((modm, xK_m), spawn "~/Scripts/display/switch-primary.sh")
+
+    -- Monitor: switch to external screen
+    -- Set to modmask + Sh + M
+    , ((modm .|. shiftMask, xK_m), spawn "~/Scripts/display/switch-external.sh")
+
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
