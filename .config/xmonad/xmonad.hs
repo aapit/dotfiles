@@ -17,7 +17,7 @@ import XMonad.Layout.Spacing
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-myTerminal      = "gnome-terminal"
+myTerminal      = "gnome-terminal --full-screen"
 
 -- Width of the window border in pixels.
 myBorderWidth   = 18

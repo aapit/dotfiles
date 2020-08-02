@@ -33,7 +33,7 @@ import XMonad.Layout.Grid
 #+END_SRC
 * Terminal
 #+BEGIN_SRC haskell :tangle "xmonad.hs"
-myTerminal      = "gnome-terminal"
+myTerminal      = "gnome-terminal --full-screen"
 #+END_SRC
 * UI
 ** GUI
