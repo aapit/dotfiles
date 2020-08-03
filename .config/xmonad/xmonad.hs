@@ -46,6 +46,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     , ((modm,               xK_e     ), spawn "emacsclient -c -n -s /tmp/emacs1000/aapit")
 
+    -- Bluetooth: restart
+    -- Set to modmask + Sh + B
+    , ((modm .|. shiftMask, xK_b), spawn "sudo systemctl restart bluetooth")
+
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
