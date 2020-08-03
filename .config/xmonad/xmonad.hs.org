@@ -46,6 +46,12 @@ myNormalBorderColor  = "#000000"
 myFocusedBorderColor = "#550733"
 #+END_SRC
 ** Keys
+*** Keycode list (docs)
+**** [[https://hackage.haskell.org/package/X11-1.9.1/docs/Graphics-X11-Types.html#g:2][List of Haskell key codes]]
+**** Less compatible
+Key codes are also in =/usr/include/X11/keysymdef.h=,
+just replace /XK_/ with /Xk_/ for Xmonad.
+They don't all work.
 *** General
 #+BEGIN_SRC haskell :tangle "xmonad.hs"
 -- modMask lets you specify which modkey you want to use. The default
@@ -72,9 +78,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     , ((modm,               xK_e     ), spawn "emacsclient -c -n -s /tmp/emacs1000/aapit")
 
-    -- Bluetooth: restart
-    -- Set to modmask + Sh + B
-    , ((modm .|. shiftMask, xK_b), spawn "sudo systemctl restart bluetooth")
 #+END_SRC
 *** Windows
 #+BEGIN_SRC haskell :tangle "xmonad.hs"
@@ -115,7 +118,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
 #+END_SRC
-*** Layouts, Screens
+*** Layouts, Screens, Media, Hardware
 #+BEGIN_SRC haskell :tangle "xmonad.hs"
      -- Rotate through the available layout algorithms
     , ((modm,               xK_Return ), sendMessage NextLayout)
@@ -134,6 +137,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_F2), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
     , ((modm, xK_F3), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
 
+    -- Brightness
+    -- Set to modmask + (Up - Down)
+    , ((modm, xK_equal), spawn "~/Scripts/display/brighten.sh &")
+    , ((modm, xK_minus), spawn "~/Scripts/display/darken.sh &")
+
     -- Standby
     -- Set to modmask + End
     , ((modm, xK_End), spawn "sudo pm-suspend")
@@ -149,6 +157,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Monitor: switch to external screen
     -- Set to modmask + Sh + M
     , ((modm .|. shiftMask, xK_m), spawn "~/Scripts/display/switch-external.sh")
+
+    -- Bluetooth: restart
+    -- Set to modmask + Sh + B
+    , ((modm .|. shiftMask, xK_b), spawn "sudo systemctl restart bluetooth")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))

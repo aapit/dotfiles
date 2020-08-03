@@ -46,10 +46,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     , ((modm,               xK_e     ), spawn "emacsclient -c -n -s /tmp/emacs1000/aapit")
 
-    -- Bluetooth: restart
-    -- Set to modmask + Sh + B
-    , ((modm .|. shiftMask, xK_b), spawn "sudo systemctl restart bluetooth")
-
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
@@ -103,6 +99,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_F2), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
     , ((modm, xK_F3), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
 
+    -- Brightness
+    -- Set to modmask + (Up - Down)
+    , ((modm, xK_equal), spawn "~/Scripts/display/brighten.sh &")
+    , ((modm, xK_minus), spawn "~/Scripts/display/darken.sh &")
+
     -- Standby
     -- Set to modmask + End
     , ((modm, xK_End), spawn "sudo pm-suspend")
@@ -118,6 +119,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Monitor: switch to external screen
     -- Set to modmask + Sh + M
     , ((modm .|. shiftMask, xK_m), spawn "~/Scripts/display/switch-external.sh")
+
+    -- Bluetooth: restart
+    -- Set to modmask + Sh + B
+    , ((modm .|. shiftMask, xK_b), spawn "sudo systemctl restart bluetooth")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
