@@ -12,7 +12,7 @@
 
 (setenv "LANG" "en_US.UTF-8")
 
-(setq doom-font (font-spec :family "Liberation Mono" :size 36))
+(setq doom-font (font-spec :family "Liberation Mono" :size 24))
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
 (add-hook 'emacs-startup-hook (lambda ()
