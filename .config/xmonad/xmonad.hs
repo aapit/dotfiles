@@ -13,6 +13,7 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
+import XMonad.Actions.CycleWS
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -46,6 +47,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     , ((modm,               xK_e     ), spawn "emacsclient -c -n -s /tmp/emacs1000/aapit")
 
+    , ((modm,               xK_Tab),    toggleWS)
+    , ((modm,               xK_j),      prevWS)
+    , ((modm,               xK_k),      nextWS)
+
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
@@ -53,25 +58,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_n     ), refresh)
 
     -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-
-    -- Move focus to the next window
-    , ((modm,               xK_j     ), windows W.focusDown)
+    , ((modm .|. shiftMask, xK_j     ), windows W.focusDown)
 
     -- Move focus to the previous window
-    , ((modm,               xK_k     ), windows W.focusUp  )
-
-    -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
-
-    -- Swap the focused window and the master window
-    --, ((modm,               xK_Return), windows W.swapMaster)
-
-    -- Swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
-
-    -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+    , ((modm .|. shiftMask, xK_k     ), windows W.focusUp  )
 
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
@@ -82,11 +72,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
 
-     -- Rotate through the available layout algorithms
+     -- Fullscreen vs Window overview
+     -- (Rotate through the available layout algorithms)
     , ((modm,               xK_Return ), sendMessage NextLayout)
 
     --  Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
 
@@ -95,30 +87,30 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Volume control
     -- Set to modmask + (F1 - F3)
-    , ((modm, xK_F1), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-    , ((modm, xK_F2), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-    , ((modm, xK_F3), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+    , ((modm,               xK_F1    ), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+    , ((modm,               xK_F2    ), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+    , ((modm,               xK_F3    ), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
 
     -- Brightness
     -- Set to modmask + (Up - Down)
-    , ((modm, xK_equal), spawn "~/Scripts/display/brighten.sh &")
-    , ((modm, xK_minus), spawn "~/Scripts/display/darken.sh &")
+    , ((modm,               xK_equal ), spawn "~/Scripts/display/brighten.sh &")
+    , ((modm,               xK_minus ), spawn "~/Scripts/display/darken.sh &")
+
+    -- Screenshots
+    -- Set to modmask + S
+    , ((modm,               xK_s     ), spawn "scrot 'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots/'")
+
+    -- Monitor safeguard: turn off external screens, revert to primary
+    -- Set to modmask + M
+    , ((modm,               xK_m     ), spawn "~/Scripts/display/switch-primary.sh")
+
+    -- Monitor: switch to external screen
+    -- Set to modmask + Sh + M
+    , ((modm .|. shiftMask, xK_m     ), spawn "~/Scripts/display/switch-external.sh")
 
     -- Standby
     -- Set to modmask + End
     , ((modm, xK_End), spawn "sudo pm-suspend")
-
-    -- Screenshots
-    -- Set to modmask + S
-    , ((modm, xK_s), spawn "scrot 'Screenshot_%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots/'")
-
-    -- Monitor safeguard: turn off external screens, revert to primary
-    -- Set to modmask + M
-    , ((modm, xK_m), spawn "~/Scripts/display/switch-primary.sh")
-
-    -- Monitor: switch to external screen
-    -- Set to modmask + Sh + M
-    , ((modm .|. shiftMask, xK_m), spawn "~/Scripts/display/switch-external.sh")
 
     -- Bluetooth: restart
     -- Set to modmask + Sh + B
