@@ -1,1 +1,1 @@
-/mnt/data/.vim
+.config/vim
