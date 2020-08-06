@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Nextcloud
+Exec=/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=lcimchnfcnhnmkakmdbdaiedejdbcfjo
+Icon=brave-lcimchnfcnhnmkakmdbdaiedejdbcfjo-Default
+StartupWMClass=crx_lcimchnfcnhnmkakmdbdaiedejdbcfjo
+OnlyShowIn=Old;

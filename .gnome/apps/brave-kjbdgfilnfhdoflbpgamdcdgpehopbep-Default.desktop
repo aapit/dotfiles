@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Cal P
+Exec=/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=kjbdgfilnfhdoflbpgamdcdgpehopbep
+Icon=brave-kjbdgfilnfhdoflbpgamdcdgpehopbep-Default
+StartupWMClass=crx_kjbdgfilnfhdoflbpgamdcdgpehopbep
+OnlyShowIn=Old;

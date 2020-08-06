@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=CloudKey Floase
+Exec=/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=clfkpjmfagkcpimjomianeebkdbhamho
+Icon=brave-clfkpjmfagkcpimjomianeebkdbhamho-Default
+StartupWMClass=crx_clfkpjmfagkcpimjomianeebkdbhamho
+OnlyShowIn=Old;

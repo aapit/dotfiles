@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=NASS
+Exec=/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=jkkngemilhajcchopellkfhmcmpfmpdl
+Icon=brave-jkkngemilhajcchopellkfhmcmpfmpdl-Default
+StartupWMClass=crx_jkkngemilhajcchopellkfhmcmpfmpdl
+OnlyShowIn=Old;
