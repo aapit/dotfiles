@@ -14,6 +14,10 @@ alias tree-whales='br --sizes --show-git-info --hidden --show-gitignored --whale
 alias ls='exa --long --level=2 --all --group-directories-first --modified --git'
 alias lsl='exa --long --tree --level=2 --all --group-directories-first --group --modified --git --header'
 
+# Sane defaults for du and df
+alias du='du -hs'
+alias df='df -h'
+
 # Fd-find
 alias f='fdfind'
 
