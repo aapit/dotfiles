@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Expand Fold Properties drawer
+# key: fold
+# --
+:PROPERTIES:
+:VISIBILITY: children
+:END:

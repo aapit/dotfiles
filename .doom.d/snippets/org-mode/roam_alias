@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: roam_alias_tags
+# key: rmeta
+# --
+#+roam_alias:
+#+roam_tags:
