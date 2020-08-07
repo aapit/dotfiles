@@ -12,7 +12,7 @@
 
 (setenv "LANG" "en_US.UTF-8")
 
-(setq doom-font (font-spec :family "Liberation Mono" :size 24))
+(setq doom-font (font-spec :family "Liberation Mono" :size 36))
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
 (add-hook 'emacs-startup-hook (lambda ()
@@ -325,6 +325,7 @@
     '((sequence "TODO" "NEXT" "DONE" "PROJ")))
 
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 (setq org-roam-buffer-width 0.3)
 (setq org-roam-buffer "Org-roam Sidebar")
 

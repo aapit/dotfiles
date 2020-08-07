@@ -508,6 +508,7 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 *** General
  #+BEGIN_SRC emacs-lisp
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 (setq org-roam-buffer-width 0.3)
 (setq org-roam-buffer "Org-roam Sidebar")
 #+END_SRC
