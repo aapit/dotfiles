@@ -25,6 +25,7 @@ snap
 .cargo
 .config
 .cups
+.dbus
 .dmrc
 .doom.d/secrets.el
 .dotfiles
