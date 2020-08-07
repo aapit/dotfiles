@@ -55,4 +55,5 @@ snap
 .sqlite_history
 .texlive2019
 .Xauthority
+.yarnrc
 .zcompdump*
