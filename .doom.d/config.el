@@ -10,6 +10,8 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "brave-browser")
 
+(setq byte-compile-warnings '(cl-functions))
+
 (setenv "LANG" "en_US.UTF-8")
 
 (setq doom-font (font-spec :family "Liberation Mono" :size 36))
