@@ -29,6 +29,7 @@ snap
 .dmrc
 .doom.d/secrets.el
 .dotfiles
+.emacs.d
 .firestorm_x64
 .gconf
 .ghc

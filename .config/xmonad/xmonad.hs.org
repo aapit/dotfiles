@@ -77,7 +77,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     , ((modm .|. shiftMask, xK_p     ), spawn "dmenu_run -fn 'Lacquer-48' -l 9 -nb '#101014' -nf '#cccccc' -sb '#0B5748' -sf '#B38019'")
 
-    , ((modm,               xK_e     ), spawn "emacsclient -c -n -s /tmp/emacs1000/aapit")
+    , ((modm,               xK_e     ), spawn "emacsclient -c -n -s /run/user/1000/snap.emacs/emacs/aapit")
 
 #+END_SRC
 *** Workspaces

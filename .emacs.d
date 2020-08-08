@@ -1,1 +1,0 @@
-/mnt/data2/.emacs.d
