@@ -346,7 +346,7 @@
 (use-package! org-roam-server
   :defer t
   :after org
-  :load-path "~/Scripts/note/org-roam-server")
+  :load-path "~/.local/share/org-roam-server")
 
 ;; org-ql for queries
 ;(use-package org-ql)

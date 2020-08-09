@@ -537,7 +537,7 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 (use-package! org-roam-server
   :defer t
   :after org
-  :load-path "~/Scripts/note/org-roam-server")
+  :load-path "~/.local/share/org-roam-server")
 #+END_SRC
 *** Search
  #+BEGIN_SRC emacs-lisp
