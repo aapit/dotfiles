@@ -1,0 +1,3 @@
+#!/bin/sh
+$HOME/Scripts/maintenance/update
+$HOME/Scripts/maintenance/scrub-btrfs-disks.sh

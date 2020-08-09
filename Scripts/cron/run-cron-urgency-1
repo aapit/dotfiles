@@ -1,0 +1,4 @@
+#!/bin/bash
+$HOME/Scripts/file/download-organizer/organize.sh
+# Disabling in light of move to Joplin
+#/usr/bin/python3 $HOME/Scripts/note/todoist2markdown/extract.py

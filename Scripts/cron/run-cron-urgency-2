@@ -1,0 +1,4 @@
+#!/bin/bash
+#$HOME/Scripts/note/note-archiver/archive-notes.sh; \
+#$HOME/Scripts/note/note-organizer/organize-notes.sh; \
+$HOME/Scripts/maintenance/maintain-btrfs-disks.sh;
