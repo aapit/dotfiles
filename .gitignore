@@ -16,6 +16,10 @@ Screenshots
 Scripts/env/tokens.sh
 Scripts/env/tmux*.log
 Scripts/file/download-organizer
+Scripts/mount
+Scripts/note/note-archiver
+Scripts/note/note-organizer
+Scripts/note/todoist2markdown
 Sites
 Templates
 Videos
