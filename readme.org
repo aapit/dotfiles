@@ -7,7 +7,7 @@
 
 
 This configuration is mostly geared towards my workhorse laptop,
-running Xmonad with Ubuntu 20.04 as Linux backend.
+running Xmonad with Ubuntu 20.04 as Linux backend. I also use it to provision a cloud-based, persistent VM to preserve parity between environments.
 I lean heavily towards console-based tools where possible.
 This enables me to:
 - Customize UI to suit my keyboard-driven workflow
