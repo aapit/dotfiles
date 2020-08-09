@@ -7,3 +7,8 @@ export TOKEN_NAS_PASS=
 # Restic backups
 export RESTIC_REPOSITORY=
 export RESTIC_PASSWORD=
+
+# Screenshot Archiver
+SCREENSHOT_ARCHIVER_SRC=$HOME/Screenshots
+SCREENSHOT_ARCHIVER_ARCHIVE=$HOME/Screenshots/Archive
+SCREENSHOT_ARCHIVER_PASSWORD=supersecret
