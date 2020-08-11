@@ -30,6 +30,12 @@ Default is Sunday (=0=).
  #+BEGIN_SRC emacs-lisp
 (load! "secrets.el" doom-private-dir)
 #+END_SRC
+*** Trash
+#+BEGIN_SRC emacs-lisp
+(setq-default
+ delete-by-moving-to-trash t                      ; Delete files to trash
+ tab-width 4)                                      ; Set width for tabs
+#+END_SRC
 *** Browser
  #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
