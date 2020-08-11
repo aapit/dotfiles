@@ -62,6 +62,7 @@ snap
 .ssr/logs
 .sqlite_history
 .texlive2019
+.twittering-mode-user-info.gz
 .Xauthority
 .yarnrc
 .zcompdump*
