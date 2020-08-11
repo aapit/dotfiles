@@ -436,11 +436,11 @@ Since your emails will be saved automatically on GMail when sending them with Li
 (setq org-agenda-custom-commands
     '(
         ("b" "Both" agenda "Universeel"
-         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-thuis.org" "~/Nextcloud/org-mode/notes/todo-grrr.org"))))
+         ((org-agenda-files '("~/Notes/todo-thuis.org" "~/Nextcloud/org-mode/notes/todo-grrr.org"))))
         ("z" "Zelf" agenda "Persoonlijk"
-         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-thuis.org"))))
+         ((org-agenda-files '("~/Notes/todo-thuis.org"))))
         ("g" "GRRR" agenda "Werk"
-         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-grrr.org"))))
+         ((org-agenda-files '("~/Notes/todo-grrr.org"))))
     )
 )
 #+END_SRC
@@ -492,7 +492,7 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 *** General
  #+BEGIN_SRC emacs-lisp
 ;; `org-directory' must be set before org loads.
-(setq org-directory "~/Nextcloud/org-mode/notes/")
+(setq org-directory "~/Notes/")
 #+END_SRC
 *** Performance
  #+BEGIN_SRC emacs-lisp
@@ -515,7 +515,7 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 :END:
 *** General
  #+BEGIN_SRC emacs-lisp
-(setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+(setq org-roam-directory "~/Notes/")
 (setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 (setq org-roam-buffer-width 0.3)
 (setq org-roam-buffer "Org-roam Sidebar")
