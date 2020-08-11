@@ -35,14 +35,6 @@ Default is Sunday (=0=).
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "brave-browser")
 #+END_SRC
-*** Emacs 27 / cl
-Some packages rely on the =cl= package, which throws a deprecation warning starting from Emacs 27.
-I can't easily work around these dependencies, =cl-lib= is the recommended successor, but not used by these packages yet.
-
-Since it still works, I'm suppressing these startup warnings here.
-#+BEGIN_SRC emacs-lisp
-(setq byte-compile-warnings '(cl-functions))
-#+END_SRC
 ** UI
 :PROPERTIES:
 :VISIBILITY: content
