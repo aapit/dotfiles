@@ -1,7 +1,6 @@
 ;; no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 (package! evil-escape :disable t)
-(package! org-journal)
 (package! disable-mouse)
 (package! helm-org-rifle)
 (package! simple-httpd)
