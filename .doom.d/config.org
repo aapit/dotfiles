@@ -494,6 +494,27 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 ;; `org-directory' must be set before org loads.
 (setq org-directory "~/Notes/")
 #+END_SRC
+*** GUI
+Customizing the appearance of bullets and priorities.
+#+BEGIN_SRC emacs-lisp
+(use-package! org-fancy-priorities
+   :defer t
+   :hook
+   (org-mode . org-fancy-priorities-mode)
+   :config
+   (setq org-fancy-priorities-list '("⚡" "👉" "⏳")))
+
+(after! org
+    (add-hook! 'org-mode-hook (lambda ()
+        (org-superstar-mode 1)
+        (org-fancy-priorities-mode 1)
+    ))
+)
+
+(after! org-superstar
+  (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
+    org-superstar-prettify-item-bullets t))
+#+END_SRC
 *** Performance
  #+BEGIN_SRC emacs-lisp
 (after! org
