@@ -340,6 +340,12 @@ Setting default font and /Symbola/ as emoji fallback.
 Je kunt =:clock-in= gebruiken om direct een Org timer te starten.
 
 - https://www.zmonster.me/2020/06/27/org-roam-introduction.html
+** Flycheck
+#+BEGIN_SRC emacs-lisp
+(general-setq flycheck-global-modes '(not dir-locals-mode
+                                            text-mode
+                                            org-mode))
+#+END_SRC
 ** Mail / Notmuch
 For email in Emacs, I use [[https://notmuchmail.org/][Notmuch]] in combination with [[http://lieer.gaute.vetsj.com/][Lieer]] to deal with multiple Gmail boxes.
 
