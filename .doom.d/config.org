@@ -109,13 +109,13 @@ Setting default font and /Symbola/ as emoji fallback.
  #+END_SRC
 **** Popup Rules
 #+BEGIN_SRC emacs-lisp
-(when (> (display-pixel-width) '3000)
+(when (> (display-pixel-width) '1200)
   (set-popup-rule! "*Org Agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*Capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
-(when (< (display-pixel-width) '2000)
+(when (<= (display-pixel-width) '1200)
   (set-popup-rule! "*Org Agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*Capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
