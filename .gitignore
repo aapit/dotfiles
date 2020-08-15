@@ -54,6 +54,7 @@ snap
 .node_repl_history
 .notmuch-config
 .npm
+.oh-my-zsh
 .pki
 .rustup
 .snap
