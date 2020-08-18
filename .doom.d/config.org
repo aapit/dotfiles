@@ -391,7 +391,7 @@ Here I'm overriding the binding for notmuch-mode.
         nil
         nil
         "~/Templates/mail-signatures/grrr.txt")))
-(setq gnus-alias-default-identity "personal")
+(setq gnus-alias-default-identity "grrr")
 ;; Define rules to match work identity
 (setq gnus-alias-identity-rules
     '(
@@ -420,7 +420,7 @@ Here I'm overriding the binding for notmuch-mode.
         (gnus-alias-use-identity "grrr"))
 )
 
-(aap/set-mail-sender-personal)
+(aap/set-mail-sender-grrr)
 
 (map! :leader
     :prefix ("m" . "mail")
