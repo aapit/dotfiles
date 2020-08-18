@@ -550,7 +550,7 @@ Customizing the appearance of bullets and priorities.
  #+BEGIN_SRC emacs-lisp
 (setq org-roam-directory "~/Notes/")
 (setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
-(setq org-roam-buffer-width 0.3)
+(setq org-roam-buffer-width 0.17)
 (setq org-roam-buffer "Org-roam Sidebar")
 (setq org-roam-completion-system 'default)
 
