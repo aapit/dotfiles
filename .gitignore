@@ -55,6 +55,7 @@ snap
 .notmuch-config
 .npm
 .oh-my-zsh
+.picocom_history
 .pki
 .rustup
 .snap
@@ -67,3 +68,4 @@ snap
 .Xauthority
 .yarnrc
 .zcompdump*
+.zshrc.*
