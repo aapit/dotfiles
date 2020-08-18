@@ -540,7 +540,7 @@ Customizing the appearance of bullets and priorities.
 *** Todo
  #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
-    '((sequence "TODO" "NEXT" "DONE" "PROJ")))
+    '((sequence "TODO" "NEXT" "DONE" "PROJ" "IDEA")))
 #+END_SRC
 ** Org-roam
 :PROPERTIES:
