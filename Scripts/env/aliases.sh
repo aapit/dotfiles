@@ -22,7 +22,7 @@ alias df='df -h'
 alias f='fdfind'
 
 # Sourcing
-alias src=". \${XDG_CONFIG_HOME}/zsh/.zprofile"
+alias src=". ~/.zshenv"
 alias alias-edit="vim ~/Scripts/env/aliases.sh && . ~/Scripts/env/aliases.sh"
 
 # Dotfiles
