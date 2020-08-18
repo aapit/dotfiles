@@ -25,5 +25,6 @@ $HOME/.local/bin:\
 $HOME/Scripts:\
 $HOME/.composer/vendor/bin:\
 $HOME/.emacs.d/bin:\
+/usr/lib/python3/dist-packages:\
 /home/linuxbrew/.linuxbrew/bin:\
 $HOME/.cargo/bin
