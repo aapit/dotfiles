@@ -654,6 +654,11 @@ Customizing the appearance of bullets and priorities.
  #+BEGIN_SRC emacs-lisp
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
 #+END_SRC
+** RSS
+#+BEGIN_SRC emacs-lisp
+(elfeed-org)
+(setq rmh-elfeed-org-files (list "~/Notes/rss_feeds.org"))
+#+END_SRC
 ** Undo
 :PROPERTIES:
 :VISIBILITY: folded
