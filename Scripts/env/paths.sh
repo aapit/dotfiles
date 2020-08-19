@@ -22,6 +22,7 @@ $HOME/.local/bin:\
 /bin:\
 /usr/sbin/:\
 /sbin:\
+/snap/bin:\
 $HOME/Scripts:\
 $HOME/.composer/vendor/bin:\
 $HOME/.emacs.d/bin:\
