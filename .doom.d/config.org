@@ -423,7 +423,7 @@ Here I'm overriding the binding for notmuch-mode.
 (aap/set-mail-sender-grrr)
 
 (map! :leader
-    :prefix ("m" . "mail")
+    :prefix ("M" . "mail")
     :desc "Personal" "p" #'aap/set-mail-sender-personal
     :desc "GRRR" "g" #'aap/set-mail-sender-grrr
 )
