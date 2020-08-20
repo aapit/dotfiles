@@ -26,6 +26,7 @@ Videos
 snap
 .android
 .ansible
+.ansible_async
 .aws
 .cabal
 .cache
