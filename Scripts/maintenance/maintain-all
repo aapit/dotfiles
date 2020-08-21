@@ -1,0 +1,5 @@
+echo "Virtual Aapit: maintenance homonculus"
+echo "Starting chaos management..."
+$HOME/Scripts/maintenance/maintain-btrfs-disks.sh
+$HOME/Scripts/maintenance/scrub-btrfs-disks.sh
+$HOME/Scripts/maintenance/update
