@@ -667,6 +667,7 @@ Customizing the appearance of bullets and priorities.
   :init
   (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
   (setq slack-prefer-current-team t)
+  (setq slack-buffer-function #'switch-to-buffer)
   :config
   (slack-register-team
    :name "grrr"
@@ -674,6 +675,13 @@ Customizing the appearance of bullets and priorities.
    :token slack-token
    :subscribed-channels '(general tech-links tech)
    :full-and-display-names t))
+
+(map! :leader
+    :prefix ("S" . "Slack")
+    :desc "start" "s" #'slack-start
+    :desc "rooms" "r" #'slack-select-rooms
+    :desc "unread" "u" #'slack-select-unread-rooms
+)
 
 (evil-define-key 'normal slack-info-mode-map
    ",u" 'slack-room-update-messages)
