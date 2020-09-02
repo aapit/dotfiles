@@ -1,1 +1,1 @@
-switch-philips-273V.sh
+switch-samsung-U28E570.sh
