@@ -1,7 +1,7 @@
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
-. ~/Scripts/env/paths.sh
+. $HOME/Scripts/env/paths.sh
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -12,8 +12,8 @@ fi
 
 # if running zsh
 if [ -n "$ZSH_VERSION" ]; then
-    if [ -f "$XDG_CONFIG_HOME/zsh/.zprofile" ]; then
-    . "${XDG_CONFIG_HOME}/zsh/.zprofile"
+    if [ -f "$HOME/.zprofile" ]; then
+    . "${HOME}/.zprofile"
     fi
 fi
 
