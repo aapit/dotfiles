@@ -70,3 +70,6 @@ snap
 .yarnrc
 .zcompdump*
 .zshrc.*
+.putty
+.mysql_history
+.espressif

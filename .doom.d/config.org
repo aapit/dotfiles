@@ -424,7 +424,7 @@ Here I'm overriding the binding for notmuch-mode.
 (aap/set-mail-sender-grrr)
 
 (map! :leader
-    :prefix ("m" . "mail")
+    :prefix ("M" . "mail")
     :desc "personal" "p" #'aap/set-mail-sender-personal
     :desc "grrr" "g" #'aap/set-mail-sender-grrr
     :desc "select identity" "s" #'gnus-alias-select-identity
