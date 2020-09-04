@@ -458,6 +458,24 @@ Since your emails will be saved automatically on GMail when sending them with Li
     )
 )
 #+END_SRC
+**** Agenda groups
+#+BEGIN_SRC emacs-lisp
+;(let ((org-super-agenda-groups
+;       '((:auto-category t))))
+;  (org-agenda-list))
+
+(setq org-super-agenda-groups
+      '((:name "Next Items"
+               :time-grid t
+               :tag ("NEXT" "outbox"))
+        (:name "Important"
+               :priority "A")
+        (:name "Quick Picks"
+               :effort< "0:30")
+        (:priority<= "B"
+                     :scheduled future
+                     :order 1)))
+#+END_SRC
 *** Export
 Setting some non-insane defaults for LaTeX PDF export and such.
 
