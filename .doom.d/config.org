@@ -156,7 +156,6 @@ Setting default font and /Symbola/ as emoji fallback.
 #+END_SRC
 **** Window navigation
  #+BEGIN_SRC emacs-lisp
-;(map! :prefix ("`" . "Window navigation")
 (map!
    :prefix "`"
    :n "h" #'evil-window-left
@@ -166,7 +165,8 @@ Setting default font and /Symbola/ as emoji fallback.
    :n "-" #'evil-window-split
    :n "\\" #'evil-window-vsplit
    :n "`" #'other-window
-   :n "x" #'workspace/delete
+   :n "c" '(lambda () (interactive)(+workspace/new))
+   :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
    :n "M-x" #'evil-window-delete
 )
 #+END_SRC
