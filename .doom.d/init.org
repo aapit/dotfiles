@@ -181,11 +181,6 @@ NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
        (default +bindings +smartparens))
 
 #+END_SRC
-* 'Customize' (Emacs custom system)
-#+BEGIN_SRC emacs-lisp :tangle yes :results silent
-(setq custom-file (concat doom-private-dir "custom_system.el"))
-(load! custom-file)
-#+END_SRC
 * Local Variables
 # Local Variables:
 # eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
