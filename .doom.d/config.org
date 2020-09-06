@@ -154,6 +154,22 @@ Setting default font and /Symbola/ as emoji fallback.
     :desc "Split Vert" "\\" #'evil-window-vsplit
 )
 #+END_SRC
+**** Window navigation
+ #+BEGIN_SRC emacs-lisp
+;(map! :prefix ("`" . "Window navigation")
+(map!
+   :prefix "`"
+   :n "h" #'evil-window-left
+   :n "l" #'evil-window-right
+   :n "k" #'evil-window-up
+   :n "j" #'evil-window-down
+   :n "-" #'evil-window-split
+   :n "\\" #'evil-window-vsplit
+   :n "`" #'other-window
+   :n "x" #'workspace/delete
+   :n "M-x" #'evil-window-delete
+)
+#+END_SRC
 **** Org-mode related
  #+BEGIN_SRC emacs-lisp
 (map! :after evil-org
