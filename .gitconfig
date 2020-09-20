@@ -1,6 +1,7 @@
 [user]
 	email = david@grrr.nl
 	name = David Spreekmeester
+	signingkey = 49F45E1FE21F701C
 
 [core]
     autocrlf = input
@@ -79,6 +80,7 @@
     enabled = 1
 
 [commit]
+	gpgsign = true
     #gpgsign = true
 
 [gpg]
