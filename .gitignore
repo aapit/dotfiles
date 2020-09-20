@@ -21,6 +21,7 @@ Scripts/note/note-archiver
 Scripts/note/note-organizer
 Scripts/note/todoist2markdown
 Sites
+Steam
 Templates
 Videos
 snap
@@ -58,11 +59,15 @@ snap
 .oh-my-zsh
 .picocom_history
 .pki
+.pulse-cookie
 .rustup
 .snap
 .sudo_as_admin_successful
 .ssh
 .ssr/logs
+.steam
+.steampath
+.steampid
 .sqlite_history
 .texlive2019
 .twittering-mode-user-info.gz
