@@ -3,6 +3,7 @@ ENVDIR=$HOME/Scripts/env/
 
 
 . ${ENVDIR}ssh_keys.sh
+. ${ENVDIR}gpg_keys.sh
 . ${ENVDIR}aliases.sh
 [ -f ${ENVDIR}tokens.sh ] && source ${ENVDIR}tokens.sh
 
