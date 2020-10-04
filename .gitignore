@@ -81,3 +81,4 @@ snap
 Scripts/file/gpg-dir-encrypt
 .doom.d/custom_system.el
 Scripts/env/gpg_keys.sh
+.oh-my-zsh
