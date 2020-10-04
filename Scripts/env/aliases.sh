@@ -92,5 +92,9 @@ alias k='kubectl'
 #alias tmux='tmux -2'
 alias rn='tmux movew -r && tmux rename-window'
 
+# Encryption
+alias lock='~/Scripts/file/gpg-dir-encrypt/lock.sh'
+alias unlock='~/Scripts/file/gpg-dir-encrypt/unlock.sh'
+
 # Spotify
 alias spotify="$(which spotify) --force-device-scale-factor=2 > /dev/null &"
