@@ -83,3 +83,4 @@ Scripts/file/gpg-dir-encrypt
 Scripts/env/gpg_keys.sh
 .oh-my-zsh
 .openshot_qt
+.yarn
