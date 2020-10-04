@@ -92,8 +92,8 @@ Setting default font and /Symbola/ as emoji fallback.
 ;; there is no way to style regular non-link text in the Org-roam buffer.
 ;; Therefore, the only customizable property that blends in with the rest is link color.
 (custom-set-faces
- '(org-roam-link ((t (:foreground "#8B61AB"))))
- '(org-roam-link-current ((t (:foreground "#57287C"))))
+ '(org-roam-link ((t (:foreground "#A4581E"))))
+ '(org-roam-link-current ((t (:foreground "#696070"))))
 )
 #+END_SRC
 
