@@ -1,0 +1,6 @@
+#!/bin/bash
+git -C ~/.emacs.d pull
+git -C ~/.emacs.d/.local/straight/repos/melpa pull
+rm -rf ~/.emacs.d/.local/straight/repos/org-superstar
+rm -f ~/.emacs.d/.local/straight/build-cache.el
+doom sync
