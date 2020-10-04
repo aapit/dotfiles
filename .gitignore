@@ -79,3 +79,4 @@ snap
 .mysql_history
 .espressif
 Scripts/file/gpg-dir-encrypt
+.doom.d/custom_system.el

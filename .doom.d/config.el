@@ -7,10 +7,12 @@
 
 (load! "secrets.el" doom-private-dir)
 
+(setq-default
+ delete-by-moving-to-trash t                      ; Delete files to trash
+ tab-width 4)                                      ; Set width for tabs
+
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "brave-browser")
-
-(setq byte-compile-warnings '(cl-functions))
 
 (setenv "LANG" "en_US.UTF-8")
 
@@ -32,14 +34,22 @@
     (delete-selection-mode 1) ; Replace selection when inserting text
 ))
 
+(defun doom-modeline-conditional-buffer-encoding ()
+  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
+  (setq-local doom-modeline-buffer-encoding
+              (unless (or (eq buffer-file-coding-system 'utf-8-unix)
+                          (eq buffer-file-coding-system 'utf-8)))))
+
+(add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
+
 (add-hook 'after-init-hook #'global-emojify-mode)
 
 ;; Unfortunately, at this point [2020-07-08 Wed],
 ;; there is no way to style regular non-link text in the Org-roam buffer.
 ;; Therefore, the only customizable property that blends in with the rest is link color.
 (custom-set-faces
- '(org-roam-link ((t (:foreground "#8B61AB"))))
- '(org-roam-link-current ((t (:foreground "#57287C"))))
+ '(org-roam-link ((t (:foreground "#A4581E"))))
+ '(org-roam-link-current ((t (:foreground "#696070"))))
 )
 
 ;; Org-mode checkboxes
@@ -50,13 +60,13 @@
    (push '("[-]" . "⊡" ) prettify-symbols-alist)
    (prettify-symbols-mode)))
 
-(when (> (display-pixel-width) '3000)
+(when (> (display-pixel-width) '1200)
   (set-popup-rule! "*Org Agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*Capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
-(when (< (display-pixel-width) '2000)
+(when (<= (display-pixel-width) '1200)
   (set-popup-rule! "*Org Agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*Capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
@@ -88,6 +98,20 @@
     :prefix "w"
     :desc "Split Hori" "-" #'evil-window-split
     :desc "Split Vert" "\\" #'evil-window-vsplit
+)
+
+(map!
+   :prefix "`"
+   :n "h" #'evil-window-left
+   :n "l" #'evil-window-right
+   :n "k" #'evil-window-up
+   :n "j" #'evil-window-down
+   :n "-" #'evil-window-split
+   :n "\\" #'evil-window-vsplit
+   :n "`" #'other-window
+   :n "c" '(lambda () (interactive)(+workspace/new))
+   :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
+   :n "M-x" #'evil-window-delete
 )
 
 (map! :after evil-org
@@ -126,6 +150,7 @@
         :desc "Find, Insert note" "q" #'org-roam-find-file
         :desc "Graph server" "g" #'org-roam-server-mode
         :desc "Rifle" "." #'helm-org-rifle
+        :desc "Headline link" "h" #'counsel-org-link
 )
 
 (setq org-roam-ref-capture-templates
@@ -217,6 +242,10 @@
     :desc "Journal" "j" (lambda () (interactive) (org-capture nil "lj"))
 )
 
+(general-setq flycheck-global-modes '(not dir-locals-mode
+                                            text-mode
+                                            org-mode))
+
 (defun aap/notmuch-delete-search-message ()
     "Toggle trash tag for message."
     (interactive)
@@ -249,7 +278,7 @@
         nil
         nil
         "~/Templates/mail-signatures/grrr.txt")))
-(setq gnus-alias-default-identity "personal")
+(setq gnus-alias-default-identity "grrr")
 ;; Define rules to match work identity
 (setq gnus-alias-identity-rules
     '(
@@ -276,12 +305,13 @@
         (gnus-alias-use-identity "grrr"))
 )
 
-(aap/set-mail-sender-personal)
+(aap/set-mail-sender-grrr)
 
 (map! :leader
-    :prefix ("m" . "mail")
-    :desc "Personal" "p" #'aap/set-mail-sender-personal
-    :desc "GRRR" "g" #'aap/set-mail-sender-grrr
+    :prefix ("M" . "mail")
+    :desc "personal" "p" #'aap/set-mail-sender-personal
+    :desc "grrr" "g" #'aap/set-mail-sender-grrr
+    :desc "select identity" "s" #'gnus-alias-select-identity
 )
 
 (setq notmuch-fcc-dirs nil)
@@ -289,13 +319,29 @@
 (setq org-agenda-custom-commands
     '(
         ("b" "Both" agenda "Universeel"
-         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-thuis.org" "~/Nextcloud/org-mode/notes/todo-grrr.org"))))
+         ((org-agenda-files '("~/Notes/todo-thuis.org" "~/Nextcloud/org-mode/notes/todo-grrr.org"))))
         ("z" "Zelf" agenda "Persoonlijk"
-         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-thuis.org"))))
+         ((org-agenda-files '("~/Notes/todo-thuis.org"))))
         ("g" "GRRR" agenda "Werk"
-         ((org-agenda-files '("~/Nextcloud/org-mode/notes/todo-grrr.org"))))
+         ((org-agenda-files '("~/Notes/todo-grrr.org"))))
     )
 )
+
+;(let ((org-super-agenda-groups
+;       '((:auto-category t))))
+;  (org-agenda-list))
+
+(setq org-super-agenda-groups
+      '((:name "Next Items"
+               :time-grid t
+               :tag ("NEXT" "outbox"))
+        (:name "Important"
+               :priority "A")
+        (:name "Quick Picks"
+               :effort< "0:30")
+        (:priority<= "B"
+                     :scheduled future
+                     :order 1)))
 
 (after! org
     (add-to-list 'org-latex-packages-alist "\\hypersetup{setpagesize=false}" t)
@@ -313,7 +359,25 @@
 )
 
 ;; `org-directory' must be set before org loads.
-(setq org-directory "~/Nextcloud/org-mode/notes/")
+(setq org-directory "~/Notes/")
+
+(use-package! org-fancy-priorities
+   :defer t
+   :hook
+   (org-mode . org-fancy-priorities-mode)
+   :config
+   (setq org-fancy-priorities-list '("⚡" "👉" "⏳")))
+
+(after! org
+    (add-hook! 'org-mode-hook (lambda ()
+        (org-superstar-mode 1)
+        (org-fancy-priorities-mode 1)
+    ))
+)
+
+(after! org-superstar
+  (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
+    org-superstar-prettify-item-bullets t))
 
 (after! org
     (setq org-agenda-dim-blocked-tasks nil)
@@ -324,12 +388,19 @@
 )
 
 (setq org-todo-keywords
-    '((sequence "TODO" "NEXT" "DONE" "PROJ")))
+    '((sequence "TODO" "NEXT" "DONE" "PROJ" "IDEA")))
 
-(setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+(setq org-roam-directory "~/Notes/")
 (setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
-(setq org-roam-buffer-width 0.3)
+(setq org-roam-buffer-width 0.17)
 (setq org-roam-buffer "Org-roam Sidebar")
+(setq org-roam-completion-system 'default)
+
+(use-package! company-org-roam
+  :when (featurep! :completion company)
+  :after org-roam
+  :config
+  (set-company-backend! 'org-roam-mode 'company-org-roam))
 
 (setq org-roam-graph-exclude-matcher '("private" "dailies"))
 
@@ -396,13 +467,58 @@
          company-files
          ))))))
 
-(after! plantuml
+(after! plantuml-uml
     (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
       plantuml-default-exec-mode 'jar)
     (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 )
 
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
+
+(elfeed-org)
+(setq rmh-elfeed-org-files (list "~/Notes/rss_feeds.org"))
+
+(use-package! slack
+  :commands (slack-start)
+  :init
+  (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
+  (setq slack-prefer-current-team t)
+  (setq slack-buffer-function #'switch-to-buffer)
+  :config
+  (slack-register-team
+   :name "grrr"
+   :default t
+   :token slack-token
+   :subscribed-channels '(general tech-links tech)
+   :full-and-display-names t))
+
+(map! :leader
+    :prefix ("S" . "Slack")
+    :desc "start" "s" #'slack-start
+    :desc "rooms" "r" #'slack-select-rooms
+    :desc "unread" "u" #'slack-select-unread-rooms
+)
+
+;(evil-define-key 'normal slack-info-mode-map
+;   ",u" 'slack-room-update-messages)
+;(evil-define-key 'normal slack-mode-map
+;   ",c" 'slack-buffer-kill
+;   ",ra" 'slack-message-add-reaction
+;   ",rr" 'slack-message-remove-reaction
+;   ",rs" 'slack-message-show-reaction-users
+;   ",mm" 'slack-message-write-another-buffer
+;   ",me" 'slack-message-edit
+;   ",md" 'slack-message-delete
+;   ",u" 'slack-room-update-messages
+;   ",2" 'slack-message-embed-mention
+;   ",3" 'slack-message-embed-channel
+;   "\C-n" 'slack-buffer-goto-next-message
+;   "\C-p" 'slack-buffer-goto-prev-message)
+;  (evil-define-key 'normal slack-edit-message-mode-map
+;   ",k" 'slack-message-cancel-edit
+;   ",s" 'slack-message-send-from-buffer
+;   ",2" 'slack-message-embed-mention
+;   ",3" 'slack-message-embed-channel))
 
 ;; When using evil-mode be sure to run (global-undo-tree-mode -1) to avoid problems.
 ;; https://github.com/emacsmirror/undo-fu-session
