@@ -1,6 +1,6 @@
 #!/bin/sh
-$HOME/.emacs.d/bin/doom upgrade
 sudo apt update && \
 sudo apt -y upgrade &&
 sudo apt -y autoremove
 brew update
+$HOME/.emacs.d/bin/doom upgrade -f
