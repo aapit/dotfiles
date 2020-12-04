@@ -32,7 +32,7 @@ alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ds="killall emacs && systemctl --user restart emacs && doom sync"
 
 # Editing and reading
-alias e="emacsclient -c -n -s /run/user/1000/snap.emacs/emacs/aapit"
+alias e="emacsclient -c -n -s /run/user/1000/emacs/aapit"
 alias v="nvim"
 alias vim="nvim"
 alias cat='bat'
