@@ -1,16 +1,20 @@
-# Path to your oh-my-zsh installation.
-export ZSH="$ZDOTDIR/.oh-my-zsh"
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-ZSH_THEME="af-magic"
+export ZSH="$HOME/.oh-my-zsh"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
+ZSH_THEME="robbyrussell"
+
 HYPHEN_INSENSITIVE="true"
 
-export UPDATE_ZSH_DAYS=3
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+# export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -23,14 +27,13 @@ export UPDATE_ZSH_DAYS=3
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-HIST_STAMPS="dd-mm-yyyy"
+# HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
@@ -51,31 +54,30 @@ plugins=(
   httpie
   kubectl
   rsync
-  safe-paste
-  tmux
-  ubuntu
   vi-mode
-  zsh-autosuggestions
+  zsh-autosuggestions 
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export VISUAL="$EMACSCLIENT"
-if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
-else
-   export EDITOR="$EMACSCLIENT"
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-source $ZDOTDIR/.zprofile
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=4'
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source /home/david/.config/broot/launcher/bash/br
+[ -f ~/Scripts/env/aliases.sh ] && source ~/Scripts/env/aliases.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
