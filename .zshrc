@@ -38,7 +38,7 @@ HYPHEN_INSENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   alias-finder
-  autojump
+  #autojump
   aws
   colored-man-pages
   command-not-found
@@ -49,13 +49,13 @@ plugins=(
   dotenv
   extract
   fd
-  fzf
+  #fzf
   git
   httpie
   kubectl
   rsync
   vi-mode
-  zsh-autosuggestions 
+  #zsh-autosuggestions 
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -70,14 +70,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
+xrdb ~/.Xresources
 [ -f ~/Scripts/env/aliases.sh ] && source ~/Scripts/env/aliases.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
