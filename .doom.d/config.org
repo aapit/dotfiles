@@ -67,6 +67,11 @@ Setting default font and /Symbola/ as emoji fallback.
 (setq display-time-use-mail-icon t)
 (setq display-line-numbers-type 'relative)
 (setq org-ellipsis "…")
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+                                        ; Remove window chrome
+(setq default-frame-alist '((undecorated . t)))
 
 (add-hook 'emacs-startup-hook (lambda ()
                                         ;(toggle-frame-fullscreen)
