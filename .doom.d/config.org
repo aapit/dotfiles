@@ -11,6 +11,7 @@
 :END:
  #+BEGIN_SRC emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+; Generated config by @aapit
  #+END_SRC
 ** General
 :PROPERTIES:
@@ -39,7 +40,7 @@ Default is Sunday (=0=).
 *** Browser
  #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "brave-browser")
+      browse-url-generic-program "brave")
 #+END_SRC
 ** UI
 :PROPERTIES:
@@ -50,15 +51,16 @@ Setting default font and /Symbola/ as emoji fallback.
  #+BEGIN_SRC emacs-lisp
 (setenv "LANG" "en_US.UTF-8")
 
-(setq doom-font (font-spec :family "Liberation Mono" :size 36))
+(setq doom-font (font-spec :family "Liberation Mono" :size 26))
 (setq doom-unicode-font (font-spec :name "Symbola"))
  #+END_SRC
 *** Mouse
- #+BEGIN_SRC emacs-lisp
+[2021-01-27 Wed] Disabled the disablement, perhaps temporarily
+ #+BEGIN_EXAMPLE emacs-lisp
 (add-hook 'emacs-startup-hook (lambda ()
     (global-disable-mouse-mode)
 ))
-#+END_SRC
+#+END_EXAMPLE
 *** Appearance
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-horizon)
@@ -67,10 +69,10 @@ Setting default font and /Symbola/ as emoji fallback.
 (setq org-ellipsis "…")
 
 (add-hook 'emacs-startup-hook (lambda ()
-    (toggle-frame-fullscreen)
-    (display-battery-mode)
-    (delete-selection-mode 1) ; Replace selection when inserting text
-))
+                                        ;(toggle-frame-fullscreen)
+                                        ;(display-battery-mode)
+                                (delete-selection-mode 1) ; Replace selection when inserting text
+                                ))
 #+END_SRC
 **** Hide UTF-8 encoding in modeline
 #+BEGIN_SRC emacs-lisp
@@ -82,31 +84,6 @@ Setting default font and /Symbola/ as emoji fallback.
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 #+END_SRC
-**** Emojify
-#+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook #'global-emojify-mode)
-#+END_SRC
-**** Org-roam links
-#+BEGIN_SRC emacs-lisp
-;; Unfortunately, at this point [2020-07-08 Wed],
-;; there is no way to style regular non-link text in the Org-roam buffer.
-;; Therefore, the only customizable property that blends in with the rest is link color.
-(custom-set-faces
- '(org-roam-link ((t (:foreground "#A4581E"))))
- '(org-roam-link-current ((t (:foreground "#696070"))))
-)
-#+END_SRC
-
-**** Org-mode Checkboxes
-#+BEGIN_SRC emacs-lisp
-;; Org-mode checkboxes
-(add-hook 'evil-org-mode-hook (lambda ()
-   "Beautify Org Checkbox Symbol"
-   (push '("[ ]" . "☐") prettify-symbols-alist)
-   (push '("[X]" . "☑" ) prettify-symbols-alist)
-   (push '("[-]" . "⊡" ) prettify-symbols-alist)
-   (prettify-symbols-mode)))
- #+END_SRC
 **** Popup Rules
 #+BEGIN_SRC emacs-lisp
 (when (> (display-pixel-width) '1200)
@@ -137,6 +114,32 @@ Setting default font and /Symbola/ as emoji fallback.
 ;; Follow output
 (setq compilation-scroll-output t)
 #+END_SRC
+**** Disabled
+***** Emojify
+#+BEGIN_EXAMPLE emacs-lisp
+(add-hook 'after-init-hook #'global-emojify-mode)
+#+END_EXAMPLE
+***** Org-roam links
+#+BEGIN_EXAMPLE emacs-lisp
+;; Unfortunately, at this point [2020-07-08 Wed],
+;; there is no way to style regular non-link text in the Org-roam buffer.
+;; Therefore, the only customizable property that blends in with the rest is link color.
+(custom-set-faces
+ '(org-roam-link ((t (:foreground "#A4581E"))))
+ '(org-roam-link-current ((t (:foreground "#696070"))))
+)
+#+END_EXAMPLE
+
+***** Org-mode Checkboxes
+#+BEGIN_EXAMPLE emacs-lisp
+;; Org-mode checkboxes
+(add-hook 'evil-org-mode-hook (lambda ()
+   "Beautify Org Checkbox Symbol"
+   (push '("[ ]" . "☐") prettify-symbols-alist)
+   (push '("[X]" . "☑" ) prettify-symbols-alist)
+   (push '("[-]" . "⊡" ) prettify-symbols-alist)
+   (prettify-symbols-mode)))
+ #+END_EXAMPLE
 *** Keys
 **** General functions
  #+BEGIN_SRC emacs-lisp
@@ -540,7 +543,7 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 *** General
  #+BEGIN_SRC emacs-lisp
 ;; `org-directory' must be set before org loads.
-(setq org-directory "~/Notes/")
+(setq org-directory "~/Nextcloud/org-mode/")
 #+END_SRC
 *** GUI
 Customizing the appearance of bullets and priorities.
@@ -584,20 +587,45 @@ Customizing the appearance of bullets and priorities.
 :END:
 *** General
  #+BEGIN_SRC emacs-lisp
-(setq org-roam-directory "~/Notes/")
-(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
+(setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 (setq org-roam-buffer-width 0.17)
 (setq org-roam-buffer "Org-roam Sidebar")
 (setq org-roam-completion-system 'default)
 
-(use-package! company-org-roam
-  :when (featurep! :completion company)
-  :after org-roam
-  :config
-  (set-company-backend! 'org-roam-mode 'company-org-roam))
+;(use-package! company-org-roam
+;  :when (featurep! :completion company)
+;  :after org-roam
+;  :config
+;  (set-company-backend! 'org-roam-mode 'company-org-roam))
 #+END_SRC
 *** Graph / Server
- #+BEGIN_SRC emacs-lisp
+**** org-roam-server-light
+#+begin_src emacs-lisp
+(use-package! org-roam-server-light
+  :after org-roam
+  :commands org-roam-server-light-mode
+  :config
+  ;; OPTIONAL example settings, `org-roam-server-light' will work without them
+  (setq
+   ;; enable arrows
+   org-roam-server-light-network-vis-options "{ \"edges\": { \"arrows\": { \"to\": { \"enabled\": true,\"scaleFactor\": 1.15 } } } }"
+
+   ;; change background color of web application
+   org-roam-server-light-style "body.darkmode { background-color: #121212!important; }"
+
+   ;; set default set of excluded or included tags
+   ;; customize only the value of id, in this case "test" and "journal"
+   org-roam-server-light-default-include-filters "[{ \"id\": \"test\", \"parent\" : \"tags\"  }]"
+   org-roam-server-light-default-exclude-filters "[{ \"id\": \"journal\", \"parent\" : \"tags\"  }]"
+   )
+  )
+#+end_src
+**** Disabled: simple-httpd
+I need this for the graph server, as well?
+It uses the generic server as a content API.
+
+ #+BEGIN_EXAMPLE emacs-lisp
 (setq org-roam-graph-exclude-matcher '("private" "dailies"))
 
 (use-package! simple-httpd
@@ -605,16 +633,18 @@ Customizing the appearance of bullets and priorities.
   :after org
   :config
   (setq httpd-root "/var/www")
-)
+  )
 ;; Auto-start of graph server disabled to improve startup performance
 ;;(httpd-start)
-
+#+END_EXAMPLE
+**** Disabled: previous versions and alternate packages
+ #+BEGIN_EXAMPLE emacs-lisp
 ;;  :ensure nil
-(use-package! org-roam-server
-  :defer t
-  :after org
-  :load-path "~/.local/share/org-roam-server")
-#+END_SRC
+    ;(use-package! org-roam-server
+    ;  :defer t
+    ;  :after org
+    ;  :load-path "~/.local/share/org-roam-server")
+#+END_EXAMPLE
 *** Search
  #+BEGIN_SRC emacs-lisp
 ;; org-ql for queries
@@ -677,11 +707,11 @@ Customizing the appearance of bullets and priorities.
 #+END_SRC
 ** PlantUML
  #+BEGIN_SRC emacs-lisp
-(after! plantuml-uml
-    (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
-      plantuml-default-exec-mode 'jar)
-    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
-)
+                                        ;(after! plantuml-uml
+                                        ;    (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
+                                        ;      plantuml-default-exec-mode 'jar)
+                                        ;    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+                                        ;)
 #+END_SRC
 ** Projectile
 :PROPERTIES:
@@ -690,13 +720,35 @@ Customizing the appearance of bullets and priorities.
  #+BEGIN_SRC emacs-lisp
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
 #+END_SRC
-** RSS
-#+BEGIN_SRC emacs-lisp
+** Disabled
+*** RSS
+#+BEGIN_EXAMPLE emacs-lisp
 (elfeed-org)
 (setq rmh-elfeed-org-files (list "~/Notes/rss_feeds.org"))
-#+END_SRC
-** Slack
-#+BEGIN_SRC emacs-lisp
+#+END_EXAMPLE
+*** Own packages
+#+BEGIN_EXAMPLE emacs-lisp
+(use-package goalmap
+  :load-path "~/.doom.d/packages/goalmap")
+#+END_EXAMPLE
+*** Undo
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+BEGIN_EXAMPLE emacs-lisp
+;; When using evil-mode be sure to run (global-undo-tree-mode -1) to avoid problems.
+;; https://github.com/emacsmirror/undo-fu-session
+(add-hook 'emacs-startup-hook (lambda ()
+    (global-undo-tree-mode -1)
+))
+
+(setq undo-fu-session-file-limit 150)
+
+(setq undo-limit 40000000) ; Set to 40 Mb
+(setq evil-want-fine-undo t) ; Prevent all changes acting like one big blob
+#+END_EXAMPLE
+*** Slack
+#+BEGIN_EXAMPLE emacs-lisp
 (use-package! slack
   :commands (slack-start)
   :init
@@ -738,28 +790,7 @@ Customizing the appearance of bullets and priorities.
 ;   ",s" 'slack-message-send-from-buffer
 ;   ",2" 'slack-message-embed-mention
 ;   ",3" 'slack-message-embed-channel))
-#+END_SRC
-** Undo
-:PROPERTIES:
-:VISIBILITY: folded
-:END:
-#+BEGIN_SRC emacs-lisp
-;; When using evil-mode be sure to run (global-undo-tree-mode -1) to avoid problems.
-;; https://github.com/emacsmirror/undo-fu-session
-(add-hook 'emacs-startup-hook (lambda ()
-    (global-undo-tree-mode -1)
-))
-
-(setq undo-fu-session-file-limit 150)
-
-(setq undo-limit 40000000) ; Set to 40 Mb
-(setq evil-want-fine-undo t) ; Prevent all changes acting like one big blob
-#+END_SRC
-** Own packages
-#+BEGIN_SRC emacs-lisp
-(use-package goalmap
-  :load-path "~/.doom.d/packages/goalmap")
-#+END_SRC
+#+END_EXAMPLE
 * Caveats
 :PROPERTIES:
 :VISIBILITY: folded
