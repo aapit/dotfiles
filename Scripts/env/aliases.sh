@@ -98,3 +98,8 @@ alias unlock='~/Scripts/file/gpg-dir-encrypt/unlock.sh'
 
 # Spotify
 alias spotify="$(which spotify) --force-device-scale-factor=2 > /dev/null &"
+
+# TensorFlow
+TF_DOCKER_GPU_PREFIX=$([[ `~/Scripts/display/has-gpu.sh` == '1' ]] && echo '--gpus all ')
+alias tf-docker-python="docker run $TF_DOCKER_GPU_PREFIX -it --rm $TF_IMG python -c '$1'"
+alias tf-docker-run="docker run $TF_DOCKER_GPU_PREFIX -it -u $(id -u):$(id -g) $TF_IMG bash"
