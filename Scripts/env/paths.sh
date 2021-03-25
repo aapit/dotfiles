@@ -1,7 +1,7 @@
 #export GOPATH=/usr/local/opt/golang
 #export GOROOT=/usr/local/opt/go/libexec
 #export GEM_HOME=$HOME/.gem
-#export PYTHONPATH=$HOME/.local/lib/python3/site-packages:/usr/lib/python3/dist-packages
+export PYTHONPATH="$HOME/.local/lib/python3.9/site-packages:/usr/lib/python3.9/dist-packages:$HOME/.local/lib/tensorflow-model-garden/research"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -26,6 +26,5 @@ $HOME/.local/bin:\
 $HOME/Scripts:\
 $HOME/.composer/vendor/bin:\
 $HOME/.emacs.d/bin:\
-/usr/lib/python3/dist-packages:\
-/home/linuxbrew/.linuxbrew/bin:\
+/usr/lib/python3.9/dist-packages:\
 $HOME/.cargo/bin
