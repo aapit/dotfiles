@@ -10,6 +10,7 @@ export XMONAD_CONFIG_DIR=$HOME/.config/xmonad
 export MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 export EMACSCLIENT="/snap/bin/emacsclient -c -n -s /run/user/1000/snap.emacs/emacs/aapit"
 #export KUBECONFIG="$HOME/.kube/config"
+export TF_IMG=$([[ `~/Scripts/display/has-gpu.sh` == '1' ]] && echo 'tensorflow/tensorflow:latest-gpu-jupyter' || echo 'tensorflow/tensorflow:latest-jupyter')
 
 PATH=$PATH:\
 ./vendor/bin:\
