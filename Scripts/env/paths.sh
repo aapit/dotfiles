@@ -11,6 +11,10 @@ export MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 export EMACSCLIENT="/snap/bin/emacsclient -c -n -s /run/user/1000/snap.emacs/emacs/aapit"
 #export KUBECONFIG="$HOME/.kube/config"
 export TF_IMG=$([[ `~/Scripts/display/has-gpu.sh` == '1' ]] && echo 'tensorflow/tensorflow:latest-gpu-jupyter' || echo 'tensorflow/tensorflow:latest-jupyter')
+export CUDA_BIN_PATH=/opt/cuda/bin
+export EDITOR=vim
+export VISUAL=vim
+export GIT_EDITOR=vim
 
 PATH=$PATH:\
 ./vendor/bin:\
@@ -28,4 +32,5 @@ $HOME/Scripts:\
 $HOME/.composer/vendor/bin:\
 $HOME/.emacs.d/bin:\
 /usr/lib/python3.9/dist-packages:\
-$HOME/.cargo/bin
+$HOME/.cargo/bin:\
+$CUDA_BIN_PATH
