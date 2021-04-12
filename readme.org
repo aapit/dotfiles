@@ -6,8 +6,8 @@
 [[https://github.com/aapit][@aapit]]
 
 
-This configuration is mostly geared towards my workhorse laptop,
-running Xmonad with Ubuntu 20.04 as Linux backend. I also use it to provision a cloud-based, persistent VM to preserve parity between environments.
+This configuration is mostly geared towards Arch / Manjaro with KDE.
+I also use it to provision a cloud-based, persistent VM to preserve parity between environments.
 I lean heavily towards console-based tools where possible.
 This enables me to:
 - Customize UI to suit my keyboard-driven workflow
@@ -25,10 +25,10 @@ These are some of the software packages I use and abuse most.
 |-------------------+----------------------|
 | Purpose           | Package              |
 |-------------------+----------------------|
-| OS                | =Ubuntu 20.04=         |
-| Window Manager    | =Xmonad=               |
+| OS                | =Manjaro / Arch=, =Ubuntu 20.04=         |
+| Window Manager    | =KDE Plasma=, =Xmonad=               |
 | Editors           | =(Doom) Emacs=, =Neovim= |
-| Terminal Emulator | =gnome-terminal=       |
-| Shell             | =zsh=                  |
+| Terminal Emulator | =Konsole=, =gnome-terminal=       |
+| Shell             | =zsh= with =tmux=                  |
 | Main browsers     | =Brave=, =qutebrowser=   |
 |-------------------+----------------------|
