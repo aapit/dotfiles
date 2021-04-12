@@ -80,8 +80,7 @@
     enabled = 1
 
 [commit]
-	gpgsign = true
-    #gpgsign = true
+    gpgsign = true
 
 [gpg]
     program = gpg
@@ -91,3 +90,5 @@
 
 [remote "origin"]
     prune = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
