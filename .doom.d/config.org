@@ -51,8 +51,9 @@ Setting default font and /Symbola/ as emoji fallback.
  #+BEGIN_SRC emacs-lisp
 (setenv "LANG" "en_US.UTF-8")
 
-(setq doom-font (font-spec :family "Liberation Mono" :size 26))
 (setq doom-unicode-font (font-spec :name "Symbola"))
+
+(setq doom-font (font-spec :family "Liberation Mono" :size (if (string= (system-name) "tinynozem") 38 26)))
  #+END_SRC
 *** Mouse
 [2021-01-27 Wed] Disabled the disablement, perhaps temporarily

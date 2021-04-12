@@ -17,8 +17,9 @@
 
 (setenv "LANG" "en_US.UTF-8")
 
-(setq doom-font (font-spec :family "Liberation Mono" :size 26))
 (setq doom-unicode-font (font-spec :name "Symbola"))
+
+(setq doom-font (font-spec :family "Liberation Mono" :size (if (string= (system-name) "tinynozem") 38 26)))
 
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)
