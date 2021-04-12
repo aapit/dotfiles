@@ -11,6 +11,8 @@ Lab
 Mail
 Nextcloud
 Notes
+Photos
+Pics
 Pictures
 Remotes
 Screenshots
@@ -54,7 +56,9 @@ y2
 .face
 .face.icon
 .firestorm_x64
+.fltk
 .fonts
+.fonts.conf
 .fzf.*
 .gconf
 .gdbinit
@@ -66,6 +70,7 @@ y2
 .hplip
 .httpie
 .ICEauthority
+.icons
 .ipython
 .java
 .joplin
@@ -89,6 +94,7 @@ y2
 .openshot_qt
 .paradoxlauncher
 .picocom_history
+.pip
 .pki
 .pulse-cookie
 .putty
