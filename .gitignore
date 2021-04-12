@@ -47,6 +47,7 @@ y2
 .dmrc
 .doom.d/secrets.el
 .doom.d/custom_system.el
+.doom.d/custom.el
 .dotfiles
 .emacs.d
 .espressif
