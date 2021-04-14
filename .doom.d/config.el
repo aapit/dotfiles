@@ -346,23 +346,16 @@
 ;; `org-directory' must be set before org loads.
 (setq org-directory "~/Nextcloud/org-mode/")
 
-(use-package! org-fancy-priorities
-   :defer t
-   :hook
-   (org-mode . org-fancy-priorities-mode)
-   :config
-   (setq org-fancy-priorities-list '("⚡" "👉" "⏳")))
-
 (after! org
-    (add-hook! 'org-mode-hook (lambda ()
-        (org-superstar-mode 1)
-        (org-fancy-priorities-mode 1)
-    ))
-)
+  (add-hook! 'org-mode-hook (lambda ()
+                              (org-superstar-mode 1)
+                              (org-fancy-priorities-mode 1)
+                              ))
+  )
 
 (after! org-superstar
   (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
-    org-superstar-prettify-item-bullets t))
+        org-superstar-prettify-item-bullets t))
 
 (after! org
     (setq org-agenda-dim-blocked-tasks nil)
@@ -372,8 +365,26 @@
     (setq org-agenda-sticky t)
 )
 
-(setq org-todo-keywords
-    '((sequence "TODO" "NEXT" "DONE" "PROJ" "IDEA")))
+(after! org
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)")))
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "maroon1" :weight bold)
+                ("NEXT" :foreground "light sea green")
+                ("DONE" :foreground "#888888")
+                ("PROJ" :foreground "purple1" :weight bold)
+                ("IDEA" :foreground "purple1" :weight bold)
+                )))
+  (setq-default org-export-with-todo-keywords nil)
+  (setq-default org-enforce-todo-dependencies t)
+  )
+
+(use-package! org-fancy-priorities
+  :defer t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '("⚡" "▶" "⏳")))
 
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")

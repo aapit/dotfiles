@@ -358,7 +358,7 @@ Setting default font and /Symbola/ as emoji fallback.
  ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
  ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
 #+end_example
-*** TODO Implement more capture tpl feats
+*** NEXT Implement more capture tpl feats
 - https://orgmode.org/manual/Template-elements.html
 - https://www.gnu.org/software/emacs/manual/html_node/org/Capture-templates.html
 - https://org-roam.readthedocs.io/en/master/templating/
@@ -554,23 +554,16 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 *** GUI
 Customizing the appearance of bullets and priorities.
 #+BEGIN_SRC emacs-lisp
-(use-package! org-fancy-priorities
-   :defer t
-   :hook
-   (org-mode . org-fancy-priorities-mode)
-   :config
-   (setq org-fancy-priorities-list '("⚡" "👉" "⏳")))
-
 (after! org
-    (add-hook! 'org-mode-hook (lambda ()
-        (org-superstar-mode 1)
-        (org-fancy-priorities-mode 1)
-    ))
-)
+  (add-hook! 'org-mode-hook (lambda ()
+                              (org-superstar-mode 1)
+                              (org-fancy-priorities-mode 1)
+                              ))
+  )
 
 (after! org-superstar
   (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
-    org-superstar-prettify-item-bullets t))
+        org-superstar-prettify-item-bullets t))
 #+END_SRC
 *** Performance
  #+BEGIN_SRC emacs-lisp
@@ -584,8 +577,26 @@ Customizing the appearance of bullets and priorities.
 #+END_SRC
 *** Todo
  #+BEGIN_SRC emacs-lisp
-(setq org-todo-keywords
-    '((sequence "TODO" "NEXT" "DONE" "PROJ" "IDEA")))
+(after! org
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)")))
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "maroon1" :weight bold)
+                ("NEXT" :foreground "light sea green")
+                ("DONE" :foreground "#888888")
+                ("PROJ" :foreground "purple1" :weight bold)
+                ("IDEA" :foreground "purple1" :weight bold)
+                )))
+  (setq-default org-export-with-todo-keywords nil)
+  (setq-default org-enforce-todo-dependencies t)
+  )
+
+(use-package! org-fancy-priorities
+  :defer t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '("⚡" "▶" "⏳")))
 #+END_SRC
 ** Org-roam
 :PROPERTIES:
@@ -862,15 +873,6 @@ Also see this [[https://blog.thomasheartman.com/posts/org-babel-load-file-doesnt
 
 ** Bullets
 #+begin_example elisp
-(after! 'org
-    (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
-)
-(use-package! org-bullets
-  :defer t
-  :hook (org-mode . org-bullets-mode)
-  :config
-  (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
-
 (straight-use-package 'org-bullets)
 (use-package! org-bullets
   :defer t
