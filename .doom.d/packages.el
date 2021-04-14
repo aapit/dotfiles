@@ -1,19 +1,21 @@
-;; no-byte-compile: t; -*-
+;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 (package! evil-escape :disable t)
-(package! disable-mouse)
-(package! helm-org-rifle)
-(package! simple-httpd)
-(package! org-roam-server)
-(package! emojify)
-(package! gnus-alias)
-(package! org-super-agenda)
-(package! plantuml-mode)
-(package! slack)
+(package! org-superstar)
+(package! org-fancy-priorities)
+(package! org-roam-server-light
+  :recipe (:host github :repo "AloisJanicek/org-roam-server-light"
+           :files ("*")))
+;;(package! org-super-agenda)
+;;(package! plantuml-mode)
+;;(package! emojify)
+;;(package! helm-org-rifle)
+;;(package! gnus-alias)
 
 ;; To install a package with Doom you must declare them here and run 'doom sync'
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
+
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
