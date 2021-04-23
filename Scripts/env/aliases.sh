@@ -19,7 +19,7 @@ alias du='du -hs'
 alias df='df -h'
 
 # Fd-find
-alias f='fdfind'
+alias f=$(command -v fdfind && echo 'fdfind' || echo 'fd')
 
 # Sourcing
 alias src=". ~/.zshenv"
