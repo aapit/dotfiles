@@ -75,6 +75,7 @@ alias gd='git diff'
 alias gp='git push'
 alias ga='git add .'
 alias dev='git co develop'
+alias main='git co main'
 alias master='git co master'
 alias git-push-upstream='git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)'
 
