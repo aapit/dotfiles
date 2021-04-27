@@ -23,7 +23,7 @@ alias f=$(command -v fdfind && echo 'fdfind' || echo 'fd')
 
 # Sourcing
 alias src=". ~/.zshenv"
-alias alias-edit="vim ~/Scripts/env/aliases.sh && . ~/Scripts/env/aliases.sh"
+alias alias-edit="$(which nvim) ~/Scripts/env/aliases.sh && . ~/Scripts/env/aliases.sh"
 
 # Dotfiles
 alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -33,11 +33,11 @@ alias ds="killall emacs && systemctl --user restart emacs && doom sync"
 
 # Editing and reading
 alias e="emacsclient -c -n -s /run/user/1000/emacs/aapit"
-alias v="nvim"
-alias vim="nvim"
+alias v=$(which nvim)
+alias vim=$(which nvim)
 alias cat='bat'
-alias n='nvim -c "NV!"'
-alias vim-color-edit='nvim ~/.vim/colors/spacemonkey_dark.vim'
+alias n="$(which nvim) -c 'NV!'"
+alias vim-color-edit="$(which nvim) ~/.vim/colors/spacemonkey_dark.vim"
 
 # Clipboard
 alias c="xclip -selection c"
@@ -48,16 +48,16 @@ alias ~="cd ~"
 alias dotfiles="cd ~/.dotfiles/"
 
 # Editing configurations
-alias config-edit-tmux="(cd $HOME/.config/tmux && vim $HOME/.tmux.conf && cd -)"
-alias config-edit-tmux-theme="(cd $HOME/.config/tmux/themes && vim default.conf && cd -)"
-alias config-edit-vim="(cd $HOME/.config/vim/config && vim -c 'FZF!' && cd -)"
-alias config-edit-vim-theme="(cd $HOME/.config/vim/colors && vim spacemonkey_dark.vim && cd -)"
-alias config-edit-cloudkey="(cd $HOME/Remotes/unifi-cloudkey && vim config.gateway.json && make && echo 'Now adjust a setting in the Cloudkey UI, like Local Network dhcp range, to trigger provisioning to the Security Gateway.' && xdg-open "https://cloudkey.floase.zone:8443/manage/site/default/v2/settings/networks/manage/edit/5d45683ee5c66d0dee9b68d1" && cd -)"
-alias config-edit-ha="(cd $HOME/Remotes/domo && make mount-and-symlink && nvim ./mount/configuration.yaml)"
+alias config-edit-tmux="(cd $HOME/.config/tmux && $(which nvim) $HOME/.tmux.conf && cd -)"
+alias config-edit-tmux-theme="(cd $HOME/.config/tmux/themes && $(which nvim) default.conf && cd -)"
+alias config-edit-vim="(cd $HOME/.config/vim/config && $(which nvim) -c 'FZF!' && cd -)"
+alias config-edit-vim-theme="(cd $HOME/.config/vim/colors && $(which nvim)  spacemonkey_dark.vim && cd -)"
+alias config-edit-cloudkey="(cd $HOME/Remotes/unifi-cloudkey && $(which nvim) config.gateway.json && make && echo 'Now adjust a setting in the Cloudkey UI, like Local Network dhcp range, to trigger provisioning to the Security Gateway.' && xdg-open "https://cloudkey.floase.zone:8443/manage/site/default/v2/settings/networks/manage/edit/5d45683ee5c66d0dee9b68d1" && cd -)"
+alias config-edit-ha="(cd $HOME/Remotes/domo && make mount-and-symlink && $(which nvim) ./mount/configuration.yaml)"
 alias config-edit-alias="alias-edit"
-alias config-edit-path="vim ~/Scripts/env/paths.sh && . ~/Scripts/env/paths.sh"
-alias config-edit-zsh="vim ~/.zshrc"
-alias config-edit-profile="vim $ZDOTDIR/.zprofile && . $ZDOTDIR/.zprofile"
+alias config-edit-path="$(which nvim) ~/Scripts/env/paths.sh && . ~/Scripts/env/paths.sh"
+alias config-edit-zsh="$(which nvim) ~/.zshrc"
+alias config-edit-profile="$(which nvim) $ZDOTDIR/.zprofile && . $ZDOTDIR/.zprofile"
 
 # Python
 alias py='python'
