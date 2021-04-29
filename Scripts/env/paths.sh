@@ -13,9 +13,9 @@ export EMACSCLIENT="/snap/bin/emacsclient -c -n -s /run/user/1000/snap.emacs/ema
 export TF_IMG=$([[ `~/Scripts/display/has-gpu.sh` == '1' ]] && echo 'tensorflow/tensorflow:latest-gpu-jupyter' || echo 'tensorflow/tensorflow:latest-jupyter')
 export CUDA_BIN_PATH=/opt/cuda/bin
 export LIBRARY_PATH=/opt/cuda/lib64
-export EDITOR=vim
-export VISUAL=vim
-export GIT_EDITOR=vim
+export EDITOR="$(which nvim)"
+export VISUAL="$(which nvim)"
+export GIT_EDITOR="$(which nvim)"
 
 PATH=$PATH:\
 ./vendor/bin:\
