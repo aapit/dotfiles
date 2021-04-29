@@ -62,6 +62,9 @@ alias config-edit-profile="$(which nvim) $ZDOTDIR/.zprofile && . $ZDOTDIR/.zprof
 # Python
 alias py='python'
 
+# tmux
+alias t="[ -f ~/Scripts/env/tmux.sh ] && source ~/Scripts/env/tmux.sh"
+
 # Capistrano
 alias csd='cap staging deploy'
 alias cpd='cap production deploy'

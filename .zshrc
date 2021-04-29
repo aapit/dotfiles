@@ -74,4 +74,3 @@ source $ZSH/oh-my-zsh.sh
 xrdb ~/.Xresources
 [ -f ~/Scripts/env/aliases.sh ] && source ~/Scripts/env/aliases.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/Scripts/env/tmux.sh ] && source ~/Scripts/env/tmux.sh

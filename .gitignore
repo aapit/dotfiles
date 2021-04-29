@@ -7,6 +7,7 @@ Documents
 Downloads
 firestorm
 Fonts
+go
 Lab
 Mail
 Nextcloud
@@ -43,6 +44,7 @@ y2
 .cabal
 .cache
 .cargo
+.cmake
 .config
 .cups
 .dbus
