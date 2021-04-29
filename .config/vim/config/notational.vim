@@ -18,7 +18,7 @@ nnoremap <silent> <C-g>l :call FZFOpen(':BLines')<CR>
 
 "nnoremap
 nnoremap <C-n> :Goyo!<cr>:<C-u>NV!<cr>
-let g:nv_search_paths = ['~/Nextcloud/Notes-Joplin']
+let g:nv_search_paths = ['~/Notes']
 let g:nv_preview_direction = 'right'
 let g:nv_create_note_window = 'edit'
 let g:vim_markdown_no_extensions_in_markdown = 1
