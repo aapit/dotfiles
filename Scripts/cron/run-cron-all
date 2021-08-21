@@ -1,6 +1,0 @@
-#!/bin/bash
-$HOME/Scripts/cron/run-cron-urgency-0; \
-$HOME/Scripts/cron/run-cron-urgency-1; \
-$HOME/Scripts/cron/run-cron-urgency-2; \
-$HOME/Scripts/cron/run-cron-urgency-3; \
-$HOME/Scripts/cron/run-cron-urgency-4

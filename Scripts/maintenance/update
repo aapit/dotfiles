@@ -1,6 +1,0 @@
-#!/bin/sh
-sudo apt update && \
-sudo apt -y upgrade &&
-sudo apt -y autoremove
-brew update
-$HOME/.emacs.d/bin/doom upgrade -f

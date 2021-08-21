@@ -1,8 +1,0 @@
-#!/bin/sh
-cd $HOME/Mail/account.personal && \
-echo "Syncing personal mail" && \
-$HOME/.local/bin/gmi sync;
-cd $HOME/Mail/account.grrr && \
-echo "Syncing grrr mail" && \
-$HOME/.local/bin/gmi sync;
-/usr/bin/notmuch new

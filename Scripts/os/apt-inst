@@ -1,4 +1,0 @@
-#!/bin/sh
-if [ -z "$1" ]; then echo 'Please provide the apt package name(s) you would like to install.' && exit 1; fi
-echo "Installing ${@}"
-sudo apt install -y ${@}

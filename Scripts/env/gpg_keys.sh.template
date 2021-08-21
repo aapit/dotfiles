@@ -1,2 +1,0 @@
-export GPG_TTY=$(tty)
-export GPG_ENCRYPT_ARCHIVE_RECIPIENT=me@example.com

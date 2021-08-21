@@ -1,1 +1,0 @@
-switch-samsung-U28E570.sh

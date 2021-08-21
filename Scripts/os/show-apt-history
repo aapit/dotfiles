@@ -1,8 +1,0 @@
-#!/bin/sh
-# Author David Spreekmeester | @aapit
-(zcat $(ls -tr /var/log/apt/history.log*.gz); cat /var/log/apt/history.log) 2>/dev/null |                                                 
-  grep -v aptdaemon |
-  egrep '^Commandline:'|
-  grep 'apt ' |
-  grep -v 'apt upgrade' |
-  cut -d' ' -f 2-
