@@ -1,5 +1,6 @@
 Apps
 Applications
+Backup
 Backups
 Books
 Desktop
@@ -17,6 +18,7 @@ Pics
 Pictures
 Remotes
 Screenshots
+Scripts
 Scripts/env/tokens.sh
 Scripts/env/tmux*.log
 Scripts/file/download-organizer
@@ -125,3 +127,4 @@ y2
 .zcompdump*
 .zhistory
 .zshrc.*
+/*.backup-*
