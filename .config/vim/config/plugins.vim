@@ -54,5 +54,7 @@ Plug 'vim-scripts/vim-auto-save'
 " Shows visual guidelines for indentation levels
 Plug 'Yggdroot/indentLine'
 Plug 'dracula/vim', { 'as': 'dracula' }
+" Tidal Cycles, live music coding
+Plug 'tidalcycles/vim-tidal'
 
 call plug#end()
