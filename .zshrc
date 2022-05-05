@@ -74,3 +74,5 @@ source $ZSH/oh-my-zsh.sh
 xrdb ~/.Xresources
 [ -f ~/Scripts/env/aliases.sh ] && source ~/Scripts/env/aliases.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval $(ssh-agent)
+[ -f ~/Scripts/env/ssh_keys.sh ] && source ~/Scripts/env/ssh_keys.sh
