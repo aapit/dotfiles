@@ -159,10 +159,25 @@
         :file-name "${slug}"
         :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: software tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
         :unnarrowed t)
+        ; Hardware
+        ("h" "Hardware" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: hardware tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
         ; GRRR Project
-        ("p" "GRRR Project" plain #'org-roam-capture--get-point "%?"
+        ("g" "GRRR Project" plain #'org-roam-capture--get-point "%?"
         :file-name "${slug}"
         :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: grrr project\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+        ; Person
+        ("p" "Person" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: person\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+        ; Substance
+        ("u" "Substance" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: substance\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
         :unnarrowed t)
     )
 )
@@ -190,7 +205,7 @@
                 :unnarrowed t)
             ; Health
             ("lh" "Health" entry (file+olp+datetree "~/Notes/healthlog.org")
-                "* %U \n|Sys|%?|\n|Dia||\n|Puls||\n|SpO2||\n|Methyl|\n|Coffee||\n"
+                "* %U \n|Moe (1-10)|%?|\n|Tinnitus (1-10)||\n|Puls||\n|Sys||\n|Dia||\n|Coffee||\n"
                 :tree-type week
                 :prepend t
                 :unnarrowed t)
