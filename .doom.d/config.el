@@ -154,25 +154,35 @@
         :file-name "${slug}"
         :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: \n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
         :unnarrowed t)
-        ; Software
-        ("s" "Software" plain #'org-roam-capture--get-point "%?"
+        ; Company
+        ("c" "Company" plain #'org-roam-capture--get-point "%?"
         :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: software tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
-        :unnarrowed t)
-        ; Hardware
-        ("h" "Hardware" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: hardware tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: company\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
         :unnarrowed t)
         ; GRRR Project
         ("g" "GRRR Project" plain #'org-roam-capture--get-point "%?"
         :file-name "${slug}"
         :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: grrr project\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
         :unnarrowed t)
+        ; Hardware
+        ("h" "Hardware" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: hardware tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+        ; Location
+        ("l" "Location" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: geo\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
         ; Person
         ("p" "Person" plain #'org-roam-capture--get-point "%?"
         :file-name "${slug}"
         :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: person\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        :unnarrowed t)
+        ; Software
+        ("s" "Software" plain #'org-roam-capture--get-point "%?"
+        :file-name "${slug}"
+        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: software tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
         :unnarrowed t)
         ; Substance
         ("u" "Substance" plain #'org-roam-capture--get-point "%?"
@@ -205,7 +215,7 @@
                 :unnarrowed t)
             ; Health
             ("lh" "Health" entry (file+olp+datetree "~/Notes/healthlog.org")
-                "* %U \n|Moe (1-10)|%?|\n|Tinnitus (1-10)||\n|Puls||\n|Sys||\n|Dia||\n|Coffee||\n"
+                "* %U \n|Moe (1-10)|%?|\n|Tinnitus (1-10)||\n|Sleep Score||\n|Puls||\n|Sys||\n|Dia||\n|Coffee||\n"
                 :tree-type week
                 :prepend t
                 :unnarrowed t)
