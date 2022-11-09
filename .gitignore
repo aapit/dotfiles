@@ -12,8 +12,7 @@ go
 Lab
 Mail
 Nextcloud
-Notes
-Photos
+Notes Photos
 Pics
 Pictures
 Remotes
@@ -69,6 +68,7 @@ y2
 .ghc
 .gnome
 .gnupg
+.gnuplot_history
 .gsutil
 .gtk-bookmarks
 .hplip
