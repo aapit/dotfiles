@@ -11,8 +11,10 @@ Fonts
 go
 Lab
 Mail
+mycroft-core
 Nextcloud
-Notes Photos
+Notes
+Photos
 Pics
 Pictures
 Remotes
@@ -87,6 +89,7 @@ y2
 .local
 .mono
 .mozilla
+.mycroft
 .mysql_history
 .node_repl_history
 .notmuch-config
@@ -100,6 +103,7 @@ y2
 .picocom_history
 .pip
 .pki
+.profile_mycroft
 .pulse-cookie
 .putty
 .python_history
