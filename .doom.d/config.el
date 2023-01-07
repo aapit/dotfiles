@@ -150,44 +150,44 @@
 (setq org-roam-capture-templates
     `(
         ; Default
-        ("d" "Default" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: \n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("d" "Default" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: \n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Company
-        ("c" "Company" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: company\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("c" "Company" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :company:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; GRRR Project
-        ("g" "GRRR Project" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: grrr project\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("g" "GRRR Project" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :grrr:project:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Hardware
-        ("h" "Hardware" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: hardware tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("h" "Hardware" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :hardware:tech:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Location
-        ("l" "Location" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: geo\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("l" "Location" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :geo:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Person
-        ("p" "Person" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: person\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("p" "Person" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :person:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Software
-        ("s" "Software" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: software tech\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("s" "Software" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :software:tech:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Substance
-        ("u" "Substance" plain #'org-roam-capture--get-point "%?"
-        :file-name "${slug}"
-        :head "%(concat \"#+TITLE: ${title}\n#+roam_alias: \n#+roam_tags: substance\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n* \" (upcase-initials \"${title}\") \"\n\")"
+        ("u" "Substance" plain "%?"
+        :target (file+head "${slug}.org"
+            "%(concat \"#+title: ${title}\n#+filetags: :substance:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
     )
 )
