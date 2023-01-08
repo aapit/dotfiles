@@ -154,6 +154,11 @@
         :target (file+head "${slug}.org"
             "%(concat \"#+title: ${title}\n#+filetags: \n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
+        ; Encrypted
+        ("e" "Encrypted" plain "%?"
+        :target (file+head "${slug}.org.gpg"
+            "%(concat \"#+title: ${title}\n#+filetags: \n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
+        :unnarrowed t)
         ; Company
         ("c" "Company" plain "%?"
         :target (file+head "${slug}.org"
@@ -208,7 +213,7 @@
             ; Log Group
             ("l" "Log")
             ; B log
-            ("lb" "B log" entry (file+olp+datetree "~/Notes/hashlog.org")
+            ("lb" "B log" entry (file+olp+datetree "~/Notes/hashlog.org.gpg")
                 "* %U %?\n%i\n"
                 :tree-type week
                 :prepend t
