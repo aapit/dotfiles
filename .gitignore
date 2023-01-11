@@ -1,3 +1,5 @@
+Android
+AndroidStudioProjects
 Apps
 Applications
 Backup
@@ -10,6 +12,7 @@ firestorm
 Fonts
 go
 Lab
+mail
 Mail
 mycroft-core
 Nextcloud
@@ -58,6 +61,7 @@ y2
 .doom.d/custom.el
 .dotfiles
 .emacs.d
+.emulator_console_auth_token
 .espressif
 .face
 .face.icon
@@ -69,9 +73,11 @@ y2
 .gconf
 .gdbinit
 .ghc
+.gmailieer.json
 .gnome
 .gnupg
 .gnuplot_history
+.gradle
 .gsutil
 .gtk-bookmarks
 .hplip
@@ -91,6 +97,7 @@ y2
 .lesshst
 .local
 .logseq
+.m2
 .mono
 .mozilla
 .mycroft
