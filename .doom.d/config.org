@@ -218,7 +218,6 @@ Setting default font and /Symbola/ as emoji fallback.
         :prefix "n"
         :desc "Find, Insert note" "q" #'org-roam-node-find
         :desc "Graph server" "g" #'org-roam-server-mode
-        :desc "Rifle" "." #'helm-org-rifle
         :desc "Headline link" "h" #'counsel-org-link
 )
 #+END_SRC
