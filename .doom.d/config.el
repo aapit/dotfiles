@@ -132,7 +132,7 @@
         :map org-mode-map
         :leader
         :prefix "n"
-        :desc "Find, Insert note" "q" #'org-roam-find-file
+        :desc "Find, Insert note" "q" #'org-roam-node-find
         :desc "Graph server" "g" #'org-roam-server-mode
         :desc "Rifle" "." #'helm-org-rifle
         :desc "Headline link" "h" #'counsel-org-link
