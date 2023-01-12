@@ -140,6 +140,7 @@ y2
 .yarn
 .yarnrc
 .zcompdump*
+.zeroTierOneAuthToken
 .zhistory
 .zshrc.*
 /*.backup-*
