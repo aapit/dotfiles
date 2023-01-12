@@ -446,6 +446,9 @@
    )
   )
 
+(setq org-roam-node-display-template
+      (concat "${doom-hierarchy:*} " (propertize "${doom-tags:42}" 'face 'org-tag)))
+
 ;; org-ql for queries
 ;(use-package org-ql)
 

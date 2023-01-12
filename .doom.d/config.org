@@ -692,7 +692,12 @@ It uses the generic server as a content API.
     ;  :load-path "~/.local/share/org-roam-server")
 #+END_EXAMPLE
 *** Search
+Display template voor node search.
+In eerste instantie werd de note titel ingekort tot te weinig karakters.
  #+BEGIN_SRC emacs-lisp
+(setq org-roam-node-display-template
+      (concat "${doom-hierarchy:*} " (propertize "${doom-tags:42}" 'face 'org-tag)))
+
 ;; org-ql for queries
 ;(use-package org-ql)
 
@@ -701,6 +706,9 @@ It uses the generic server as a content API.
 ;  :after org
 ;)
 #+END_SRC
+[2023-01-12 Thu]
+Jethro laat ook custom attributen zien bij de resultaten:
+https://jethrokuan.github.io/org-roam-guide/
 ** Deft
 :PROPERTIES:
 :VISIBILITY: folded
