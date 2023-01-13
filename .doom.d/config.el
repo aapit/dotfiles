@@ -330,6 +330,9 @@
 
 (setq notmuch-fcc-dirs nil)
 
+;; `org-directory' must be set before org loads.
+(setq org-directory "~/Notes/")
+
 (setq org-agenda-custom-commands
     '(
         ("b" "Both" agenda "Universeel"
@@ -372,9 +375,6 @@
     (add-to-list 'org-latex-packages-alist "\\setlength\\parindent{0pt}" t)
 )
 
-;; `org-directory' must be set before org loads.
-(setq org-directory "~/Nextcloud/org-mode/")
-
 (after! org
   (add-hook! 'org-mode-hook (lambda ()
                               (org-superstar-mode 1)
@@ -393,6 +393,23 @@
     (setq org-agenda-ignore-properties '(visibility category))
     (setq org-agenda-sticky t)
 )
+
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
+
+;; Build the agenda list the first time for the session
+(my/org-roam-refresh-agenda-list)
 
 (after! org
   (setq org-todo-keywords

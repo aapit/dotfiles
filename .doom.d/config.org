@@ -5,7 +5,7 @@
 :VISIBILITY: children
 :header-args: :tangle "config.el" :results silent
 :END:
-** Initialization
+** initialization
 :PROPERTIES:
 :VISIBILITY: folded
 :END:
@@ -13,7 +13,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ; Generated config by @aapit
  #+END_SRC
-** General
+** general
 :PROPERTIES:
 :VISIBILITY: content
 :END:
@@ -221,7 +221,7 @@ Setting default font and /Symbola/ as emoji fallback.
         :desc "Headline link" "h" #'counsel-org-link
 )
 #+END_SRC
-** Capture templates
+** capture templates
 *** Org Ref templates
  #+BEGIN_SRC emacs-lisp
 (setq org-roam-ref-capture-templates
@@ -498,8 +498,13 @@ Since your emails will be saved automatically on GMail when sending them with Li
 :PROPERTIES:
 :VISIBILITY: content
 :END:
-*** Agenda
-**** Custom Agenda views
+*** general
+ #+BEGIN_SRC emacs-lisp
+;; `org-directory' must be set before org loads.
+(setq org-directory "~/Notes/")
+#+END_SRC
+*** agenda
+**** custom agenda views
  #+BEGIN_SRC emacs-lisp
 (setq org-agenda-custom-commands
     '(
@@ -512,7 +517,7 @@ Since your emails will be saved automatically on GMail when sending them with Li
     )
 )
 #+END_SRC
-**** Agenda groups
+**** agenda groups
 #+BEGIN_SRC emacs-lisp
 ;(let ((org-super-agenda-groups
 ;       '((:auto-category t))))
@@ -530,7 +535,7 @@ Since your emails will be saved automatically on GMail when sending them with Li
                      :scheduled future
                      :order 1)))
 #+END_SRC
-*** Export
+*** export
 Setting some non-insane defaults for LaTeX PDF export and such.
 
 **** Links
@@ -575,11 +580,6 @@ https://github.com/xgarrido/org-resume should provide enough working examples.
 - [[https://www.overleaf.com/learn/latex/Font_sizes,_families,_and_styles][Very clear guide]] by Overleaf
 - Some settings are inspired by:
   [[http://clothoid.html.xdomain.jp/2018/org-latex-pdf-with-minted-python.html][Clothoid's org-latex-pdf user config]]
-*** General
- #+BEGIN_SRC emacs-lisp
-;; `org-directory' must be set before org loads.
-(setq org-directory "~/Nextcloud/org-mode/")
-#+END_SRC
 *** GUI
 Customizing the appearance of bullets and priorities.
 #+BEGIN_SRC emacs-lisp
@@ -594,7 +594,7 @@ Customizing the appearance of bullets and priorities.
   (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
         org-superstar-prettify-item-bullets t))
 #+END_SRC
-*** Performance
+*** performance
  #+BEGIN_SRC emacs-lisp
 (after! org
     (setq org-agenda-dim-blocked-tasks nil)
@@ -604,7 +604,28 @@ Customizing the appearance of bullets and priorities.
     (setq org-agenda-sticky t)
 )
 #+END_SRC
-*** Todo
+*** todo
+**** use only tagged files as todo files
+=org-agenda-files= sets the source dir for the todo list.
+#+BEGIN_SRC emacs-lisp
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
+
+;; Build the agenda list the first time for the session
+(my/org-roam-refresh-agenda-list)
+#+END_SRC
+**** todo settings
  #+BEGIN_SRC emacs-lisp
 (after! org
   (setq org-todo-keywords
@@ -631,7 +652,7 @@ Customizing the appearance of bullets and priorities.
 :PROPERTIES:
 :VISIBILITY: content
 :END:
-*** General
+*** general
  #+BEGIN_SRC emacs-lisp
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
@@ -645,7 +666,7 @@ Customizing the appearance of bullets and priorities.
 ;  :config
 ;  (set-company-backend! 'org-roam-mode 'company-org-roam))
 #+END_SRC
-*** Graph / Server
+*** graph / server
 **** org-roam-server-light
 #+begin_src emacs-lisp
 (use-package! org-roam-server-light
@@ -691,7 +712,7 @@ It uses the generic server as a content API.
     ;  :after org
     ;  :load-path "~/.local/share/org-roam-server")
 #+END_EXAMPLE
-*** Search
+*** search
 Display template voor node search.
 In eerste instantie werd de note titel ingekort tot te weinig karakters.
  #+BEGIN_SRC emacs-lisp
@@ -774,7 +795,7 @@ https://jethrokuan.github.io/org-roam-guide/
  #+BEGIN_SRC emacs-lisp
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
 #+END_SRC
-** Disabled
+** disabled
 *** RSS
 #+BEGIN_EXAMPLE emacs-lisp
 (elfeed-org)
