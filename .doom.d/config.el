@@ -333,6 +333,24 @@
 ;; `org-directory' must be set before org loads.
 (setq org-directory "~/Notes/")
 
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (seq-uniq (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list)))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
+
+;; Build the agenda list the first time for the session
+(after! org-roam
+    (my/org-roam-refresh-agenda-list))
+
 (setq org-agenda-custom-commands
     '(
         ("b" "Both" agenda "Universeel"
@@ -394,23 +412,6 @@
     (setq org-agenda-sticky t)
 )
 
-(defun my/org-roam-filter-by-tag (tag-name)
-  (lambda (node)
-    (member tag-name (org-roam-node-tags node))))
-
-(defun my/org-roam-list-notes-by-tag (tag-name)
-  (mapcar #'org-roam-node-file
-          (seq-filter
-           (my/org-roam-filter-by-tag tag-name)
-           (org-roam-node-list))))
-
-(defun my/org-roam-refresh-agenda-list ()
-  (interactive)
-  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
-
-;; Build the agenda list the first time for the session
-(my/org-roam-refresh-agenda-list)
-
 (after! org
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)")))
@@ -463,9 +464,10 @@
    )
   )
 
-(setq org-roam-node-display-template
-      (concat "${doom-hierarchy:*} " (propertize "${doom-tags:42}" 'face 'org-tag)))
-
+(after! org
+    (setq org-roam-node-display-template
+        (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
+)
 ;; org-ql for queries
 ;(use-package org-ql)
 

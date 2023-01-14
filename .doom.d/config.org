@@ -498,10 +498,40 @@ Since your emails will be saved automatically on GMail when sending them with Li
 :PROPERTIES:
 :VISIBILITY: content
 :END:
-*** general
+*** dirs
+**** set Org dir
+#+begin_quote
+Where are my Org files typically located? Org acutally uses this variable only under rare circumstances, like when filing remember notes in an interactive way and prompting you for an Org file to put the note into.
+#+end_quote
+[[https://orgmode.org/worg/org-configs/org-customization-guide.html][Org customization guide]]
  #+BEGIN_SRC emacs-lisp
 ;; `org-directory' must be set before org loads.
 (setq org-directory "~/Notes/")
+#+END_SRC
+**** use only tagged files as todo files
+=org-agenda-files= sets the source dir for the todo list.
+#+begin_quote
+Which files do I want to be checked for entries when compiling my agenda?
+#+end_quote
+[[https://orgmode.org/worg/org-configs/org-customization-guide.html][Org customization guide]]
+#+BEGIN_SRC emacs-lisp
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (seq-uniq (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list)))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
+
+;; Build the agenda list the first time for the session
+(after! org-roam
+    (my/org-roam-refresh-agenda-list))
 #+END_SRC
 *** agenda
 **** custom agenda views
@@ -605,26 +635,6 @@ Customizing the appearance of bullets and priorities.
 )
 #+END_SRC
 *** todo
-**** use only tagged files as todo files
-=org-agenda-files= sets the source dir for the todo list.
-#+BEGIN_SRC emacs-lisp
-(defun my/org-roam-filter-by-tag (tag-name)
-  (lambda (node)
-    (member tag-name (org-roam-node-tags node))))
-
-(defun my/org-roam-list-notes-by-tag (tag-name)
-  (mapcar #'org-roam-node-file
-          (seq-filter
-           (my/org-roam-filter-by-tag tag-name)
-           (org-roam-node-list))))
-
-(defun my/org-roam-refresh-agenda-list ()
-  (interactive)
-  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
-
-;; Build the agenda list the first time for the session
-(my/org-roam-refresh-agenda-list)
-#+END_SRC
 **** todo settings
  #+BEGIN_SRC emacs-lisp
 (after! org
@@ -716,9 +726,10 @@ It uses the generic server as a content API.
 Display template voor node search.
 In eerste instantie werd de note titel ingekort tot te weinig karakters.
  #+BEGIN_SRC emacs-lisp
-(setq org-roam-node-display-template
-      (concat "${doom-hierarchy:*} " (propertize "${doom-tags:42}" 'face 'org-tag)))
-
+(after! org
+    (setq org-roam-node-display-template
+        (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
+)
 ;; org-ql for queries
 ;(use-package org-ql)
 
