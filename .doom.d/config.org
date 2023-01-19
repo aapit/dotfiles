@@ -53,7 +53,7 @@ Setting default font and /Symbola/ as emoji fallback.
 
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
-(setq doom-font (font-spec :family "Liberation Mono" :size (if (string= (system-name) "tinynozem") 38 26)))
+(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 26)))
  #+END_SRC
 *** Mouse
 [2021-01-27 Wed] Disabled the disablement, perhaps temporarily
@@ -215,10 +215,13 @@ Setting default font and /Symbola/ as emoji fallback.
 (map! :after org-roam
         :map org-mode-map
         :leader
+        :desc "Find, Insert note" "v" #'org-roam-node-find
+)
+(map! :after org-roam
+        :map org-mode-map
+        :leader
         :prefix "n"
-        :desc "Find, Insert note" "q" #'org-roam-node-find
         :desc "Graph server" "g" #'org-roam-server-mode
-        :desc "Headline link" "h" #'counsel-org-link
 )
 #+END_SRC
 ** capture templates

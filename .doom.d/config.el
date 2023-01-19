@@ -19,7 +19,7 @@
 
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
-(setq doom-font (font-spec :family "Liberation Mono" :size (if (string= (system-name) "tinynozem") 38 26)))
+(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 26)))
 
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)
@@ -131,10 +131,13 @@
 (map! :after org-roam
         :map org-mode-map
         :leader
+        :desc "Find, Insert note" "v" #'org-roam-node-find
+)
+(map! :after org-roam
+        :map org-mode-map
+        :leader
         :prefix "n"
-        :desc "Find, Insert note" "q" #'org-roam-node-find
         :desc "Graph server" "g" #'org-roam-server-mode
-        :desc "Headline link" "h" #'counsel-org-link
 )
 
 (setq org-roam-ref-capture-templates
