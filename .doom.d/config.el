@@ -19,7 +19,7 @@
 
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
-(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 26)))
+(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 36)))
 
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)

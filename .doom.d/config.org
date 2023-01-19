@@ -53,7 +53,7 @@ Setting default font and /Symbola/ as emoji fallback.
 
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
-(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 26)))
+(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 36)))
  #+END_SRC
 *** Mouse
 [2021-01-27 Wed] Disabled the disablement, perhaps temporarily
