@@ -5,6 +5,8 @@
 (setq
  display-time-format "%H:%M"
  display-time-24hr-format t)
+(setq system-time-locale "nl_NL.utf8")
+(setenv "LANG" "nl_NL.utf8")
 
 (load! "secrets.el" doom-private-dir)
 

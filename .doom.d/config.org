@@ -20,13 +20,14 @@
 *** Locale
 In my geographic area, the week starts on Monday (=1=).
 Default is Sunday (=0=).
-
- #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (setq calendar-week-start-day 1)
 (setq
  display-time-format "%H:%M"
  display-time-24hr-format t)
- #+END_SRC
+(setq system-time-locale "nl_NL.utf8")
+(setenv "LANG" "nl_NL.utf8")
+#+END_SRC
 *** Secrets
  #+BEGIN_SRC emacs-lisp
 (load! "secrets.el" doom-private-dir)
