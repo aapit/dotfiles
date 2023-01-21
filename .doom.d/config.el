@@ -168,11 +168,6 @@
         :target (file+head "${slug}.org"
             "%(concat \"#+title: ${title}\n#+filetags: :company:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
-        ; GRRR Project
-        ("g" "GRRR Project" plain "%?"
-        :target (file+head "${slug}.org"
-            "%(concat \"#+title: ${title}\n#+filetags: :grrr:project:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
-        :unnarrowed t)
         ; Hardware
         ("h" "Hardware" plain "%?"
         :target (file+head "${slug}.org"
