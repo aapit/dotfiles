@@ -176,7 +176,7 @@
         ; Hardware
         ("h" "Hardware" plain "%?"
         :target (file+head "${slug}.org"
-            "%(concat \"#+title: ${title}\n#+filetags: :hardware:tech:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
+            "%(concat \"#+title: ${title}\n#+filetags: :hardware:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Location
         ("l" "Location" plain "%?"
@@ -191,7 +191,7 @@
         ; Software
         ("s" "Software" plain "%?"
         :target (file+head "${slug}.org"
-            "%(concat \"#+title: ${title}\n#+filetags: :software:tech:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
+            "%(concat \"#+title: ${title}\n#+filetags: :software:\n#+date: \" (format-time-string \"%Y-%m-%d\" (current-time) t) \"\n\")")
         :unnarrowed t)
         ; Substance
         ("u" "Substance" plain "%?"
