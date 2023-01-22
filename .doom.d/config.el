@@ -202,11 +202,7 @@
             ; Todo Group
             ("t" "Todo")
             ; Inbox home
-            ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo-thuis.org" "Inbox")
-                "* TODO %?\n%i\n"
-                :unnarrowed t)
-            ; Inbox GRRR
-            ("tg" "Todo GRRR" entry (file+headline "~/Notes/todo-grrr.org" "Inbox")
+            ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo.org" "Inbox")
                 "* TODO %?\n%i\n"
                 :unnarrowed t)
             ; Log Group
@@ -439,12 +435,6 @@
 (setq org-roam-buffer "Org-roam Sidebar")
 (setq org-roam-completion-system 'default)
 
-;(use-package! company-org-roam
-;  :when (featurep! :completion company)
-;  :after org-roam
-;  :config
-;  (set-company-backend! 'org-roam-mode 'company-org-roam))
-
 (use-package! org-roam-server-light
   :after org-roam
   :commands org-roam-server-light-mode
@@ -464,7 +454,7 @@
    )
   )
 
-(after! org
+(after! org-roam
     (setq org-roam-node-display-template
         (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
 )

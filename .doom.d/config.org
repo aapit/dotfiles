@@ -1,7 +1,9 @@
 # -*- mode: org; coding: utf-8; -*-
- #+AUTHOR: David Spreekmeester @aapit
-* David's Doom Emacs Config
+#+author: David Spreekmeester @aapit
+#+filetags: :software:
+* David's Doom Emacs config
 :PROPERTIES:
+:ID:       abdb11e5-c174-4550-87c4-2a114128274c
 :VISIBILITY: children
 :header-args: :tangle "config.el" :results silent
 :END:
@@ -292,11 +294,7 @@ Setting default font and /Symbola/ as emoji fallback.
             ; Todo Group
             ("t" "Todo")
             ; Inbox home
-            ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo-thuis.org" "Inbox")
-                "* TODO %?\n%i\n"
-                :unnarrowed t)
-            ; Inbox GRRR
-            ("tg" "Todo GRRR" entry (file+headline "~/Notes/todo-grrr.org" "Inbox")
+            ("tt" "Todo Thuis" entry (file+headline "~/Notes/todo.org" "Inbox")
                 "* TODO %?\n%i\n"
                 :unnarrowed t)
             ; Log Group
@@ -668,12 +666,6 @@ Customizing the appearance of bullets and priorities.
 (setq org-roam-buffer-width 0.17)
 (setq org-roam-buffer "Org-roam Sidebar")
 (setq org-roam-completion-system 'default)
-
-;(use-package! company-org-roam
-;  :when (featurep! :completion company)
-;  :after org-roam
-;  :config
-;  (set-company-backend! 'org-roam-mode 'company-org-roam))
 #+END_SRC
 *** graph / server
 **** org-roam-server-light
@@ -725,7 +717,7 @@ It uses the generic server as a content API.
 Display template voor node search.
 In eerste instantie werd de note titel ingekort tot te weinig karakters.
  #+BEGIN_SRC emacs-lisp
-(after! org
+(after! org-roam
     (setq org-roam-node-display-template
         (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
 )
@@ -876,13 +868,13 @@ https://jethrokuan.github.io/org-roam-guide/
 ;   ",2" 'slack-message-embed-mention
 ;   ",3" 'slack-message-embed-channel))
 #+END_EXAMPLE
-* Caveats
+* caveats
 :PROPERTIES:
 :VISIBILITY: folded
 :END:
 Apparently, =org-babel= interprets source blocks with type =emacs-lisp=, but not with =elisp=.
 Also see this [[https://blog.thomasheartman.com/posts/org-babel-load-file-doesnt-tangle-correctly][blog post on org-babel incorrect tangling]].
-* Disabled
+* disabled
 :PROPERTIES:
 :VISIBILITY: folded
 :END:
