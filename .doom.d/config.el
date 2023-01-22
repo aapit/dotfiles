@@ -224,13 +224,6 @@
                 :tree-type week
                 :prepend t
                 :unnarrowed t)
-            ; GRRR log
-            ("lg" "GRRR log" entry (file+olp+datetree "~/Notes/grrr-log.org")
-                "* %U %?\n%i\n"
-                :tree-type week
-                :clock-in t
-                :prepend t
-                :unnarrowed t)
         )
     )
 )
@@ -240,13 +233,11 @@
     :leader
     :prefix ("d" . "todo")
     :desc "Thuis" "t" (lambda () (interactive) (org-capture nil "tt"))
-    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "tg"))
 )
 ;; Capture shortcuts: Logs
 (map!
     :leader
     :prefix ("l" . "log")
-    :desc "GRRR" "g" (lambda () (interactive) (org-capture nil "lg"))
     :desc "B log" "b" (lambda () (interactive) (org-capture nil "lb"))
     :desc "Health log" "h" (lambda () (interactive) (org-capture nil "lh"))
     :desc "Journal" "j" (lambda () (interactive) (org-capture nil "lj"))
@@ -281,19 +272,12 @@
         nil ;; No extra headers
         nil ;; No extra body text
         "~/Templates/mail-signatures/personal.txt")
-    ("grrr"
-        nil
-        "David Spreekmeester <david@grrr.nl>"
-        "GRRR"
-        nil
-        nil
-        "~/Templates/mail-signatures/grrr.txt")))
-(setq gnus-alias-default-identity "grrr")
+(setq gnus-alias-default-identity "personal")
 ;; Define rules to match work identity
 (setq gnus-alias-identity-rules
     '(
-        ("grrr"
-        ("any" "<\\(.+\\)\\@grrr\\.nl" both) "grrr")
+        ("personal"
+        ("any" "<\\(.+\\)\\@spreekmeester\\.nl" both) "personal")
         )
     )
 
@@ -308,19 +292,12 @@
     (when (eq major-mode 'message-mode)
         (gnus-alias-use-identity "personal"))
 )
-(defun aap/set-mail-sender-grrr ()
-    (interactive)
-    (setq message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/Mail/account.grrr"))
-    (when (eq major-mode 'message-mode)
-        (gnus-alias-use-identity "grrr"))
-)
 
-(aap/set-mail-sender-grrr)
+(aap/set-mail-sender-personal)
 
 (map! :leader
     :prefix ("M" . "mail")
     :desc "personal" "p" #'aap/set-mail-sender-personal
-    :desc "grrr" "g" #'aap/set-mail-sender-grrr
     :desc "select identity" "s" #'gnus-alias-select-identity
 )
 
@@ -349,12 +326,8 @@
 
 (setq org-agenda-custom-commands
     '(
-        ("b" "Both" agenda "Universeel"
-         ((org-agenda-files '("~/Notes/todo-thuis.org" "~/Nextcloud/org-mode/notes/todo-grrr.org"))))
-        ("z" "Zelf" agenda "Persoonlijk"
-         ((org-agenda-files '("~/Notes/todo-thuis.org"))))
-        ("g" "GRRR" agenda "Werk"
-         ((org-agenda-files '("~/Notes/todo-grrr.org"))))
+        ("t" "Thuis" agenda "Persoonlijk"
+         ((org-agenda-files '("~/Notes/todo.org"))))
     )
 )
 
