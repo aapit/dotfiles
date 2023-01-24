@@ -30,17 +30,17 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
-                                        ; Remove window chrome
+                                        ; remove window chrome
 (setq default-frame-alist '((undecorated . t)))
 
 (add-hook 'emacs-startup-hook (lambda ()
                                         ;(toggle-frame-fullscreen)
                                         ;(display-battery-mode)
-                                (delete-selection-mode 1) ; Replace selection when inserting text
+                                (delete-selection-mode 1) ; replace selection when inserting text
                                 ))
 
 (defun doom-modeline-conditional-buffer-encoding ()
-  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
+  "we expect the encoding to be lf utf-8, so only show the modeline when this is not the case"
   (setq-local doom-modeline-buffer-encoding
               (unless (or (eq buffer-file-coding-system 'utf-8-unix)
                           (eq buffer-file-coding-system 'utf-8)))))
@@ -48,29 +48,29 @@
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
 (when (> (display-pixel-width) '1200)
-  (set-popup-rule! "*Org Agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*Capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*org agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
 (when (<= (display-pixel-width) '1200)
-  (set-popup-rule! "*Org Agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*Capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3))
 
 (setq org-agenda-span 'week)
 
-;; Hide /emphasis markers for italics/ in org-mode
+;; hide /emphasis markers for italics/ in org-mode
 (setq org-hide-emphasis-markers t)
 
-; Disabling for performance, for now
+; disabling for performance, for now
 ;(setq org-startup-with-inline-images t)
 
-(setq-default org-download-image-dir "~/Nextcloud/org-mode/pics")
+(setq-default org-download-image-dir "~/nextcloud/org-mode/pics")
 
-;; Follow output
+;; follow output
 (setq compilation-scroll-output t)
 
 ;; Open
@@ -98,7 +98,7 @@
    :n "`" #'other-window
    :n "c" '(lambda () (interactive)(+workspace/new))
    :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
-   :n "M-x" #'evil-window-delete
+   :n "m-x" #'evil-window-delete
 )
 
 (map! :after evil-org
@@ -271,15 +271,14 @@
         nil ;; No organization header
         nil ;; No extra headers
         nil ;; No extra body text
-        "~/Templates/mail-signatures/personal.txt")
+        "~/Templates/mail-signatures/personal.txt")))
 (setq gnus-alias-default-identity "personal")
 ;; Define rules to match work identity
 (setq gnus-alias-identity-rules
     '(
         ("personal"
         ("any" "<\\(.+\\)\\@spreekmeester\\.nl" both) "personal")
-        )
-    )
+        ))
 
 ;; Determine identity when message-mode loads
 (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
@@ -381,6 +380,10 @@
     (setq org-agenda-sticky t)
 )
 
+(after! evil-org
+    (setq org-tags-exclude-from-inheritance '(index))
+)
+
 (after! org
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)")))
@@ -402,30 +405,9 @@
   :config
   (setq org-fancy-priorities-list '("⚡" "▶" "⏳")))
 
+; This can't be a symlink or Org-roam will get confused
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
-(setq org-roam-buffer-width 0.17)
-(setq org-roam-buffer "Org-roam Sidebar")
-(setq org-roam-completion-system 'default)
-
-(use-package! org-roam-server-light
-  :after org-roam
-  :commands org-roam-server-light-mode
-  :config
-  ;; OPTIONAL example settings, `org-roam-server-light' will work without them
-  (setq
-   ;; enable arrows
-   org-roam-server-light-network-vis-options "{ \"edges\": { \"arrows\": { \"to\": { \"enabled\": true,\"scaleFactor\": 1.15 } } } }"
-
-   ;; change background color of web application
-   org-roam-server-light-style "body.darkmode { background-color: #121212!important; }"
-
-   ;; set default set of excluded or included tags
-   ;; customize only the value of id, in this case "test" and "journal"
-   org-roam-server-light-default-include-filters "[{ \"id\": \"test\", \"parent\" : \"tags\"  }]"
-   org-roam-server-light-default-exclude-filters "[{ \"id\": \"journal\", \"parent\" : \"tags\"  }]"
-   )
-  )
 
 (after! org-roam
     (setq org-roam-node-display-template

@@ -3,7 +3,8 @@
 #+filetags: :software:
 * David's Doom Emacs config
 :PROPERTIES:
-:ID:       emacs-config
+:ID:       abdb11e5-c174-4550-87c4-2a114128274c
+:VISIBILITY: children
 :header-args: :tangle "config.el" :results silent
 :END:
 ** initialization
@@ -148,8 +149,8 @@ Setting default font and /Symbola/ as emoji fallback.
    (push '("[-]" . "⊡" ) prettify-symbols-alist)
    (prettify-symbols-mode)))
  #+end_example
-*** keys
-**** general functions
+*** Keys
+**** General functions
  #+BEGIN_SRC emacs-lisp
 ;; Open
 (map! :leader
@@ -165,8 +166,8 @@ Setting default font and /Symbola/ as emoji fallback.
     :desc "Split Vert" "\\" #'evil-window-vsplit
 )
 #+END_SRC
-**** window navigation
- #+begin_src emacs-lisp
+**** Window navigation
+ #+BEGIN_SRC emacs-lisp
 (map!
    :prefix "`"
    :n "h" #'evil-window-left
@@ -178,9 +179,9 @@ Setting default font and /Symbola/ as emoji fallback.
    :n "`" #'other-window
    :n "c" '(lambda () (interactive)(+workspace/new))
    :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
-   :n "m-x" #'evil-window-delete
+   :n "M-x" #'evil-window-delete
 )
-#+end_src
+#+END_SRC
 **** Org-mode related
  #+BEGIN_SRC emacs-lisp
 (map! :after evil-org
@@ -603,11 +604,11 @@ Customizing the appearance of bullets and priorities.
 )
 #+END_SRC
 *** tags
-#+BEGIN_SRC emacs-lisp
-(after! evil-org
-    (setq org-tags-exclude-from-inheritance '(index))
-)
-#+END_SRC
+--#+BEGIN_SRC emacs-lisp
+;(after! org
+;    (setq org-tags-exclude-from-inheritance '(index))
+;)
+---#+END_SRC
 *** todo
 **** todo settings
  #+BEGIN_SRC emacs-lisp
@@ -638,13 +639,13 @@ Customizing the appearance of bullets and priorities.
 :END:
 *** general
  #+BEGIN_SRC emacs-lisp
-; This can't be a symlink or Org-roam will get confused
-(setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+(setq org-roam-directory "~/Notes/")
+(setq org-roam-completion-system 'default)
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 #+END_SRC
 *** graph / server
-**** disabled: org-roam-server-light
-#+begin_example emacs-lisp
+**** org-roam-server-light
+#+begin_src emacs-lisp
 (use-package! org-roam-server-light
   :after org-roam
   :commands org-roam-server-light-mode
@@ -663,8 +664,8 @@ Customizing the appearance of bullets and priorities.
    org-roam-server-light-default-exclude-filters "[{ \"id\": \"journal\", \"parent\" : \"tags\"  }]"
    )
   )
-#+end_example
-**** disabled: simple-httpd
+#+end_src
+**** Disabled: simple-httpd
 I need this for the graph server, as well?
 It uses the generic server as a content API.
 
@@ -679,6 +680,14 @@ It uses the generic server as a content API.
   )
 ;; Auto-start of graph server disabled to improve startup performance
 ;;(httpd-start)
+#+END_EXAMPLE
+**** Disabled: previous versions and alternate packages
+ #+BEGIN_EXAMPLE emacs-lisp
+;;  :ensure nil
+    ;(use-package! org-roam-server
+    ;  :defer t
+    ;  :after org
+    ;  :load-path "~/.local/share/org-roam-server")
 #+END_EXAMPLE
 *** search
 Display template voor node search.

@@ -1,0 +1,145 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file nil
+
+
+* Bullets
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-01-23 ma 11:19
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_OLPATH: disabled
+:ARCHIVE_CATEGORY: config
+:ARCHIVE_ITAGS: software
+:END:
+#+begin_example elisp
+(straight-use-package 'org-bullets)
+(use-package! org-bullets
+  :defer t
+  :preface
+  (defun nasy/org-bullets-mode ()
+    (org-bullets-mode 1))
+  :hook ((org-mode . nasy/org-bullets-mode))
+  :init (gsetq org-bullets-bullet-list
+               '(;;; Large
+                 "♥"
+                 "✿"
+                 "❀"
+                 "◉"
+                 "✸"
+                 "•")))
+                ;; ♥ ● ○ ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶
+                ;;; Small
+                ;; ► • ★ ▸
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+          )
+)
+(setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+
+
+
+(add-hook 'org-mode-hook
+          (lambda ()
+                 ;; ♥ ● ○ ◇ ✚ ✜  ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖
+            (setq org-bullets-bullet-list '("❀" "☯" "▶" "☲"  "☳" "☴"  "☶"  "☱" ))
+          )
+)
+#+end_example
+
+* Various
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-01-23 ma 11:20
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_OLPATH: disabled
+:ARCHIVE_CATEGORY: config
+:ARCHIVE_ITAGS: software
+:END:
+#+begin_example elisp
+(defadvice text-scale-decrease (around all-buffers (arg) activate)
+    (dolist (buffer ("Org-roam Sidebar"))
+      (with-current-buffer buffer
+        ad-do-it)))
+
+
+(after! org-roam
+  (setq org-roam-graph-viewer "/usr/bin/opener"))
+
+;; Om de svgs van GraphViz te openen:
+;; (setq org-roam-graph-viewer "/usr/bin/eog")
+;; Alleen dus niet met eye of gnome, dat doet alleen bitmaps.
+
+;;(setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
+
+
+;; For Org-roam:
+;; Replacing region with link to new note
+;; To move fleeting notes to their own note.
+;; Spoiler alert: it sucks so needs to be improved.
+(defun mmr/org-roam-insert-replace-region-with-link-and-follow ()
+(interactive )
+(let ((title (buffer-substring (mark) (point)) )
+        (top (current-buffer)))
+    (org-roam-find-file title)
+    (let ((target-file (buffer-file-name (buffer-base-buffer)))
+        (note-buffer (current-buffer)))
+    (switch-to-buffer top nil t)
+    (kill-region (mark) (point))
+    (insert (concat "[[" target-file "][" title "]]"))
+    (switch-to-buffer note-buffer nil t)
+    (save-buffer))))
+;; To delete a linked note
+(defun mmr/remove-linked-org-roam-note ()
+(interactive)
+(let ((buffer (current-buffer)))
+    (org-open-maybe)
+    (if (not (eq (current-buffer) buffer))
+        (progn
+        (crux-delete-file-and-buffer)
+        (er/expand-region 1)
+        (kill-region (mark) (point))))))
+#+end_example
+
+
+* Evil mode
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-01-23 ma 11:20
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_OLPATH: disabled
+:ARCHIVE_CATEGORY: config
+:ARCHIVE_ITAGS: software
+:END:
+(with-eval-after-load 'evil-maps
+#+BEGIN_example emacs-lisp
+;;(with-eval-after-load 'evil
+;;  (define-key evil-motion-state-map (kbd ":") 'evil-repeat-find-char)
+;;  (define-key evil-motion-state-map (kbd ";") 'evil-ex))
+#+END_example
+
+* disabled
+:PROPERTIES:
+:VISIBILITY: folded
+:ARCHIVE_TIME: 2023-01-23 ma 11:20
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_CATEGORY: config
+:ARCHIVE_ITAGS: software
+:END:
+
+
+* disabled: previous versions and alternate packages
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-01-23 ma 12:56
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_OLPATH: David's Doom Emacs config/Org-roam/graph / server (disabled)
+:ARCHIVE_CATEGORY: config
+:ARCHIVE_ITAGS: software
+:END:
+ #+BEGIN_EXAMPLE emacs-lisp
+;;  :ensure nil
+    ;(use-package! org-roam-server
+    ;  :defer t
+    ;  :after org
+    ;  :load-path "~/.local/share/org-roam-server")
+#+END_EXAMPLE

@@ -1,9 +1,11 @@
 # -*- mode: org; coding: utf-8; -*-
 #+author: David Spreekmeester @aapit
+#+title: Emacs config
 #+filetags: :software:
 * David's Doom Emacs config
 :PROPERTIES:
-:ID:       emacs-config
+:ID:       abdb11e5-c174-4550-87c4-2a114128274c
+:VISIBILITY: children
 :header-args: :tangle "config.el" :results silent
 :END:
 ** initialization
@@ -18,7 +20,7 @@
 :PROPERTIES:
 :VISIBILITY: content
 :END:
-*** locale
+*** Locale
 In my geographic area, the week starts on Monday (=1=).
 Default is Sunday (=0=).
 #+BEGIN_SRC emacs-lisp
@@ -29,17 +31,17 @@ Default is Sunday (=0=).
 (setq system-time-locale "nl_NL.utf8")
 (setenv "LANG" "nl_NL.utf8")
 #+END_SRC
-*** secrets
+*** Secrets
  #+BEGIN_SRC emacs-lisp
 (load! "secrets.el" doom-private-dir)
 #+END_SRC
-*** trash
+*** Trash
 #+BEGIN_SRC emacs-lisp
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  tab-width 4)                                      ; Set width for tabs
 #+END_SRC
-*** browser
+*** Browser
  #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "brave")
@@ -48,7 +50,7 @@ Default is Sunday (=0=).
 :PROPERTIES:
 :VISIBILITY: content
 :END:
-*** fonts
+*** Fonts
 Setting default font and /Symbola/ as emoji fallback.
  #+BEGIN_SRC emacs-lisp
 (setenv "LANG" "en_US.UTF-8")
@@ -57,15 +59,15 @@ Setting default font and /Symbola/ as emoji fallback.
 
 (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 36)))
  #+END_SRC
-*** mouse
+*** Mouse
 [2021-01-27 Wed] Disabled the disablement, perhaps temporarily
  #+BEGIN_EXAMPLE emacs-lisp
 (add-hook 'emacs-startup-hook (lambda ()
     (global-disable-mouse-mode)
 ))
 #+END_EXAMPLE
-*** appearance
-#+begin_src emacs-lisp
+*** Appearance
+#+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)
 (setq display-line-numbers-type 'relative)
@@ -73,83 +75,83 @@ Setting default font and /Symbola/ as emoji fallback.
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
-                                        ; remove window chrome
+                                        ; Remove window chrome
 (setq default-frame-alist '((undecorated . t)))
 
 (add-hook 'emacs-startup-hook (lambda ()
                                         ;(toggle-frame-fullscreen)
                                         ;(display-battery-mode)
-                                (delete-selection-mode 1) ; replace selection when inserting text
+                                (delete-selection-mode 1) ; Replace selection when inserting text
                                 ))
-#+end_src
-**** hide utf-8 encoding in modeline
-#+begin_src emacs-lisp
+#+END_SRC
+**** Hide UTF-8 encoding in modeline
+#+BEGIN_SRC emacs-lisp
 (defun doom-modeline-conditional-buffer-encoding ()
-  "we expect the encoding to be lf utf-8, so only show the modeline when this is not the case"
+  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
   (setq-local doom-modeline-buffer-encoding
               (unless (or (eq buffer-file-coding-system 'utf-8-unix)
                           (eq buffer-file-coding-system 'utf-8)))))
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
-#+end_src
-**** popup rules
-#+begin_src emacs-lisp
+#+END_SRC
+**** Popup Rules
+#+BEGIN_SRC emacs-lisp
 (when (> (display-pixel-width) '1200)
-  (set-popup-rule! "*org agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Org Agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
 (when (<= (display-pixel-width) '1200)
-  (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Org Agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "CAPTURE-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
+  (set-popup-rule! "*Messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3))
-#+end_src
-**** org-related
- #+begin_src emacs-lisp :tangle "config.el" :results silent
+#+END_SRC
+**** Org-related
+ #+BEGIN_SRC emacs-lisp :tangle "config.el" :results silent
 (setq org-agenda-span 'week)
 
-;; hide /emphasis markers for italics/ in org-mode
+;; Hide /emphasis markers for italics/ in org-mode
 (setq org-hide-emphasis-markers t)
 
-; disabling for performance, for now
+; Disabling for performance, for now
 ;(setq org-startup-with-inline-images t)
 
-(setq-default org-download-image-dir "~/nextcloud/org-mode/pics")
+(setq-default org-download-image-dir "~/Nextcloud/org-mode/pics")
 
-;; follow output
+;; Follow output
 (setq compilation-scroll-output t)
-#+end_src
-**** disabled
-***** emojify
-#+begin_example emacs-lisp
+#+END_SRC
+**** Disabled
+***** Emojify
+#+BEGIN_EXAMPLE emacs-lisp
 (add-hook 'after-init-hook #'global-emojify-mode)
-#+end_example
-***** org-roam links
-#+begin_example emacs-lisp
-;; unfortunately, at this point [2020-07-08 wed],
-;; there is no way to style regular non-link text in the org-roam buffer.
-;; therefore, the only customizable property that blends in with the rest is link color.
+#+END_EXAMPLE
+***** Org-roam links
+#+BEGIN_EXAMPLE emacs-lisp
+;; Unfortunately, at this point [2020-07-08 Wed],
+;; there is no way to style regular non-link text in the Org-roam buffer.
+;; Therefore, the only customizable property that blends in with the rest is link color.
 (custom-set-faces
- '(org-roam-link ((t (:foreground "#a4581e"))))
+ '(org-roam-link ((t (:foreground "#A4581E"))))
  '(org-roam-link-current ((t (:foreground "#696070"))))
 )
-#+end_example
+#+END_EXAMPLE
 
-***** org-mode checkboxes
-#+begin_example emacs-lisp
-;; org-mode checkboxes
+***** Org-mode Checkboxes
+#+BEGIN_EXAMPLE emacs-lisp
+;; Org-mode checkboxes
 (add-hook 'evil-org-mode-hook (lambda ()
-   "beautify org checkbox symbol"
+   "Beautify Org Checkbox Symbol"
    (push '("[ ]" . "☐") prettify-symbols-alist)
-   (push '("[x]" . "☑" ) prettify-symbols-alist)
+   (push '("[X]" . "☑" ) prettify-symbols-alist)
    (push '("[-]" . "⊡" ) prettify-symbols-alist)
    (prettify-symbols-mode)))
- #+end_example
-*** keys
-**** general functions
+ #+END_EXAMPLE
+*** Keys
+**** General functions
  #+BEGIN_SRC emacs-lisp
 ;; Open
 (map! :leader
@@ -165,8 +167,8 @@ Setting default font and /Symbola/ as emoji fallback.
     :desc "Split Vert" "\\" #'evil-window-vsplit
 )
 #+END_SRC
-**** window navigation
- #+begin_src emacs-lisp
+**** Window navigation
+ #+BEGIN_SRC emacs-lisp
 (map!
    :prefix "`"
    :n "h" #'evil-window-left
@@ -178,9 +180,9 @@ Setting default font and /Symbola/ as emoji fallback.
    :n "`" #'other-window
    :n "c" '(lambda () (interactive)(+workspace/new))
    :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
-   :n "m-x" #'evil-window-delete
+   :n "M-x" #'evil-window-delete
 )
-#+end_src
+#+END_SRC
 **** Org-mode related
  #+BEGIN_SRC emacs-lisp
 (map! :after evil-org
@@ -425,14 +427,15 @@ Here I'm overriding the binding for notmuch-mode.
         nil ;; No organization header
         nil ;; No extra headers
         nil ;; No extra body text
-        "~/Templates/mail-signatures/personal.txt")))
+        "~/Templates/mail-signatures/personal.txt")
 (setq gnus-alias-default-identity "personal")
 ;; Define rules to match work identity
 (setq gnus-alias-identity-rules
     '(
         ("personal"
         ("any" "<\\(.+\\)\\@spreekmeester\\.nl" both) "personal")
-        ))
+        )
+    )
 
 ;; Determine identity when message-mode loads
 (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
@@ -602,12 +605,6 @@ Customizing the appearance of bullets and priorities.
     (setq org-agenda-sticky t)
 )
 #+END_SRC
-*** tags
-#+BEGIN_SRC emacs-lisp
-(after! evil-org
-    (setq org-tags-exclude-from-inheritance '(index))
-)
-#+END_SRC
 *** todo
 **** todo settings
  #+BEGIN_SRC emacs-lisp
@@ -638,13 +635,15 @@ Customizing the appearance of bullets and priorities.
 :END:
 *** general
  #+BEGIN_SRC emacs-lisp
-; This can't be a symlink or Org-roam will get confused
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
+(setq org-roam-buffer-width 0.17)
+(setq org-roam-buffer "Org-roam Sidebar")
+(setq org-roam-completion-system 'default)
 #+END_SRC
 *** graph / server
-**** disabled: org-roam-server-light
-#+begin_example emacs-lisp
+**** org-roam-server-light
+#+begin_src emacs-lisp
 (use-package! org-roam-server-light
   :after org-roam
   :commands org-roam-server-light-mode
@@ -663,8 +662,8 @@ Customizing the appearance of bullets and priorities.
    org-roam-server-light-default-exclude-filters "[{ \"id\": \"journal\", \"parent\" : \"tags\"  }]"
    )
   )
-#+end_example
-**** disabled: simple-httpd
+#+end_src
+**** Disabled: simple-httpd
 I need this for the graph server, as well?
 It uses the generic server as a content API.
 
@@ -679,6 +678,14 @@ It uses the generic server as a content API.
   )
 ;; Auto-start of graph server disabled to improve startup performance
 ;;(httpd-start)
+#+END_EXAMPLE
+**** Disabled: previous versions and alternate packages
+ #+BEGIN_EXAMPLE emacs-lisp
+;;  :ensure nil
+    ;(use-package! org-roam-server
+    ;  :defer t
+    ;  :after org
+    ;  :load-path "~/.local/share/org-roam-server")
 #+END_EXAMPLE
 *** search
 Display template voor node search.
@@ -841,6 +848,100 @@ https://jethrokuan.github.io/org-roam-guide/
 :END:
 Apparently, =org-babel= interprets source blocks with type =emacs-lisp=, but not with =elisp=.
 Also see this [[https://blog.thomasheartman.com/posts/org-babel-load-file-doesnt-tangle-correctly][blog post on org-babel incorrect tangling]].
+* disabled
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+** Evil mode
+(with-eval-after-load 'evil-maps
+#+BEGIN_example emacs-lisp
+;;(with-eval-after-load 'evil
+;;  (define-key evil-motion-state-map (kbd ":") 'evil-repeat-find-char)
+;;  (define-key evil-motion-state-map (kbd ";") 'evil-ex))
+#+END_example
+** Various
+#+begin_example elisp
+(defadvice text-scale-decrease (around all-buffers (arg) activate)
+    (dolist (buffer ("Org-roam Sidebar"))
+      (with-current-buffer buffer
+        ad-do-it)))
+
+
+(after! org-roam
+  (setq org-roam-graph-viewer "/usr/bin/opener"))
+
+;; Om de svgs van GraphViz te openen:
+;; (setq org-roam-graph-viewer "/usr/bin/eog")
+;; Alleen dus niet met eye of gnome, dat doet alleen bitmaps.
+
+;;(setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
+
+
+;; For Org-roam:
+;; Replacing region with link to new note
+;; To move fleeting notes to their own note.
+;; Spoiler alert: it sucks so needs to be improved.
+(defun mmr/org-roam-insert-replace-region-with-link-and-follow ()
+(interactive )
+(let ((title (buffer-substring (mark) (point)) )
+        (top (current-buffer)))
+    (org-roam-find-file title)
+    (let ((target-file (buffer-file-name (buffer-base-buffer)))
+        (note-buffer (current-buffer)))
+    (switch-to-buffer top nil t)
+    (kill-region (mark) (point))
+    (insert (concat "[[" target-file "][" title "]]"))
+    (switch-to-buffer note-buffer nil t)
+    (save-buffer))))
+;; To delete a linked note
+(defun mmr/remove-linked-org-roam-note ()
+(interactive)
+(let ((buffer (current-buffer)))
+    (org-open-maybe)
+    (if (not (eq (current-buffer) buffer))
+        (progn
+        (crux-delete-file-and-buffer)
+        (er/expand-region 1)
+        (kill-region (mark) (point))))))
+#+end_example
+
+** Bullets
+#+begin_example elisp
+(straight-use-package 'org-bullets)
+(use-package! org-bullets
+  :defer t
+  :preface
+  (defun nasy/org-bullets-mode ()
+    (org-bullets-mode 1))
+  :hook ((org-mode . nasy/org-bullets-mode))
+  :init (gsetq org-bullets-bullet-list
+               '(;;; Large
+                 "♥"
+                 "✿"
+                 "❀"
+                 "◉"
+                 "✸"
+                 "•")))
+                ;; ♥ ● ○ ◇ ✚ ✜ ☯ ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖ ▶
+                ;;; Small
+                ;; ► • ★ ▸
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+          )
+)
+(setq org-bullets-bullet-list '("☰" "☷" "☵" "☲"  "☳" "☴"  "☶"  "☱" ))
+
+
+
+(add-hook 'org-mode-hook
+          (lambda ()
+                 ;; ♥ ● ○ ◇ ✚ ✜  ◆ ♠ ♣ ♦ ☢ ❀ ◆ ◖
+            (setq org-bullets-bullet-list '("❀" "☯" "▶" "☲"  "☳" "☴"  "☶"  "☱" ))
+          )
+)
+#+end_example
 * Local Variables
 # Local Variables:
 # eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
