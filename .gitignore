@@ -76,6 +76,7 @@ y2
 .gmailieer.json
 .gnome
 .gnupg
+!.gnupg/gpg.conf
 .gnuplot_history
 .gradle
 .gsutil
