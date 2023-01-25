@@ -55,7 +55,7 @@ plugins=(
   kubectl
   rsync
   vi-mode
-  #zsh-autosuggestions 
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
