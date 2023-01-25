@@ -143,3 +143,175 @@ Archived entries from file nil
     ;  :after org
     ;  :load-path "~/.local/share/org-roam-server")
 #+END_EXAMPLE
+
+* Own packages
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-01-25 wo 04:59
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_OLPATH: David's Doom Emacs config/disabled
+:ARCHIVE_CATEGORY: config
+:END:
+#+BEGIN_EXAMPLE emacs-lisp
+(use-package goalmap
+  :load-path "~/.doom.d/packages/goalmap")
+#+END_EXAMPLE
+
+* disabled
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-01-25 wo 05:04
+:ARCHIVE_FILE: ~/.doom.d/config.org
+:ARCHIVE_OLPATH: David's Doom Emacs config
+:ARCHIVE_CATEGORY: config
+:END:
+** RSS
+#+BEGIN_EXAMPLE emacs-lisp
+(elfeed-org)
+(setq rmh-elfeed-org-files (list "~/Notes/rss_feeds.org"))
+#+END_EXAMPLE
+** Own packages
+#+BEGIN_EXAMPLE emacs-lisp
+(use-package goalmap
+  :load-path "~/.doom.d/packages/goalmap")
+#+END_EXAMPLE
+** Undo
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+BEGIN_EXAMPLE emacs-lisp
+;; When using evil-mode be sure to run (global-undo-tree-mode -1) to avoid problems.
+;; https://github.com/emacsmirror/undo-fu-session
+(add-hook 'emacs-startup-hook (lambda ()
+    (global-undo-tree-mode -1)
+))
+
+(setq undo-fu-session-file-limit 150)
+
+(setq undo-limit 40000000) ; Set to 40 Mb
+(setq evil-want-fine-undo t) ; Prevent all changes acting like one big blob
+#+END_EXAMPLE
+** Slack
+#+BEGIN_EXAMPLE emacs-lisp
+(use-package! slack
+  :commands (slack-start)
+  :init
+  (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
+  (setq slack-prefer-current-team t)
+  (setq slack-buffer-function #'switch-to-buffer)
+  :config
+  (slack-register-team
+   :name "grrr"
+   :default t
+   :token slack-token
+   :subscribed-channels '(general tech-links tech)
+   :full-and-display-names t))
+
+(map! :leader
+    :prefix ("S" . "Slack")
+    :desc "start" "s" #'slack-start
+    :desc "rooms" "r" #'slack-select-rooms
+    :desc "unread" "u" #'slack-select-unread-rooms
+)
+
+;(evil-define-key 'normal slack-info-mode-map
+;   ",u" 'slack-room-update-messages)
+;(evil-define-key 'normal slack-mode-map
+;   ",c" 'slack-buffer-kill
+;   ",ra" 'slack-message-add-reaction
+;   ",rr" 'slack-message-remove-reaction
+;   ",rs" 'slack-message-show-reaction-users
+;   ",mm" 'slack-message-write-another-buffer
+;   ",me" 'slack-message-edit
+;   ",md" 'slack-message-delete
+;   ",u" 'slack-room-update-messages
+;   ",2" 'slack-message-embed-mention
+;   ",3" 'slack-message-embed-channel
+;   "\C-n" 'slack-buffer-goto-next-message
+;   "\C-p" 'slack-buffer-goto-prev-message)
+;  (evil-define-key 'normal slack-edit-message-mode-map
+;   ",k" 'slack-message-cancel-edit
+;   ",s" 'slack-message-send-from-buffer
+;   ",2" 'slack-message-embed-mention
+;   ",3" 'slack-message-embed-channel))
+#+END_EXAMPLE
+** Deft
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+ #+BEGIN_EXAMPLE emacs-lisp
+(after! 'deft
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Nextcloud/org-mode/")
+)
+(use-package! deft
+  :after org
+  :defer t
+ ;:bind
+ ;("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory "~/Nextcloud/org-mode/")
+  :config
+  (setq deft-file-limit 200)
+)
+#+END_EXAMPLE
+** PlantUML
+ #+BEGIN_EXAMPLE emacs-lisp
+                                        ;(after! plantuml-uml
+                                        ;    (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
+                                        ;      plantuml-default-exec-mode 'jar)
+                                        ;    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+                                        ;)
+#+END_EXAMPLE
+** Org-roam
+*** graph / server
+**** disabled: org-roam-server-light
+#+begin_example emacs-lisp
+(use-package! org-roam-server-light
+  :after org-roam
+  :commands org-roam-server-light-mode
+  :config
+  ;; OPTIONAL example settings, `org-roam-server-light' will work without them
+  (setq
+   ;; enable arrows
+   org-roam-server-light-network-vis-options "{ \"edges\": { \"arrows\": { \"to\": { \"enabled\": true,\"scaleFactor\": 1.15 } } } }"
+
+   ;; change background color of web application
+   org-roam-server-light-style "body.darkmode { background-color: #121212!important; }"
+
+   ;; set default set of excluded or included tags
+   ;; customize only the value of id, in this case "test" and "journal"
+   org-roam-server-light-default-include-filters "[{ \"id\": \"test\", \"parent\" : \"tags\"  }]"
+   org-roam-server-light-default-exclude-filters "[{ \"id\": \"journal\", \"parent\" : \"tags\"  }]"
+   )
+  )
+#+end_example
+**** disabled: simple-httpd
+I need this for the graph server, as well?
+It uses the generic server as a content API.
+
+ #+BEGIN_EXAMPLE emacs-lisp
+(setq org-roam-graph-exclude-matcher '("private" "dailies"))
+
+(use-package! simple-httpd
+  :defer t
+  :after org
+  :config
+  (setq httpd-root "/var/www")
+  )
+;; Auto-start of graph server disabled to improve startup performance
+;;(httpd-start)
+#+END_EXAMPLE
+*** search
+ #+BEGIN_SRC emacs-lisp
+;; org-ql for queries
+;(use-package org-ql)
+
+;; org-rifle for fast narrow-down searches
+;(use-package helm-org-rifle
+;  :after org
+;)
+#+END_SRC

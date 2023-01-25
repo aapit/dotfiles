@@ -130,7 +130,7 @@
        (org +roam2 +hugo +pandoc +pretty +gnuplot) ; organize your plain life in plain text
        ;;(org +roam +pomodoro +present +hugo +pandoc +pretty)
        php               ; perl's insecure younger brother
-       plantuml          ; diagrams for confusing people more
+       ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever

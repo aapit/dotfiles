@@ -21,7 +21,9 @@
 
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
-(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 36)))
+(setq doom-font (font-spec :family "Lotion" :size (if (string= (system-name) "tinynozem") 48 36)))
+;(setq doom-font (font-spec :family "DaddyTimeMono" :size (if (string= (system-name) "tinynozem") 48 36)))
+;(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 36)))
 
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)
@@ -325,7 +327,7 @@
 
 (setq org-agenda-custom-commands
     '(
-        ("t" "Thuis" agenda "Persoonlijk"
+        ("p" "Privé" agenda "Persoonlijk"
          ((org-agenda-files '("~/Notes/todo.org"))))
     )
 )
@@ -380,8 +382,21 @@
     (setq org-agenda-sticky t)
 )
 
+;(after! org
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
+;)
 (after! evil-org
-    (setq org-tags-exclude-from-inheritance '(index))
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
+)
+(after! org
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
+)
+(after! org-roam
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
 )
 
 (after! org
@@ -413,33 +428,6 @@
     (setq org-roam-node-display-template
         (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
 )
-;; org-ql for queries
-;(use-package org-ql)
-
-;; org-rifle for fast narrow-down searches
-;(use-package helm-org-rifle
-;  :after org
-;)
-
-(after! 'deft
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory "~/Nextcloud/org-mode/")
-)
-(use-package! deft
-  :after org
-  :defer t
- ;:bind
- ;("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory "~/Nextcloud/org-mode/")
-  :config
-  (setq deft-file-limit 200)
-)
 
 ;; php
 (use-package! phpactor
@@ -460,11 +448,5 @@
          company-phpactor
          company-files
          ))))))
-
-                                        ;(after! plantuml-uml
-                                        ;    (setq org-plantuml-jar-path (expand-file-name "~/Apps/PlantUML/plantuml.jar")
-                                        ;      plantuml-default-exec-mode 'jar)
-                                        ;    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
-                                        ;)
 
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
