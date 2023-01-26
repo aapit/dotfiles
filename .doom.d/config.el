@@ -70,7 +70,7 @@
 ; disabling for performance, for now
 ;(setq org-startup-with-inline-images t)
 
-(setq-default org-download-image-dir "~/nextcloud/org-mode/pics")
+(setq-default org-download-image-dir "~/Nextcloud/org-mode/pics")
 
 ;; follow output
 (setq compilation-scroll-output t)
