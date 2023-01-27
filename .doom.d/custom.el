@@ -16,7 +16,7 @@
  '(italic ((t (:foreground "medium slate blue" :slant italic))))
  '(org-date ((t (:foreground "chocolate"))))
  '(org-document-info-keyword ((t (:inherit shadow :foreground "dim gray"))))
- '(org-document-title ((t (:background "gray11" :foreground "#b877db" :weight bold :height 1.3 :family "FantasqueSansMono Nerd Font"))))
+ '(org-document-title ((t (:background "gray11" :foreground "#b877db" :weight bold :height 1.9 :family "Babe Bamboo"))))
  '(org-link ((t (:inherit underline :foreground "dark cyan"))))
  '(org-meta-line ((t (:foreground "dim gray"))))
  '(org-property-value ((t (:foreground "light gray"))) t)
