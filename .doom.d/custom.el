@@ -17,7 +17,7 @@
  '(org-date ((t (:foreground "chocolate"))))
  '(org-document-info-keyword ((t (:inherit shadow :foreground "dim gray"))))
  '(org-document-title ((t (:background "gray11" :foreground "#b877db" :weight bold :height 1.3 :family "FantasqueSansMono Nerd Font"))))
- '(org-link ((t (:inherit underline :foreground "chocolate"))))
+ '(org-link ((t (:inherit underline :foreground "dark cyan"))))
  '(org-meta-line ((t (:foreground "dim gray"))))
  '(org-property-value ((t (:foreground "light gray"))) t)
  '(org-special-keyword ((t (:foreground "dim gray"))))
