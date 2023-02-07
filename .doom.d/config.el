@@ -32,14 +32,17 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
-                                        ; remove window chrome
-(setq default-frame-alist '((undecorated . t)))
+
+; remove window chrome
+(unless (eq system-type 'darwin))
+    (setq default-frame-alist '((undecorated . t))
+)
 
 (add-hook 'emacs-startup-hook (lambda ()
-                                        ;(toggle-frame-fullscreen)
-                                        ;(display-battery-mode)
-                                (delete-selection-mode 1) ; replace selection when inserting text
-                                ))
+;(toggle-frame-fullscreen)
+;(display-battery-mode)
+(delete-selection-mode 1) ; replace selection when inserting text
+))
 
 (defun doom-modeline-conditional-buffer-encoding ()
   "we expect the encoding to be lf utf-8, so only show the modeline when this is not the case"
@@ -89,15 +92,19 @@
     :desc "Split Vert" "\\" #'evil-window-vsplit
 )
 
+(cond ((eq system-type 'darwin)
+    (setq prefix-by-os "§"))
+    (t (setq prefix-by-os "`"))
+)
 (map!
-   :prefix "`"
+   :prefix prefix-by-os
    :n "h" #'evil-window-left
    :n "l" #'evil-window-right
    :n "k" #'evil-window-up
    :n "j" #'evil-window-down
    :n "-" #'evil-window-split
    :n "\\" #'evil-window-vsplit
-   :n "`" #'other-window
+   :n prefix-by-os #'other-window
    :n "c" '(lambda () (interactive)(+workspace/new))
    :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
    :n "m-x" #'evil-window-delete
