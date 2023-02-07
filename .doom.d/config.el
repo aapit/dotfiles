@@ -34,9 +34,8 @@
 (toggle-scroll-bar -1)
 
 ; remove window chrome
-(unless (eq system-type 'darwin))
+(unless (eq system-type 'darwin)
     (setq default-frame-alist '((undecorated . t))
-)
 
 (add-hook 'emacs-startup-hook (lambda ()
 ;(toggle-frame-fullscreen)
