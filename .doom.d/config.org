@@ -31,7 +31,7 @@ Default is Sunday (=0=).
 #+END_SRC
 *** secrets
  #+BEGIN_SRC emacs-lisp
-(load! "secrets.el" doom-private-dir)
+(load! "secrets.el" doom-user-dir)
 #+END_SRC
 *** trash
 #+BEGIN_SRC emacs-lisp
@@ -79,6 +79,7 @@ Setting default font and /Symbola/ as emoji fallback.
 ; remove window chrome
 (unless (eq system-type 'darwin)
     (setq default-frame-alist '((undecorated . t))
+))
 
 (add-hook 'emacs-startup-hook (lambda ()
 ;(toggle-frame-fullscreen)

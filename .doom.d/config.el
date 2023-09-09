@@ -8,7 +8,7 @@
 (setq system-time-locale "nl_NL.utf8")
 (setenv "LANG" "nl_NL.utf8")
 
-(load! "secrets.el" doom-private-dir)
+(load! "secrets.el" doom-user-dir)
 
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
@@ -36,6 +36,7 @@
 ; remove window chrome
 (unless (eq system-type 'darwin)
     (setq default-frame-alist '((undecorated . t))
+))
 
 (add-hook 'emacs-startup-hook (lambda ()
 ;(toggle-frame-fullscreen)
