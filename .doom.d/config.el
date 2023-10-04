@@ -14,8 +14,11 @@
  delete-by-moving-to-trash t                      ; Delete files to trash
  tab-width 4)                                      ; Set width for tabs
 
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "brave")
+(cond ((eq system-type 'darwin)
+    (setq browse-url-browser-function 'browse-url-default-browser))
+    (t (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "brave"))
+)
 
 (setenv "LANG" "en_US.UTF-8")
 

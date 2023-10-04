@@ -41,8 +41,11 @@ Default is Sunday (=0=).
 #+END_SRC
 *** browser
  #+BEGIN_SRC emacs-lisp
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "brave")
+(cond ((eq system-type 'darwin)
+    (setq browse-url-browser-function 'browse-url-default-browser))
+    (t (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "brave"))
+)
 #+END_SRC
 ** UI
 :PROPERTIES:
