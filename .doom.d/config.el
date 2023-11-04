@@ -47,6 +47,9 @@
 (delete-selection-mode 1) ; replace selection when inserting text
 ))
 
+; turn on line wrapping for all doc types
+(global-visual-line-mode 1)
+
 (defun doom-modeline-conditional-buffer-encoding ()
   "we expect the encoding to be lf utf-8, so only show the modeline when this is not the case"
   (setq-local doom-modeline-buffer-encoding

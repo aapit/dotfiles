@@ -89,6 +89,9 @@ Setting default font and /Symbola/ as emoji fallback.
 ;(display-battery-mode)
 (delete-selection-mode 1) ; replace selection when inserting text
 ))
+
+; turn on line wrapping for all doc types
+(global-visual-line-mode 1)
 #+end_src
 **** hide utf-8 encoding in modeline
 #+begin_src emacs-lisp
