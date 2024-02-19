@@ -1,7 +1,7 @@
 [user]
-	email = david@grrr.nl
+	email = david@spreekmeester.nl
 	name = David Spreekmeester
-	signingkey = 49F45E1FE21F701C
+	signingkey = 5ABED9AAFF326019
 
 [core]
     autocrlf = input
@@ -83,7 +83,7 @@
     gpgsign = true
 
 [gpg]
-	program = gpg2
+	program = gpg
 
 [rebase]
     autosquash = true
