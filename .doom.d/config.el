@@ -462,4 +462,9 @@
          company-files
          ))))))
 
+(use-package! gcode-mode
+  :mode "\\.gcode\\'"
+  :defer t
+)
+
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))

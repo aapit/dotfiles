@@ -707,6 +707,13 @@ https://jethrokuan.github.io/org-roam-guide/
          company-files
          ))))))
 #+END_SRC
+** 3D
+ #+BEGIN_SRC emacs-lisp
+(use-package! gcode-mode
+  :mode "\\.gcode\\'"
+  :defer t
+)
+#+END_SRC
 ** Projectile
 :PROPERTIES:
 :VISIBILITY: folded
