@@ -9,6 +9,8 @@
 (package! rust-mode)
 (package! scad-mode)
 (package! gcode-mode)
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 ;;(package! org-super-agenda)
 ;;(package! plantuml-mode)
 ;;(package! emojify)

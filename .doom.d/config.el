@@ -50,6 +50,14 @@
 ; turn on line wrapping for all doc types
 (global-visual-line-mode 1)
 
+; hide ellipsis after collapsed nodes
+;(setq org-ellipsis "")
+;(set-face-attribute 'org-ellipsis nil :foreground (face-attribute 'default :background))
+;(add-hook 'org-mode-hook (lambda () (set display-table (make-display-table))))
+
+(after! org
+  (setq org-ellipsis ""))
+
 (defun doom-modeline-conditional-buffer-encoding ()
   "we expect the encoding to be lf utf-8, so only show the modeline when this is not the case"
   (setq-local doom-modeline-buffer-encoding
@@ -414,13 +422,17 @@
 
 (after! org
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)" "ISSUE" "ERROR" "FIX" "WORKAROUND")))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "maroon1" :weight bold)
                 ("NEXT" :foreground "light sea green")
                 ("DONE" :foreground "#888888")
                 ("PROJ" :foreground "purple1" :weight bold)
                 ("IDEA" :foreground "purple1" :weight bold)
+                ("ISSUE" :foreground "red" :weight bold)
+                ("ERROR" :foreground "red" :weight bold)
+                ("FIX" :foreground "green" :weight bold)
+                ("WORKAROUND" :foreground "green" :weight bold)
                 )))
   (setq-default org-export-with-todo-keywords nil)
   (setq-default org-enforce-todo-dependencies t)
@@ -468,3 +480,12 @@
 )
 
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
