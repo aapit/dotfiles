@@ -611,7 +611,9 @@ Customizing the appearance of bullets and priorities.
                               ))
   )
 
-(after! org-superstar
+(use-package! org-superstar
+  :hook (org-mode . org-superstar-mode)
+  :config
   (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
         org-superstar-prettify-item-bullets t))
 #+END_SRC
@@ -680,8 +682,18 @@ Customizing the appearance of bullets and priorities.
  #+BEGIN_SRC emacs-lisp
 ; This can't be a symlink or Org-roam will get confused
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+; Specifically specified for performance
+(setq org-roam-database-connector 'sqlite-builtin)
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 #+END_SRC
+*** garbage collector
+#+begin_src emacs-lisp
+; For performance reasons, delay garbage collection
+(use-package! gcmh
+  :config
+  (setq gcmh-high-read-threshold (* 100 1024 1024) ;; 100MB
+        gcmh-idle-delay 10)) ;; Ruim pas op na 10 seconden inactiviteit
+#+end_src
 *** search
 Display template voor node search.
 In eerste instantie werd de note titel ingekort tot te weinig karakters.
@@ -694,6 +706,24 @@ In eerste instantie werd de note titel ingekort tot te weinig karakters.
 [2023-01-12 Thu]
 Jethro laat ook custom attributen zien bij de resultaten:
 https://jethrokuan.github.io/org-roam-guide/
+*** graph
+#+BEGIN_SRC emacs-lisp
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+#+END_SRC
 ** PHP
 :PROPERTIES:
 :VISIBILITY: folded

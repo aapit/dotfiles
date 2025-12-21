@@ -391,7 +391,9 @@
                               ))
   )
 
-(after! org-superstar
+(use-package! org-superstar
+  :hook (org-mode . org-superstar-mode)
+  :config
   (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
         org-superstar-prettify-item-bullets t))
 
@@ -401,6 +403,23 @@
     (setq org-agenda-use-tag-inheritance nil)
     (setq org-agenda-ignore-properties '(visibility category))
     (setq org-agenda-sticky t)
+)
+
+;(after! org
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
+;)
+(after! evil-org
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
+)
+(after! org
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
+)
+(after! org-roam
+    (setq org-use-tag-inheritance nil)
+    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
 )
 
 ;(after! org
@@ -447,12 +466,30 @@
 
 ; This can't be a symlink or Org-roam will get confused
 (setq org-roam-directory "~/Nextcloud/org-mode/notes/")
+; Specifically specified for performance
+(setq org-roam-database-connector 'sqlite-builtin)
 ;(setq org-roam-db-location "~/Nextcloud/org-mode/org-roam.db")
 
-(after! org-roam
-    (setq org-roam-node-display-template
-        (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
-)
+; For performance reasons, delay garbage collection
+(use-package! gcmh
+  :config
+  (setq gcmh-high-read-threshold (* 100 1024 1024) ;; 100MB
+        gcmh-idle-delay 10)) ;; Ruim pas op na 10 seconden inactiviteit
+
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 ;; php
 (use-package! phpactor
@@ -474,18 +511,4 @@
          company-files
          ))))))
 
-(use-package! gcode-mode
-  :mode "\\.gcode\\'"
-  :defer t
-)
-
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
-
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
