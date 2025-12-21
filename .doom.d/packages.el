@@ -3,14 +3,18 @@
 (package! evil-escape :disable t)
 (package! org-superstar)
 (package! org-fancy-priorities)
-(package! org-roam-server-light
-  :recipe (:host github :repo "AloisJanicek/org-roam-server-light"
-           :files ("*")))
+                                        ;(package! org-roam-server-light
+                                        ;  :recipe (:host github :repo "AloisJanicek/org-roam-server-light"
+                                        ;           :files ("*")))
 (package! rust-mode)
 (package! scad-mode)
 (package! gcode-mode)
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+
+(package! websocket)
+                                        ;(unpin! org-roam)
+(package! org-roam-ui)
 ;;(package! org-super-agenda)
 ;;(package! plantuml-mode)
 ;;(package! emojify)
