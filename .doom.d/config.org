@@ -614,7 +614,8 @@ Customizing the appearance of bullets and priorities.
 (use-package! org-superstar
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
+  (setq org-superstar-headline-bullets-list '("☯" "⚛" "◉" "✸" "✿" "✤" "✜" "○")
+  ;(setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
         org-superstar-prettify-item-bullets t))
 #+END_SRC
 *** performance
@@ -774,6 +775,11 @@ https://jethrokuan.github.io/org-roam-guide/
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
 #+END_SRC
+** Flutter
+#+begin_src emacs-lisp
+(setq lsp-dart-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter/bin/cache/dart-sdk/")
+(setq flutter-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter")
+#+end_src
 * caveats
 :PROPERTIES:
 :VISIBILITY: folded

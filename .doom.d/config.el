@@ -394,7 +394,8 @@
 (use-package! org-superstar
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
+  (setq org-superstar-headline-bullets-list '("☯" "⚛" "◉" "✸" "✿" "✤" "✜" "○")
+  ;(setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
         org-superstar-prettify-item-bullets t))
 
 (after! org
@@ -403,23 +404,6 @@
     (setq org-agenda-use-tag-inheritance nil)
     (setq org-agenda-ignore-properties '(visibility category))
     (setq org-agenda-sticky t)
-)
-
-;(after! org
-    (setq org-use-tag-inheritance nil)
-    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
-;)
-(after! evil-org
-    (setq org-use-tag-inheritance nil)
-    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
-)
-(after! org
-    (setq org-use-tag-inheritance nil)
-    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
-)
-(after! org-roam
-    (setq org-use-tag-inheritance nil)
-    (setq org-tags-exclude-from-inheritance '("crypt" "index"))
 )
 
 ;(after! org
@@ -476,6 +460,11 @@
   (setq gcmh-high-read-threshold (* 100 1024 1024) ;; 100MB
         gcmh-idle-delay 10)) ;; Ruim pas op na 10 seconden inactiviteit
 
+(after! org-roam
+    (setq org-roam-node-display-template
+        (concat (propertize "${doom-tags:30}" 'face 'org-tag) " ${doom-hierarchy:120}"))
+)
+
 (use-package! websocket
     :after org-roam)
 
@@ -511,4 +500,21 @@
          company-files
          ))))))
 
+(use-package! gcode-mode
+  :mode "\\.gcode\\'"
+  :defer t
+)
+
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(setq lsp-dart-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter/bin/cache/dart-sdk/")
+(setq flutter-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter")
