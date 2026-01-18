@@ -103,7 +103,13 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Android Studio paths
-export ANDROID_HOME=$HOME/Android/Sdk 
+export ANDROID_HOME=$HOME/Library/Android/Sdk 
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+# PHP
+export PATH=$PATH:$HOME/.emacs.d/.local/cache/phpactor/vendor/bin
+
+# Expo
+alias expo='expo'
