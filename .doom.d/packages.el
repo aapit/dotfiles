@@ -15,6 +15,10 @@
 (package! websocket)
                                         ;(unpin! org-roam)
 (package! org-roam-ui)
+
+(package! add-node-modules-path);; Make Emacs use local ESLint/Prettier
+(package! apheleia)             ;; For quick 'format on save'
+
 ;;(package! org-super-agenda)
 ;;(package! plantuml-mode)
 ;;(package! emojify)

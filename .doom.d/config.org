@@ -652,17 +652,20 @@ Customizing the appearance of bullets and priorities.
  #+BEGIN_SRC emacs-lisp
 (after! org
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)" "ISSUE" "ERROR" "FIX" "WORKAROUND")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "PROJ" "IDEA(i)" "HOLD" "ISSUE" "ERROR" "FIX" "WORKAROUND" "QUESTION" "ANSWER")))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "maroon1" :weight bold)
                 ("NEXT" :foreground "light sea green")
                 ("DONE" :foreground "#888888")
                 ("PROJ" :foreground "purple1" :weight bold)
-                ("IDEA" :foreground "purple1" :weight bold)
+                ("IDEA" :foreground "purple1")
+                ("HOLD" :foreground "purple1")
                 ("ISSUE" :foreground "red" :weight bold)
                 ("ERROR" :foreground "red" :weight bold)
-                ("FIX" :foreground "green" :weight bold)
-                ("WORKAROUND" :foreground "green" :weight bold)
+                ("FIX" :foreground "green")
+                ("WORKAROUND" :foreground "green")
+                ("QUESTION" :foreground "maroon1")
+                ("ANSWER" :foreground "light sea green")
                 )))
   (setq-default org-export-with-todo-keywords nil)
   (setq-default org-enforce-todo-dependencies t)
@@ -730,25 +733,28 @@ https://jethrokuan.github.io/org-roam-guide/
 :VISIBILITY: folded
 :END:
  #+BEGIN_SRC emacs-lisp
+(setq lsp-phpactor-path "phpactor")
 ;; php
-(use-package! phpactor
-  :mode "\\.php\\'"
-  :defer t
-)
-(use-package! company-phpactor
-  :mode "\\.php\\'"
-  :defer t
-)
+;(use-package! phpactor
+;  :mode "\\.php\\'"
+;  :defer t
+;)
+;(use-package! company-phpactor
+;  :mode "\\.php\\'"
+;  :defer t
+;)
 ;;(composer-setup-managed-phar)
 ;;(phpactor-install-or-update)
-(use-package! php-mode
-  :mode "\\.php\\'"
-  :defer t
-  :hook ((php-mode . (lambda () (set (make-local-variable 'company-backends)
-       '(;; list of backends
-         company-phpactor
-         company-files
-         ))))))
+
+; niet meer nodig ivm moderne lsp setup:
+;(use-package! php-mode
+;  :mode "\\.php\\'"
+;  :defer t
+;  :hook ((php-mode . (lambda () (set (make-local-variable 'company-backends)
+;       '(;; list of backends
+;         company-phpactor
+;         company-files
+;         ))))))
 #+END_SRC
 ** 3D
  #+BEGIN_SRC emacs-lisp
@@ -779,6 +785,30 @@ https://jethrokuan.github.io/org-roam-guide/
 #+begin_src emacs-lisp
 (setq lsp-dart-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter/bin/cache/dart-sdk/")
 (setq flutter-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter")
+#+end_src
+To start Android Emulator from Emacs:
+#+begin_src emacs-lisp
+(defun my/start-android-emulator ()
+  "Ask for an Android emulator and fire it up on the background."
+  (interactive)
+  (let ((avds (split-string (shell-command-to-string "emulator -list-avds") "\n" t)))
+    (if avds
+        (let ((chosen-avd (completing-read "Choose emulator: " avds)))
+          (start-process "android-emulator" nil "emulator" "-avd" chosen-avd)
+          (message "Android emulator '%s' is starting..." chosen-avd))
+      (user-error "No Android emulators found."))))
+
+;; Koppel het aan een logische shortcut, bijv. SPC m e (Android Emulator)
+(map! :leader
+      :desc "Start Android Emulator" "m e" #'my/start-android-emulator)
+#+end_src
+** Javascript
+#+begin_src emacs-lisp
+(use-package! add-node-modules-path
+  :hook ((js2-mode . add-node-modules-path)
+         (typescript-mode . add-node-modules-path)))
+
+(apheleia-global-mode +1) ;; Formats automatically through Prettier on save
 #+end_src
 * caveats
 :PROPERTIES:
