@@ -104,6 +104,9 @@ export NVM_DIR="$HOME/.config/nvm"
 
 # Android Studio paths
 export ANDROID_HOME=$HOME/Library/Android/Sdk 
+export ANDROID_NDK=$HOME/Library/Android/Sdk 
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
