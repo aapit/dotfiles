@@ -785,7 +785,9 @@ https://jethrokuan.github.io/org-roam-guide/
   :defer t
   :config
   ;;(setq copilot-chat-model "gpt-4o") 
-  (set-popup-rule! "^\\*copilot-chat\\*" :side 'right :size 0.35 :quit nil :select t)
+  (set-popup-rule! "^\\*Copilot Chat" :side 'right :size 0.35 :quit nil :select t :ttl nil)
+  
+  ;(set-popup-rule! "^\\*copilot-chat\\*" :side 'right :size 0.35 :quit nil :select t)
   (map! :map copilot-chat-mode-map
         :n "q" #'quit-window
         :n "i" #'copilot-chat-prompt-split-window
