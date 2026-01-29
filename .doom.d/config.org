@@ -780,6 +780,16 @@ https://jethrokuan.github.io/org-roam-guide/
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(use-package! copilot-chat
+  :defer t
+  :config
+  ;;(setq copilot-chat-model "gpt-4o") 
+  (set-popup-rule! "^\\*copilot-chat\\*" :side 'right :size 0.35 :quit nil :select t)
+  (map! :map copilot-chat-mode-map
+        :n "q" #'quit-window
+        :n "i" #'copilot-chat-prompt-split-window
+        :n "RET" #'copilot-chat-send))
 #+END_SRC
 ** Flutter
 #+begin_src emacs-lisp

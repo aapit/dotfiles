@@ -11,6 +11,7 @@
 (package! gcode-mode)
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+(package! copilot-chat)
 
 (package! websocket)
                                         ;(unpin! org-roam)

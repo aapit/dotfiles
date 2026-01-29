@@ -522,6 +522,16 @@
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
+(use-package! copilot-chat
+  :defer t
+  :config
+  ;;(setq copilot-chat-model "gpt-4o") 
+  (set-popup-rule! "^\\*copilot-chat\\*" :side 'right :size 0.35 :quit nil :select t)
+  (map! :map copilot-chat-mode-map
+        :n "q" #'quit-window
+        :n "i" #'copilot-chat-prompt-split-window
+        :n "RET" #'copilot-chat-send))
+
 (setq lsp-dart-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter/bin/cache/dart-sdk/")
 (setq flutter-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter")
 
