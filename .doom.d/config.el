@@ -24,7 +24,7 @@
 
 (setq doom-unicode-font (font-spec :name "Symbola"))
 
-(setq doom-font (font-spec :family "Lotion" :size (if (string= (system-name) "tinynozem") 48 36)))
+(setq doom-font (font-spec :family "Lotion" :size (if (string= (system-name) "S1R3N.local") 14 16)))
 ;(setq doom-font (font-spec :family "DaddyTimeMono" :size (if (string= (system-name) "tinynozem") 48 36)))
 ;(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font Mono" :size (if (string= (system-name) "tinynozem") 48 36)))
 
@@ -520,7 +520,16 @@
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+              ("C-<tab>" . 'copilot-accept-completion-by-word)
+              ("C-n" . 'copilot-next-completion)
+              ("C-p" . 'copilot-previous-completion))
+  :config
+  (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+  (add-to-list 'copilot-indentation-alist '(org-mode 2))
+  (add-to-list 'copilot-indentation-alist '(text-mode 2))
+  (add-to-list 'copilot-indentation-alist '(clojure-mode 2))
+  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
+
 
 (use-package! copilot-chat
   :defer t

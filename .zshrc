@@ -115,4 +115,5 @@ export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:$HOME/.emacs.d/.local/cache/phpactor/vendor/bin
 
 # Expo
-alias expo='expo'
+alias expo='nocorrect expo'
+export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
