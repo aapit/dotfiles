@@ -30,7 +30,7 @@
 
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)
-(setq display-line-numbers-type 'relative)
+;(setq display-line-numbers-type 'relative)
 (setq org-ellipsis "…")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -71,13 +71,15 @@
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3))
 (when (<= (display-pixel-width) '1200)
   (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3))
 
 (setq org-agenda-span 'week)
 
@@ -91,6 +93,8 @@
 
 ;; follow output
 (setq compilation-scroll-output t)
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Open
 (map! :leader
@@ -163,6 +167,23 @@
         :leader
         :prefix "n"
         :desc "Graph server" "g" #'org-roam-server-mode
+)
+
+;; Copilot functions
+(map! :leader
+    :prefix ("z" . "Copilot")
+    :desc "Menu" "z" #'copilot-chat-transient
+    :desc "Buffers" "b" #'copilot-chat-transient-buffers
+    :desc "Chat" "c" #'copilot-chat
+    :desc "Doc" "d" #'copilot-chat-doc
+    :desc "Explain" "e" #'copilot-chat-explain
+    :desc "Fix" "f" #'copilot-chat-fix
+    :desc "Hide" "h" #'copilot-chat-hide
+    :desc "Insert" "i" #'copilot-chat-ask-and-insert
+    :desc "Optimize" "o" #'copilot-chat-optimize
+    :desc "Review" "r" #'copilot-chat-review
+    :desc "Review buffer" "R" #'copilot-chat-review-whole-buffer
+    :desc "write Test" "t" #'copilot-chat-test
 )
 
 (setq org-roam-ref-capture-templates
@@ -512,6 +533,8 @@
 )
 
 (setq projectile-project-search-path '("~/Scripts/" "~/Sites/" "~/Remotes" "~/Lab"))
+(setq projectile-project-root-files-bottom-up 
+      '(".projectile" ".git" "package.json" "composer.json"))
 
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
@@ -524,18 +547,34 @@
               ("C-n" . 'copilot-next-completion)
               ("C-p" . 'copilot-previous-completion))
   :config
+  (setq copilot-configuration '(:copilot (:enable t)))
+  (setq copilot-extra-configuration '(:copilot (:enable t)))
+
+  (defun copilot--get-configuration ()
+    (list :copilot '(:enable t)
+          :editorConfiguration (list :tabSize (or (and (boundp 'tab-width) tab-width) 2)
+                                     :insertSpaces (if indent-tabs-mode :json-false t))))
+
+  (setq copilot-idle-delay 0.1)
+  (setq copilot-max-char 1000000)
+
   (add-to-list 'copilot-indentation-alist '(prog-mode 2))
   (add-to-list 'copilot-indentation-alist '(org-mode 2))
   (add-to-list 'copilot-indentation-alist '(text-mode 2))
   (add-to-list 'copilot-indentation-alist '(clojure-mode 2))
   (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
 
-
-(use-package! copilot-chat
-  :defer t
-  :config
-  ;;(setq copilot-chat-model "gpt-4o") 
-  (set-popup-rule! "^\\*Copilot Chat" :side 'right :size 0.35 :quit nil :select t :ttl nil)
+;(use-package! copilot-chat
+;  :defer t
+;  :config
+;  (set-popup-rule! "^\\*Copilot Chat" :side 'right :size 0.33 :quit nil :select t :ttl nil)
+  
+;(add-to-list 'display-buffer-alist
+;  '("\\*Chat\\*"
+;    (display-buffer-in-side-window)
+;    (side . right)
+;    (slot . 0)
+;    (window-width . 0.33)))
   
   ;(set-popup-rule! "^\\*copilot-chat\\*" :side 'right :size 0.35 :quit nil :select t)
   (map! :map copilot-chat-mode-map
