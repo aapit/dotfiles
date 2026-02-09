@@ -17,12 +17,10 @@
 (cond ((eq system-type 'darwin)
     (setq browse-url-browser-function 'browse-url-default-browser))
     (t (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "brave"))
+        browse-url-generic-program "firefox"))
 )
 
-(setenv "LANG" "en_US.UTF-8")
-
-(setq doom-unicode-font (font-spec :name "Symbola"))
+(setq doom-symbol-font (font-spec :name "Symbola"))
 
 (setq doom-font (font-spec :family "Lotion" :size (if (string= (system-name) "S1R3N.local") 14 16)))
 ;(setq doom-font (font-spec :family "DaddyTimeMono" :size (if (string= (system-name) "tinynozem") 48 36)))
@@ -66,20 +64,22 @@
 
 (add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
 
-(when (> (display-pixel-width) '1200)
+(when (> (display-pixel-width) 1200)
   (set-popup-rule! "*org agenda*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3))
-(when (<= (display-pixel-width) '1200)
+  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*claude" :side 'right :size .33 :select t :vslot 5 :ttl 3))
+(when (<= (display-pixel-width) 1200)
   (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*claude" :side 'right :size .33 :select t :vslot 5 :ttl 3))
 
 (setq org-agenda-span 'week)
 
@@ -171,7 +171,7 @@
 
 ;; Copilot functions
 (map! :leader
-    :prefix ("z" . "Copilot")
+    :prefix ("Z" . "Copilot")
     :desc "Menu" "z" #'copilot-chat-transient
     :desc "Buffers" "b" #'copilot-chat-transient-buffers
     :desc "Chat" "c" #'copilot-chat
@@ -184,6 +184,14 @@
     :desc "Review" "r" #'copilot-chat-review
     :desc "Review buffer" "R" #'copilot-chat-review-whole-buffer
     :desc "write Test" "t" #'copilot-chat-test
+)
+
+;; Copilot functions
+(map! :leader
+    :prefix ("z" . "Claude")
+    :desc "Menu" "z" #'claude-code-transient
+    :desc "Chat" "c" #'claude-code
+    :desc "Continue" "C" #'claude-code-continue
 )
 
 (setq org-roam-ref-capture-templates
@@ -562,25 +570,45 @@
   (add-to-list 'copilot-indentation-alist '(org-mode 2))
   (add-to-list 'copilot-indentation-alist '(text-mode 2))
   (add-to-list 'copilot-indentation-alist '(clojure-mode 2))
-  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2)))
+  (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2))
 
-;(use-package! copilot-chat
-;  :defer t
-;  :config
-;  (set-popup-rule! "^\\*Copilot Chat" :side 'right :size 0.33 :quit nil :select t :ttl nil)
-  
-;(add-to-list 'display-buffer-alist
-;  '("\\*Chat\\*"
-;    (display-buffer-in-side-window)
-;    (side . right)
-;    (slot . 0)
-;    (window-width . 0.33)))
-  
-  ;(set-popup-rule! "^\\*copilot-chat\\*" :side 'right :size 0.35 :quit nil :select t)
   (map! :map copilot-chat-mode-map
         :n "q" #'quit-window
         :n "i" #'copilot-chat-prompt-split-window
         :n "RET" #'copilot-chat-send))
+
+;(use-package! claude-code
+;  :defer t
+;  :config
+  ;; Optioneel: stel de executable in als deze niet in je standaard PATH staat
+  ;; (setq claude-code-command "claude")
+  
+  ;; Je kunt hier ook keybindings toevoegen die specifiek zijn voor Doom
+;  (map! :leader
+;        (:prefix ("c" . "code") ; 'c' is de standaard prefix voor code in Doom
+;         :desc "Claude Code Chat" "K" #'claude-code-chat)))
+
+(use-package inheritenv
+  :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
+(use-package! eat
+  :config
+  (setq eat-kill-buffer-on-exit t))
+(use-package claude-code :ensure t
+  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+  :config
+  ;; optional IDE integration with Monet
+  (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
+  (monet-mode 1)
+
+  (claude-code-mode)
+  :bind-keymap ("C-c c" . claude-code-command-map)
+
+  ;; Optionally define a repeat map so that "M" will cycle thru Claude auto-accept/plan/confirm modes after invoking claude-code-cycle-mode / C-c M.
+  :bind
+  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
+
+(use-package monet
+  :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
 
 (setq lsp-dart-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter/bin/cache/dart-sdk/")
 (setq flutter-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter")

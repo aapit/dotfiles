@@ -13,12 +13,21 @@
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! copilot-chat)
 
+(package! claude-code
+  :recipe (:host github :repo "stevemolitor/claude-code.el"))
 (package! websocket)
                                         ;(unpin! org-roam)
 (package! org-roam-ui)
 
 (package! add-node-modules-path);; Make Emacs use local ESLint/Prettier
 (package! apheleia)             ;; For quick 'format on save'
+
+                                        ; Claude prerequisites
+(package! melpa :recipe (:host github :repo "melpa/melpa"))
+(package! eat)
+
+
+
 
 ;;(package! org-super-agenda)
 ;;(package! plantuml-mode)
