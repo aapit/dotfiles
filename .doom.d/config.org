@@ -26,8 +26,14 @@ Default is Sunday (=0=).
 (setq
  display-time-format "%H:%M"
  display-time-24hr-format t)
-(setq system-time-locale "nl_NL.utf8")
-(setenv "LANG" "nl_NL.utf8")
+
+(cond 
+ ((eq system-type 'darwin)
+  (setq system-time-locale "nl_NL.UTF-8")
+  (setenv "LANG" "en_US.UTF-8"))
+ (t 
+  (setq system-time-locale "nl_NL.utf8")
+  (setenv "LANG" "en_US.utf8")))
 #+END_SRC
 *** secrets
  #+BEGIN_SRC emacs-lisp
@@ -68,6 +74,7 @@ Setting default font and /Symbola/ as emoji fallback.
 ))
 #+END_EXAMPLE
 *** appearance
+**** general
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-horizon)
 (setq display-time-use-mail-icon t)
@@ -117,16 +124,20 @@ Setting default font and /Symbola/ as emoji fallback.
   (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*vterm*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*terminal*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
   (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*claude" :side 'right :size .33 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*claude" :side 'right :size .44 :select t :vslot 5 :ttl 3))
 (when (<= (display-pixel-width) 1200)
   (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*vterm*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*terminal*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
   (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*claude" :side 'right :size .33 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*claude" :side 'right :size .44 :select t :vslot 5 :ttl 3))
 #+end_src
 **** org-related
  #+begin_src emacs-lisp :tangle "config.el" :results silent
@@ -154,11 +165,10 @@ Setting default font and /Symbola/ as emoji fallback.
 ;; there is no way to style regular non-link text in the org-roam buffer.
 ;; therefore, the only customizable property that blends in with the rest is link color.
 (custom-set-faces
- '(org-roam-link ((t (:foreground "#a4581e"))))
+ '(org-roam-link ((t (:foreground "#9966ff"))))
  '(org-roam-link-current ((t (:foreground "#696070"))))
 )
 #+end_example
-
 ***** org-mode checkboxes
 #+begin_example emacs-lisp
 ;; org-mode checkboxes
@@ -182,6 +192,7 @@ Open venster gemaximaliseerd:
     :prefix "o"
     :desc "Shell" "z" #'shell
     :desc "Term" "t" #'term
+    :desc "vTerm" "v" #'vterm
 )
 
 ;; Quick window split shortcuts
@@ -209,6 +220,12 @@ Open venster gemaximaliseerd:
    :n "c" '(lambda () (interactive)(+workspace/new))
    :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
    :n "m-x" #'evil-window-delete
+)
+
+(map!
+    :prefix ("z")
+    :desc "Focus window" "w" #'delete-other-windows
+    :desc "Unfocus window" "W" #'winner-undo
 )
 #+end_src
 **** Org-mode related
@@ -283,6 +300,8 @@ Open venster gemaximaliseerd:
     :desc "Menu" "z" #'claude-code-transient
     :desc "Chat" "c" #'claude-code
     :desc "Continue" "C" #'claude-code-continue
+    :desc "Fix" "f" #'claude-code-fix-error-at-point
+    :desc "Toggle" "t" #'claude-code-toggle
 )
 #+END_SRC
 ** capture templates
@@ -856,26 +875,25 @@ https://jethrokuan.github.io/org-roam-guide/
 
 (use-package inheritenv
   :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
-(use-package! eat
-  :config
-  (setq eat-kill-buffer-on-exit t))
-(use-package claude-code :ensure t
-  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
-  :config
-  ;; optional IDE integration with Monet
-  (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
-  (monet-mode 1)
-
-  (claude-code-mode)
-  :bind-keymap ("C-c c" . claude-code-command-map)
-
-  ;; Optionally define a repeat map so that "M" will cycle thru Claude auto-accept/plan/confirm modes after invoking claude-code-cycle-mode / C-c M.
-  :bind
-  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
 
 (use-package monet
   :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
 
+(use-package claude-code :defer t
+  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+  :config
+  (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
+  (monet-mode 1)
+  (map! :leader
+        :desc "Claude Menu" "y" claude-code-command-map)
+  (claude-code-mode)
+  ;:bind-keymap ("C-c c" . claude-code-command-map)
+  ;; Optionally define a repeat map so that "M" will cycle thru Claude auto-accept/plan/confirm modes after invoking claude-code-cycle-mode / C-c M.
+  :bind
+  (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
+
+
+(setq claude-code-terminal-backend 'vterm)
 #+END_SRC
 ** Flutter
 #+begin_src emacs-lisp

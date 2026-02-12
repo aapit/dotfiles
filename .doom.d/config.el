@@ -5,8 +5,14 @@
 (setq
  display-time-format "%H:%M"
  display-time-24hr-format t)
-(setq system-time-locale "nl_NL.utf8")
-(setenv "LANG" "nl_NL.utf8")
+
+(cond 
+ ((eq system-type 'darwin)
+  (setq system-time-locale "nl_NL.UTF-8")
+  (setenv "LANG" "en_US.UTF-8"))
+ (t 
+  (setq system-time-locale "nl_NL.utf8")
+  (setenv "LANG" "en_US.utf8")))
 
 (load! "secrets.el" doom-user-dir)
 
@@ -70,16 +76,20 @@
   (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*vterm*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*terminal*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
   (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*claude" :side 'right :size .33 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*claude" :side 'right :size .44 :select t :vslot 5 :ttl 3))
 (when (<= (display-pixel-width) 1200)
   (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*vterm*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
+  (set-popup-rule! "*terminal*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
   (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*claude" :side 'right :size .33 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*claude" :side 'right :size .44 :select t :vslot 5 :ttl 3))
 
 (setq org-agenda-span 'week)
 
@@ -101,6 +111,7 @@
     :prefix "o"
     :desc "Shell" "z" #'shell
     :desc "Term" "t" #'term
+    :desc "vTerm" "v" #'vterm
 )
 
 ;; Quick window split shortcuts
@@ -126,6 +137,12 @@
    :n "c" '(lambda () (interactive)(+workspace/new))
    :n "x" '(lambda () (interactive)(+workspace/delete (+workspace-current-name)))
    :n "m-x" #'evil-window-delete
+)
+
+(map!
+    :prefix ("z")
+    :desc "Focus window" "w" #'delete-other-windows
+    :desc "Unfocus window" "W" #'winner-undo
 )
 
 (map! :after evil-org
@@ -192,6 +209,8 @@
     :desc "Menu" "z" #'claude-code-transient
     :desc "Chat" "c" #'claude-code
     :desc "Continue" "C" #'claude-code-continue
+    :desc "Fix" "f" #'claude-code-fix-error-at-point
+    :desc "Toggle" "t" #'claude-code-toggle
 )
 
 (setq org-roam-ref-capture-templates
@@ -590,25 +609,25 @@
 
 (use-package inheritenv
   :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
-(use-package! eat
-  :config
-  (setq eat-kill-buffer-on-exit t))
-(use-package claude-code :ensure t
+
+(use-package monet
+  :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
+
+(use-package claude-code :defer t
   :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
   :config
-  ;; optional IDE integration with Monet
   (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
   (monet-mode 1)
-
+  (map! :leader
+        :desc "Claude Menu" "y" claude-code-command-map)
   (claude-code-mode)
-  :bind-keymap ("C-c c" . claude-code-command-map)
-
+  ;:bind-keymap ("C-c c" . claude-code-command-map)
   ;; Optionally define a repeat map so that "M" will cycle thru Claude auto-accept/plan/confirm modes after invoking claude-code-cycle-mode / C-c M.
   :bind
   (:repeat-map my-claude-code-map ("M" . claude-code-cycle-mode)))
 
-(use-package monet
-  :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
+
+(setq claude-code-terminal-backend 'vterm)
 
 (setq lsp-dart-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter/bin/cache/dart-sdk/")
 (setq flutter-sdk-path "/opt/homebrew/Caskroom/flutter/3.38.5/flutter")
