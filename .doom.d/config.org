@@ -222,11 +222,11 @@ Open venster gemaximaliseerd:
    :n "m-x" #'evil-window-delete
 )
 
-(map!
-    :prefix ("z")
-    :desc "Focus window" "w" #'delete-other-windows
-    :desc "Unfocus window" "W" #'winner-undo
-)
+(after! winner
+  (winner-mode +1)
+  (map! :leader
+        :nv "zw" #'delete-other-windows
+        :nv "zW" #'winner-undo))
 #+end_src
 **** Org-mode related
  #+BEGIN_SRC emacs-lisp

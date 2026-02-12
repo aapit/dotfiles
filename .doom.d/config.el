@@ -139,11 +139,11 @@
    :n "m-x" #'evil-window-delete
 )
 
-(map!
-    :prefix ("z")
-    :desc "Focus window" "w" #'delete-other-windows
-    :desc "Unfocus window" "W" #'winner-undo
-)
+(after! winner
+  (winner-mode +1)
+  (map! :leader
+        :nv "zw" #'delete-other-windows
+        :nv "zW" #'winner-undo))
 
 (map! :after evil-org
     :map evil-org-mode-map
