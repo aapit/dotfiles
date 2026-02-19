@@ -75,21 +75,30 @@
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*vterm*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*terminal*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*claude" :side 'right :size .44 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*helm*" :side 'left :size .30 :select t :vslot 5 :ttl 3))
 (when (<= (display-pixel-width) 1200)
   (set-popup-rule! "*org agenda*" :side 'bottom :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "capture-" :side 'left :size .40 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*capture*" :side 'bottom :size .30 :select t :vslot 2 :ttl 3)
   (set-popup-rule! "*messages*" :side 'left :size .30 :select t :vslot 2 :ttl 3)
-  (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*vterm*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*terminal*" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*Copilot Chat" :side 'right :size .33 :select t :vslot 5 :ttl 3)
-  (set-popup-rule! "*claude" :side 'right :size .44 :select t :vslot 5 :ttl 3))
+  (set-popup-rule! "*helm*" :side 'bottom :size .30 :select t :vslot 5 :ttl 3))
+
+; Gewone zijvensters (geen popups, sluiten niet bij Escape)
+(add-to-list 'display-buffer-alist
+  '("\\*vterm" (display-buffer-reuse-window display-buffer-in-side-window)
+    (side . right) (slot . 1) (window-width . 0.33)))
+(add-to-list 'display-buffer-alist
+  '("\\*terminal" (display-buffer-reuse-window display-buffer-in-side-window)
+    (side . right) (slot . 1) (window-width . 0.33)))
+(add-to-list 'display-buffer-alist
+  '("\\*Copilot Chat" (display-buffer-reuse-window display-buffer-in-side-window)
+    (side . right) (slot . 1) (window-width . 0.33)))
+(add-to-list 'display-buffer-alist
+  '("\\*claude" (display-buffer-reuse-window display-buffer-in-side-window)
+    (side . right) (slot . 2) (window-width . 0.44)))
+
+(after! claude-code
+    (set-popup-rule! "\\*claude" :side 'right :size 0.44 :quit nil :select t))
 
 (setq org-agenda-span 'week)
 
@@ -530,6 +539,31 @@
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
+
+(after! org
+    (require 'org-crypt)
+    (org-crypt-use-before-save-magic)
+    (setq org-tags-exclude-from-inheritance '("crypt"))
+
+    (setq org-crypt-key nil)
+    ;; GPG key to use for encryption.
+    ;; nil means  use symmetric encryption unconditionally.
+    ;; "" means use symmetric encryption unless heading sets CRYPTKEY property.
+
+    (setq auto-save-default nil))
+    ;; Auto-saving does not cooperate with org-crypt.el: so you need to
+    ;; turn it off if you plan to use org-crypt.el quite often.  Otherwise,
+    ;; you'll get an (annoying) message each time you start Org.
+
+    ;; To turn it off only locally, you can insert this:
+    ;;
+    ;; # -*- buffer-auto-save-file-name: nil; -*-
+
+(map! :after org
+      :leader
+      :prefix ("E" . "encrypt")
+      "e" #'org-encrypt-entry
+      "d" #'org-decrypt-entry)
 
 (setq lsp-phpactor-path "phpactor")
 ;; php
