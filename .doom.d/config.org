@@ -164,6 +164,13 @@ Setting default font and /Symbola/ as emoji fallback.
 ;; follow output
 (setq compilation-scroll-output t)
 #+end_src
+**** link faces
+Roam links krijgen een eigen kleur zodat ze te onderscheiden zijn van http(s) links.
+#+begin_src emacs-lisp :tangle "config.el" :results silent
+(after! org
+  (org-link-set-parameters "id"
+    :face '(:foreground "#E06C9F" :underline t)))
+#+end_src
 **** disabled
 ***** emojify
 #+begin_example emacs-lisp

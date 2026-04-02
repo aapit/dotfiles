@@ -113,6 +113,10 @@
 ;; follow output
 (setq compilation-scroll-output t)
 
+(after! org
+  (org-link-set-parameters "id"
+    :face '(:foreground "#E06C9F" :underline t)))
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Open
