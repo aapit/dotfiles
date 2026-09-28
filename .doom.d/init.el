@@ -86,7 +86,7 @@
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
-       ;;terraform         ; infrastructure as code
+       terraform           ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
 
@@ -128,7 +128,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +roam2 +hugo +pandoc +gnuplot) ; organize your plain life in plain text
+       (org +roam +hugo +pandoc +gnuplot) ; organize your plain life in plain text
        ;;(org +roam +pomodoro +present +hugo +pandoc +pretty)
        (php +lsp)          ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
