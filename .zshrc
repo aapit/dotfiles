@@ -103,9 +103,9 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Android Studio paths
-export ANDROID_HOME=$HOME/Library/Android/Sdk 
-export ANDROID_NDK=$HOME/Library/Android/Sdk 
-export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export ANDROID_HOME=$HOME/Library/Android/sdk 
+export ANDROID_NDK=$ANDROID_HOME
+export ANDROID_SDK_ROOT=$ANDROID_HOME
 
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -117,3 +117,21 @@ export PATH=$PATH:$HOME/.emacs.d/.local/cache/phpactor/vendor/bin
 # Expo
 alias expo='nocorrect expo'
 export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
+
+# OpenClaw Completion
+source "/Users/david/.openclaw/completions/openclaw.zsh"
+
+# Java
+#export JAVA_HOME=$(/usr/libexec/java_home -v 25)
+#export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+
+# K8s
+export KUBECONFIG=/Users/david/Remotes/nasq-k3s/kubeconfig.yaml
+source <(kubectl completion zsh)
+export do="--dry-run=client -o yaml"
+setopt shwordsplit
+
+# Ruby
+export PATH="/opt/homebrew/opt/ruby@3.3/bin:$PATH"
+eval "$(direnv hook zsh)"
