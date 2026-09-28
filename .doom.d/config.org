@@ -171,6 +171,30 @@ Roam links krijgen een eigen kleur zodat ze te onderscheiden zijn van http(s) li
   (org-link-set-parameters "id"
     :face '(:foreground "#E06C9F" :underline t)))
 #+end_src
+**** sh syntax coloring
+#+begin_src emacs-lisp :tangle "config.el" :results silent
+(after! org
+  (setq org-src-lang-modes
+        (append '(("sh"    . bash-ts)
+                  ("bash"  . bash-ts)
+                  ("shell" . bash-ts)
+                  ("zsh"   . bash-ts))
+                (cl-remove-if (lambda (x) (member (car x) '("sh" "bash" "shell" "zsh")))
+                              org-src-lang-modes))))
+
+(setq treesit-font-lock-level 4)
+
+(after! org
+  (custom-set-faces!
+    `(org-block :foreground ,(face-foreground 'org-code nil t))))
+#+end_src                              
+**** quote blocks
+#+begin_src emacs-lisp :tangle "config.el" :results silent
+(after! org
+  (setq org-fontify-quote-and-verse-blocks t)
+  (custom-set-faces!
+    '(org-quote :foreground "hot pink")))
+#+end_src                              
 **** disabled
 ***** emojify
 #+begin_example emacs-lisp

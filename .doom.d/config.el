@@ -117,6 +117,26 @@
   (org-link-set-parameters "id"
     :face '(:foreground "#E06C9F" :underline t)))
 
+(after! org
+  (setq org-src-lang-modes
+        (append '(("sh"    . bash-ts)
+                  ("bash"  . bash-ts)
+                  ("shell" . bash-ts)
+                  ("zsh"   . bash-ts))
+                (cl-remove-if (lambda (x) (member (car x) '("sh" "bash" "shell" "zsh")))
+                              org-src-lang-modes))))
+
+(setq treesit-font-lock-level 4)
+
+(after! org
+  (custom-set-faces!
+    `(org-block :foreground ,(face-foreground 'org-code nil t))))
+
+(after! org
+  (setq org-fontify-quote-and-verse-blocks t)
+  (custom-set-faces!
+    '(org-quote :foreground "hot pink")))
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Open
