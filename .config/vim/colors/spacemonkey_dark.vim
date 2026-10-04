@@ -12,7 +12,7 @@ let g:colors_name = "spacemonkey_dark"
 
 " For Vim to adhere to the tmux color scheme, `guibg` and `ctermbg` have to be `none`.
 highlight Normal     term=none ctermfg=249          cterm=none  guifg=gray       gui=none
-highlight Normal     ctermfg=none          ctermbg=none                     guibg=none
+"highlight Normal     ctermfg=none          ctermbg=none                     guibg=none
 highlight Comment    term=none ctermfg=darkgrey     cterm=none  guifg=darkgrey   gui=none
 highlight Constant   term=none ctermfg=darkyellow   cterm=none  guifg=blue       gui=none
 highlight Special    term=none ctermfg=magenta           cterm=none  guifg=red        gui=bold
@@ -37,9 +37,9 @@ highlight LineNr     term=none ctermfg=60
 "  autocmd BufEnter *.rb,*.py,*.py3,*.php,*.js,Makefile match OverLength /\%80v.*/
 "augroup END
 
-hi NonText           term=none ctermbg=none guibg=none
+"hi NonText           term=none ctermbg=none guibg=none
 "hi NonText           term=none ctermbg=235
-hi ColorColumn       term=none ctermbg=none guibg=none
+"hi ColorColumn       term=none ctermbg=none guibg=none
 "hi ColorColumn       term=none ctermbg=234
 
 let &colorcolumn=join(range(100,1000),",")
