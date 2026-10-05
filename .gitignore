@@ -160,3 +160,16 @@ y2
 .zsh_sessions
 .zshrc.*
 /*.backup-*
+node_modules
+openclaw
+.claude
+.claude.json
+.cocoapods
+.matplotlib
+.micropython.history
+.thumbnails
+.mitmproxy
+yarn.lock
+esphome
+.z
+.z.lock
