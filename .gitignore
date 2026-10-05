@@ -173,3 +173,21 @@ yarn.lock
 esphome
 .z
 .z.lock
+package.json
+package-lock.json
+.frida
+.openclaw
+.vscode-oss
+.vscode-oss-shared
+Application Support
+.rnd
+.rndebuggerrc
+.shiv
+.swiftpm
+anaconda3
+.flutter
+.flutter-devtools
+.dart
+.dart-tool
+.dartServer
+.copilot
