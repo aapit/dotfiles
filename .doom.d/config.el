@@ -479,6 +479,7 @@
   ;(setq org-superstar-headline-bullets-list '("⚛" "◉" "○" "✸" "✿" "✤" "✜" "◆")
         org-superstar-prettify-item-bullets t))
 
+(setq create-lockfiles nil)
 (after! org
     (setq org-agenda-dim-blocked-tasks nil)
     (setq org-agenda-inhibit-startup nil)

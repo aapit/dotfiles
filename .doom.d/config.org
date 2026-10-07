@@ -714,6 +714,7 @@ Customizing the appearance of bullets and priorities.
 #+END_SRC
 *** performance
  #+BEGIN_SRC emacs-lisp
+(setq create-lockfiles nil)
 (after! org
     (setq org-agenda-dim-blocked-tasks nil)
     (setq org-agenda-inhibit-startup nil)
