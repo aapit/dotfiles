@@ -13,8 +13,9 @@
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
 (package! copilot-chat)
 
-(package! claude-code
-  :recipe (:host github :repo "stevemolitor/claude-code.el"))
+(package! inheritenv :recipe (:host github :repo "purcell/inheritenv"))
+(package! monet :recipe (:host github :repo "stevemolitor/monet"))
+(package! claude-code :recipe (:host github :repo "stevemolitor/claude-code.el"))
 (package! websocket)
                                         ;(unpin! org-roam)
 (package! org-roam-ui)

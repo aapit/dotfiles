@@ -655,25 +655,12 @@
         :n "i" #'copilot-chat-prompt-split-window
         :n "RET" #'copilot-chat-send))
 
-;(use-package! claude-code
-;  :defer t
-;  :config
-  ;; Optioneel: stel de executable in als deze niet in je standaard PATH staat
-  ;; (setq claude-code-command "claude")
-  
   ;; Je kunt hier ook keybindings toevoegen die specifiek zijn voor Doom
 ;  (map! :leader
 ;        (:prefix ("c" . "code") ; 'c' is de standaard prefix voor code in Doom
 ;         :desc "Claude Code Chat" "K" #'claude-code-chat)))
 
-(use-package inheritenv
-  :vc (:url "https://github.com/purcell/inheritenv" :rev :newest))
-
-(use-package monet
-  :vc (:url "https://github.com/stevemolitor/monet" :rev :newest))
-
-(use-package claude-code :defer t
-  :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+(use-package! claude-code :defer t
   :config
   (add-hook 'claude-code-process-environment-functions #'monet-start-server-function)
   (monet-mode 1)
