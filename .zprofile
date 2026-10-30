@@ -13,3 +13,6 @@ if [[ $- == *i* ]]; then
     . ${ENVDIR}tmux.sh
     . ${ENVDIR}colors.sh
 fi
+
+# Hermes Agent command
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
