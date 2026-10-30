@@ -851,6 +851,11 @@ Configuratie voor =org-crypt=. Ik gebruikte eerst alleen compleet encrypted org 
       "e" #'org-encrypt-entry
       "d" #'org-decrypt-entry)
 #+end_src
+*** performance
+#+begin_src emacs-lisp
+(after! org
+  (setq org-element-use-cache nil))
+#+end_src
 ** PHP
 :PROPERTIES:
 :VISIBILITY: folded

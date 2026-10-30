@@ -590,6 +590,9 @@
       "e" #'org-encrypt-entry
       "d" #'org-decrypt-entry)
 
+(after! org
+  (setq org-element-use-cache nil))
+
 (setq lsp-phpactor-path "phpactor")
 ;; php
 ;(use-package! phpactor
