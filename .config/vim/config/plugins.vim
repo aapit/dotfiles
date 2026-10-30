@@ -6,14 +6,14 @@ endif
 
 call plug#begin('~/.config/vim/plugged')
 
-if has('nvim')
-  Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-endif
+"if has('nvim')
+"  Plug 'autozimu/LanguageClient-neovim', {
+"        \ 'branch': 'next',
+"        \ 'do': 'bash install.sh',
+"        \ }
+"endif
 
-Plug 'KeyboardFire/vim-minisnip'
+"Plug 'KeyboardFire/vim-minisnip'
 Plug 'airblade/vim-gitgutter'
 Plug 'benizi/vim-automkdir'
 Plug 'easymotion/vim-easymotion'
@@ -41,7 +41,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --all' }
 Plug 'Alok/notational-fzf-vim'
 Plug 'elzr/vim-json'
 Plug 'plasticboy/vim-markdown'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 let g:ycm_python_binary_path = 'python'
 " For centering / soft wrapping Markdown files:
 Plug 'junegunn/goyo.vim'
